@@ -4,13 +4,11 @@
 .tern-project
 .settings
 .project
-
 .classpath
-
-global.properties 
 .git
 tmp/**
 tmp/**/*
 *.tmp
 *.bak
 
+global.properties 
