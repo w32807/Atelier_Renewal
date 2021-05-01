@@ -25,7 +25,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     @Override
     // servlet-context.xml을 대신하는 메소드 (웹 관련 설정파일)
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {ServletConfig.class};
+        return new Class[] {ServletConfig.class, TilesConfig.class};
     }
 
     @Override

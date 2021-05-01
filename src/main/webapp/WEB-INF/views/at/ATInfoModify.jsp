@@ -91,12 +91,8 @@
 	</style>
 	</head>
 	<body>
-	<!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
 
-	<!-- 좌측바 Include -->
 		<div id="colorlib-page">
-		<jsp:include page="ATM_LBar.jsp" flush="false"/>
 
 		<div id="colorlib-main">
 			<div class="colorlib-contact" style="padding-bottom: 7.5em;">
@@ -210,8 +206,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
 
     <!-- Js Plugins -->
     <script src="resources/main/js/jquery-3.3.1.min.js"></script>

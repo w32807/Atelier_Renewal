@@ -85,12 +85,7 @@
 	</script>
 </head>
 <body>
-	<!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
-
-    <!-- 좌측바 Include -->
 	<div id="colorlib-page">
-		<jsp:include page="ATM_LBar.jsp" flush="false"/>
 		
 		<form action="prodRegist" method="post" id="prodManageFrm" name="prodManageFrm" enctype="multipart/form-data">
 			<!--여기부터 각각 하나의 상품이 됩니다. 실제로 구현시에는 HTML에서 JSTL의 forEach구문과 자바 코딩부에서 페이징 처리를 하면 될 듯 합니다. -->
@@ -201,9 +196,6 @@
 			</button>
 		</form>
 	</div>
-	<!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
-
     <!-- Js Plugins -->
     <script src="resources/main/js/jquery-3.3.1.min.js"></script>
     <script src="resources/main/js/bootstrap.min.js"></script>

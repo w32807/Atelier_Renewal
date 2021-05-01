@@ -29,9 +29,6 @@
 </head>
 
 <body>
-    <jsp:include page="Main_Upper.jsp" flush="false"/>
-
-
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
@@ -137,10 +134,6 @@
             </div>
         </div>
     </div>
-    <!-- Register Form Section End -->
-   
-    <jsp:include page="Main_Footer.jsp" flush="false"/>
-
     <!-- Js Plugins -->
     <script src="${pageContext.request.contextPath}/resources/main/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/main/js/bootstrap.min.js"></script>
