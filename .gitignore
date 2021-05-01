@@ -1,0 +1,19 @@
+# Eclipse #
+target/
+.class
+.setting.zip
+.springBeans
+.tern-project
+.settings
+.project
+.metadata
+.classpath
+.settings/
+.loadpath
+global.properties 
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+local.properties
