@@ -50,9 +50,6 @@
     </script>
 </head>
 <body>
-    <!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
-
 
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">

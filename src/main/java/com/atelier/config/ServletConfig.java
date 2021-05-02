@@ -15,8 +15,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 //servlet-context.xml에 설정된 모든 내용을 담는 클래스
 @EnableWebMvc // 여기서는 @EnableWebMvc 어노테이션 + WebMvcConfigurer 인터페이스 상속을 받아서 사용함
-@ComponentScan(basePackages = {"com.atelier.at.controller","com.atelier.main.controller","com.atelier.mypage.controller"
-														,"com.atelier.ad.controller", "com.atelier.co.controller"})
+@ComponentScan(basePackages = {"com.atelier.*.controller"})
 public class ServletConfig implements WebMvcConfigurer{
 
     @Override

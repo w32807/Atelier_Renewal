@@ -24,8 +24,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableScheduling
 @EnableTransactionManagement
 // controller외의 Bean 패키지를 스캔
-@ComponentScan(basePackages = {"com.atelier.main.service", "com.atelier.at.service", "com.atelier.mypage.service"
-														,"com.atelier.ad.service","com.atelier.co.service"})
+@ComponentScan(basePackages = {"com.atelier.*.service"})
 @MapperScan(basePackages = {"com.atelier.dao"})
 public class RootConfig {
 	

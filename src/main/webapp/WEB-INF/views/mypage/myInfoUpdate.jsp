@@ -66,9 +66,6 @@
 </head>
 
 <body>
-	<!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
-
 
 	<!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
@@ -159,10 +156,6 @@
 		</div>
 	</section>
 	<!-- Blog Section End -->
-
-	<!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
-
 	<!-- Js Plugins -->
 	<script src="<c:url value="/resources/main/js/jquery-3.3.1.min.js"/>"></script>
 	<script src="<c:url value="/resources/main/js/bootstrap.min.js"/>"></script>

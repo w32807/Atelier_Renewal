@@ -46,7 +46,6 @@ public class MainController {
 
 	@Setter(onMethod_ = @Autowired)
 	CM_Service mServ;
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 공방 메인에 오늘의 추천공방 띄우기

@@ -91,8 +91,6 @@
 	<section class="blog-section spad">
 		<div class="container">
 			<div class="row">
-				<!-- 마이페이지 좌측바 Include -->
-                <jsp:include page="myPageLBar.jsp" flush="false"/>
                 
 				<div class="col-lg-9 order-1 order-lg-2">
 					<div class="row">

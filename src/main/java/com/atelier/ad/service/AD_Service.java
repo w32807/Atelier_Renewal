@@ -1,7 +1,5 @@
 package com.atelier.ad.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,16 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.atelier.common.service.CommonService;
 import com.atelier.dao.AD_Dao;
 import com.atelier.dao.AM_Dao;
 import com.atelier.dao.AT_Dao;
@@ -40,36 +36,35 @@ import com.atelier.util.FAQPaging;
 import com.atelier.util.NT_Paging;
 import com.atelier.util.PD_Paging;
 
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
+
 @Service
 @Log4j
 public class AD_Service {
-
 	ModelAndView mav;
-	@Setter(onMethod_ = @Autowired)
+
+	@Autowired
+	CommonService commonServ;
+
+	@Autowired
 	AD_Dao aDao;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	NT_Dao ntDao;
 	
-	@Setter(onMethod_ = @Autowired) 
-	private HttpSession session;
-	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	AT_Dao atDao;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	CM_Dao cmDao;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	AM_Dao amDao;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	PD_Dao pdDao;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	MG_Dao mDao;
 	
 	
@@ -79,9 +74,8 @@ public class AD_Service {
 	  * 작성일 : 2019.02.01
 	  -----------------------------------------------------------------------------------*/
 	public ModelAndView getADNoticeList(Integer pageNum, Integer maxNum) {
-		log.info("getADNoticeList() - pageNum" + pageNum);
 		mav = new ModelAndView();
-		
+		/*
 		int num = (pageNum == null) ? 1: pageNum;
 		maxNum = ntDao.getADNoticeCount();
 		Map<String, Integer> pageInt = new HashMap<String, Integer>();
@@ -91,9 +85,11 @@ public class AD_Service {
 		
 		mav.addObject("ntlist", ntlist);
 		mav.addObject("paging", getNoticePaging(num));
-		session.setAttribute("pageNum", num);
+		*/
+		//mav.setViewName("/ad/ADNoticeList.tiles");
+		mav.setViewName("/ad/ADNoticeList.tiles");
 		
-		mav.setViewName("ADNoticeList");
+		//commonServ.getHttpSession().setAttribute("pageNum", num);
 		
 		return mav;
 	}
@@ -215,7 +211,7 @@ public class AD_Service {
 		
 		mav.addObject("faqList",faqList);
 		mav.addObject("paging",getPaging(num));
-		session.setAttribute("pageNum", num);
+		commonServ.getHttpSession().setAttribute("pageNum", num);
 		mav.setViewName("ADFAQ");
 		return mav;
 	}
@@ -360,7 +356,7 @@ public class AD_Service {
 		mav.addObject("ADCPaging", getADCPaging(num));
 		
 		mav.setViewName("ADCompany");
-		session.setAttribute("adcPageNum", num);
+		commonServ.getHttpSession().setAttribute("adcPageNum", num);
 		
 		return mav;
 	}
@@ -720,7 +716,7 @@ public class AD_Service {
 				mav = ADATListProc();
 			}
 			else {
-				String SearchName = (String)session.getAttribute("search");
+				String SearchName = (String)commonServ.getHttpSession().getAttribute("search");
 				mav = ADATListSearchProc(SearchName);
 			}
 			
@@ -736,7 +732,7 @@ public class AD_Service {
 				mav = ADATListProc();
 			}
 			else {
-				String SearchName = (String)session.getAttribute("search");
+				String SearchName = (String)commonServ.getHttpSession().getAttribute("search");
 				mav = ADATListSearchProc(SearchName);
 			}
 			rttr.addFlashAttribute("check","해당 공방이 비활성화 되었습니다.");
@@ -752,7 +748,7 @@ public class AD_Service {
 	-----------------------------------------------------------------------------------*/
 	public ModelAndView ADATListSearchProc(String searchName) {
 		AT_Dto at_dto = new AT_Dto();
-		session.setAttribute("search", searchName);
+		commonServ.getHttpSession().setAttribute("search", searchName);
 		at_dto.setAt_name(searchName);
 		List<AT_Dto>at_list = atDao.getATListSearch(at_dto);
 		mav.addObject("at_list", at_list);

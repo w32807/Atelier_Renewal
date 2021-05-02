@@ -401,6 +401,7 @@ public class CM_Service {
 	 -----------------------------------------------------------------------------------------*/
 	public ModelAndView getTodayAT() {
 		mav = new ModelAndView();
+		/*
 		List<PD_productDto> pdList = new ArrayList<PD_productDto>();
 		List<AT_Dto> at_list = atDao.getATList(); 
 
@@ -428,7 +429,8 @@ public class CM_Service {
 		pdList = getMainProd();
 		mav.addObject("pdList",pdList);
 		mav.addObject("main_at_recommend_list", main_at_recommend_list);
-		mav.setViewName("main");
+		*/
+		mav.setViewName("/main/main.tiles");
 
 		return mav;
 	}

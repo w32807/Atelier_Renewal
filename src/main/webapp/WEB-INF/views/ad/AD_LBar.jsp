@@ -19,19 +19,10 @@
 
 </head>
 <body>
-	<div class="app-sidebar sidebar-shadow">
+	<div class="app-sidebar sidebar-shadow" style="margin-top: 0px;">
 		<div class="scrollbar-sidebar">
 			<div class="app-sidebar__inner">
-				<section style="border: shadow">
-					<div>
-						<a href="main"><button class="btn btn-info btn-lg"
-								style="width: 290px; margin-left: -20px; text-align: center;">
-								<h4 style="margin-right: 10px;">
-									<i class="fa fa-home"></i> Atelier
-								</h4>
-							</button></a>
-					</div>
-				</section>
+
 				<ul class="vertical-nav-menu">
 					<li class="app-sidebar__heading">고객관리</li>
 					<ul>

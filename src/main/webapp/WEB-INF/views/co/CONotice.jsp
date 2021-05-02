@@ -101,8 +101,6 @@ nav>div a.nav-item.nav-link:hover, nav>div a.nav-item.nav-link:focus {
 </style>
 </head>
 <body>
-	<!-- 상단바 Include -->
-	<jsp:include page="Main_Upper_RC.jsp" flush="false"/>
 
 	<div class="container">
 		<div class="row">
@@ -495,10 +493,6 @@ Google에 문의하는 방법을 보려면 문의 페이지를 참조하시기 �
 	</div>
 
 
-
-
-	<!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
 
 	<!-- Js Plugins -->
 	<script src="<c:url value="/resources/main/js/jquery-3.3.1.min.js"/>"></script>

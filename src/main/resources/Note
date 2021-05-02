@@ -1,0 +1,5 @@
+1. 타일즈를 쓰면서, 기본적으로 템플릿 안에서 ajax로 content만 바꿔주자.
+
+2. 데이터를 ajax로 처리할 때는 rest? JsonView?
+
+3. 데이터는 service에서 전부 처리하여 컨트롤러에서 받아오고, View Name은 컨트롤러에서 잡아주자

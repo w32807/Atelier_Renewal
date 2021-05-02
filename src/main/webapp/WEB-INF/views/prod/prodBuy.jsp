@@ -56,9 +56,6 @@
 </head>
 
 <body>
-	<!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
-
 	<!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
 		<div class="container">
@@ -236,10 +233,6 @@
 			</form>
 		</div>
 	</section>
-	<!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
-
-
 
 
 	<!-- Js Plugins -->
