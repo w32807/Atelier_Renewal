@@ -22,8 +22,8 @@
 	</select>
 	
 	<insert id="ADNoticeInsert" parameterType="com.atelier.dto.CO_NoticeDto">
-	   		INSERT INTO NT
-	   		VALUES(NT_NUM_SEQ.NEXTVAL,#{nt_title},#{nt_contents},#{nt_id},DEFAULT)
+	   		INSERT INTO NOTICES (NT_TITLE, NT_CONTENTS, NT_ID)
+	   		VALUES(#{nt_title}, #{nt_contents}, #{nt_id})
    </insert>
    
    <update id="ADNoticeUpdate" parameterType="com.atelier.dto.CO_NoticeDto">

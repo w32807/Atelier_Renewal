@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.atelier.common.controller.CommonController;
 import com.atelier.dto.CM_Dto;
 import com.atelier.dto.PR_Dto;
 import com.atelier.main.service.CM_Service;
@@ -35,9 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Handles requests for the application home page.
  */
-@Log4j
 @Controller
-public class MainController {
+public class MainController extends CommonController{
 
 	ModelAndView mav;
 

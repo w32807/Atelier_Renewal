@@ -430,7 +430,7 @@ public class CM_Service {
 		mav.addObject("pdList",pdList);
 		mav.addObject("main_at_recommend_list", main_at_recommend_list);
 		*/
-		mav.setViewName("/main/main.tiles");
+		mav.setViewName("/main/main");
 
 		return mav;
 	}

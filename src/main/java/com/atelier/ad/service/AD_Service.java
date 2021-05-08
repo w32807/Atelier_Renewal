@@ -132,14 +132,13 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.04
 	  -----------------------------------------------------------------------------------*/
-	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, Integer pageNum, Integer maxNum) {
+	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntDto, Integer pageNum, Integer maxNum) {
 		Map<String, List<CO_NoticeDto>> ntMap = null;
 		
 		try {
-			
 			//임시 아이디로 문자열 지정
-			ntdto.setNt_id("admin");
-			ntDao.ADNoticeInsert(ntdto);
+			ntDto.setNt_id("admin");
+			ntDao.ADNoticeInsert(ntDto);
 			maxNum = ntDao.getADNoticeCount();
 			Map<String, Integer> pageInt = new HashMap<String, Integer>();
 			pageInt.put("pageNum", pageNum);
@@ -147,7 +146,6 @@ public class AD_Service {
 			List<CO_NoticeDto> ntlist = ntDao.getADNoticeList(pageInt);
 			ntMap = new HashMap<String, List<CO_NoticeDto>>();
 			ntMap.put("ntlist", ntlist);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			ntMap = null;

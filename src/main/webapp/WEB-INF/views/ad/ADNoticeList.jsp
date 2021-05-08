@@ -45,6 +45,7 @@
 													</td>	
 													<td class="text-center">${notice.nt_id}</td>	
 													<td class="text-center">${notice.nt_count}</td>	
+													<td class="text-center">${notice.nt_count}</td>	
 													<td class="text-center">
 													<!-- ??? -->
 														<a href="ADNoticeContents?nt_num=${notice.nt_num}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
@@ -61,10 +62,8 @@
 					</div>
 				</div>
 				<div class="row" style="padding-left: 650px;">
-					 <div class="container">
-						<ul class="pagination">
-							 ${paging} 
-						</ul>
+					<div class="container">
+						<ul class="pagination">${paging}</ul>
 					</div> 		
 				</div>
 				<div class="container">
@@ -86,32 +85,17 @@
 				</div>
 			</div>
 		</div>
+		
 <script type="text/javascript">
-	$("#allCheck").click(function() { //만약 전체 선택 체크박스가 체크된상태일경우 
-		if ($("#allCheck").prop("checked")) { //해당화면에 전체 checkbox들을 체크해준다
-			$("input[type=checkbox]").prop("checked", true);
-		}
-		// 전체선택 체크박스가 해제된 경우 
-		else { //해당화면에 모든 checkbox들의 체크를해제시킨다. 
-			$("input[type=checkbox]").prop("checked", false);
-		}
-	})
-
-	window.onload = function() {
-		var chk = "${check}";
-		console.log(chk);
+	$(document).ready(function() {
+		// check는 언제사용??
+		var chk = '<c:out value="${check}"/>';
+		
 		if(chk != ""){
 			alert(chk);
 			location.reload(true); 
 		}
-	}
-	
-	function isNull(elem) {
-		if(elem == null || elem == "") {
-			return true;
-		}
-		return false;
-	}
+	});
 	
 	//공지사항 등록 Ajax
 	function noticeInsertAjax() {
@@ -129,10 +113,21 @@
 			data: noticeListFrm,
 			dataType: "json",
 			success: function(data) {
+				// data = b.jsp의 html이 문자열로 넘어옴
+				// $(#div).html(data)
+				
 				console.log(data.ntlist);
 				var ntlist = '';
 				var inputFrm = '';
+				var test = $('#ntTable > tr').html();
 				for(var i = 0; i < data.ntlist.length; i++) {
+					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
+					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
+					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
+					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
+					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
+					
+					/*
 					ntlist += '<tr>' + '<td class="text-center text-muted">'
 					+ '<input type="checkbox">' + '</td>'
 					+ '<td class="text-center">' + data.ntlist[i].nt_num + '</td>'
@@ -148,6 +143,7 @@
 					+ '</a>'
 					+ '</td>'
 					+ '</tr>'
+					*/
 				}
 				inputFrm = '<div class="col-sm-10" style="padding: 0;">'
 					+'<input type="text" class="form-control" placeholder="제목" id="nt_title" name="nt_title" style="padding-right: 100px; width: 1180px;">'

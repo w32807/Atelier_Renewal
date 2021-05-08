@@ -1,7 +1,6 @@
 package com.atelier.ad.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +18,8 @@ import com.atelier.dto.FT_FAQDto;
 import com.atelier.dto.MG_Dto;
 import com.atelier.dto.PD_productDto;
 
-import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Controller
-@Log4j
 public class AD_controller extends CommonController{
 	
 	@Autowired

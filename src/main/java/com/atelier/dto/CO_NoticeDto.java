@@ -1,12 +1,14 @@
 package com.atelier.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CO_NoticeDto {
-	private int 	nt_num;
-	private String 	nt_title;
-	private String 	nt_contents;
-	private String 	nt_id;
-	private int 	nt_count;
+	private int nt_num; // 공지사항 번호
+	private int nt_count; // 조회수
+	private String nt_title;// 공지사항 제목
+	private String nt_contents;// 공지사항 내용
+	private String nt_id;// 작성자 ID
 }

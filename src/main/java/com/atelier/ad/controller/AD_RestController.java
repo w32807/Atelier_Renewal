@@ -24,22 +24,21 @@ import lombok.extern.slf4j.Slf4j;
 @Log4j
 public class AD_RestController {
 
-	@Setter(onMethod_ = {@Autowired} )
+	@Autowired
 	AD_Service aServ;
 	
 	/* ---------------------------------------------------------------------------------
-	  * 기능: 공지사항 입력 및 출력
-	  * 작성자: KYH
-	  * 작성일 : 2019.02.04
-	  -----------------------------------------------------------------------------------*/
-	 @PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
-	 @ResponseBody
-	 public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, Integer pageNum, Integer maxNum) {
-		 Map<String, List<CO_NoticeDto>> ntMap = aServ.ADNoticeInsert(ntdto, pageNum, maxNum);
-		 log.warn(ntdto.getNt_title()+ntdto.getNt_contents()+" 공지사항 입력 및 출력 컨트롤러");
-
-		 return ntMap;
-	 }
+	* 기능: 공지사항 입력 및 출력
+	* 작성자: KYH
+	* 작성일 : 2019.02.04
+	-----------------------------------------------------------------------------------*/
+	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, Integer pageNum, Integer maxNum) {
+		log.info("ADNoticeInsert.run()");
+		Map<String, List<CO_NoticeDto>> ntMap = aServ.ADNoticeInsert(ntdto, pageNum, maxNum);
+		return ntMap;
+	}
 	   
  	 /* ---------------------------------------------------------------------------------
  	  * 기능: FAQ입력 및 출력 기능
