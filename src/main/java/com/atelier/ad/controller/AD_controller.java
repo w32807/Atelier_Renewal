@@ -1,11 +1,16 @@
 package com.atelier.ad.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +22,7 @@ import com.atelier.dto.CO_NoticeDto;
 import com.atelier.dto.FT_FAQDto;
 import com.atelier.dto.MG_Dto;
 import com.atelier.dto.PD_productDto;
+import com.atelier.dto.PageDto;
 
 
 @Controller
@@ -36,12 +42,34 @@ public class AD_controller extends CommonController{
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.01
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("ADNoticeList")
 	public ModelAndView getADNoticeList(Integer pageNum, Integer maxNum) {
 		log.info("getADNoticeList.run()");
 		return aServ.getADNoticeList(pageNum, maxNum);
 	}
+	*/
+	@GetMapping("ADNoticeList")
+	public ModelAndView getADNoticeList(PageDto pageDto) {
+		log.info("getADNoticeList.run()");
+		return aServ.getADNoticeList(pageDto);
+	}
 
+	/* ---------------------------------------------------------------------------------
+	* 기능: 공지사항 입력 및 출력
+	* 작성자: KYH
+	* 작성일 : 2019.02.04
+	-----------------------------------------------------------------------------------*/
+	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, PageDto pageDto) {
+		log.info("ADNoticeInsert.run()");
+		Map<String, List<CO_NoticeDto>> ntMap = new HashMap<String, List<CO_NoticeDto>>();
+		ntMap.put("ntList", aServ.ADNoticeInsert(ntdto, pageDto));
+		System.out.println(ntMap);
+		return ntMap;
+	}
+	
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공지사항 상세내용 보기
 	 * 작성자: KYH

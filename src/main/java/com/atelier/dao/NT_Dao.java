@@ -6,9 +6,10 @@ import java.util.Map;
 import com.atelier.dto.AT_NT_Dto;
 import com.atelier.dto.CO_NoticeDto;
 import com.atelier.dto.NT_Dto;
+import com.atelier.dto.PageDto;
 
 public interface NT_Dao {
-	public List<CO_NoticeDto> getADNoticeList(Map<String, Integer> pageInt);
+	public List<CO_NoticeDto> getADNoticeList(PageDto pageDto);
 
 	public int getADNoticeCount();
 

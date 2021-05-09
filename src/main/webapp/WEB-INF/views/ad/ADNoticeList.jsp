@@ -16,7 +16,6 @@
 								<div class="btn-actions-pane-right"></div>
 							</div>
 							<div class="table-responsive">
-								<!-- 공지사항 리스트는 Ajax로 처리 -->
 								<form action="ADNoticeDelete" method="post" id="ADNoticeDeleteFrm" name="deleteNoticeFrm">
 									<table class="align-middle mb-0 table table-borderless table-striped table-hover">
 										<thead>
@@ -47,7 +46,6 @@
 													<td class="text-center">${notice.nt_count}</td>	
 													<td class="text-center">${notice.nt_count}</td>	
 													<td class="text-center">
-													<!-- ??? -->
 														<a href="ADNoticeContents?nt_num=${notice.nt_num}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
 															<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm" onclick="noticeViewUpdateAjax();">Details</button>
 														</a>
@@ -87,25 +85,10 @@
 		</div>
 		
 <script type="text/javascript">
-	$(document).ready(function() {
-		// check는 언제사용??
-		var chk = '<c:out value="${check}"/>';
-		
-		if(chk != ""){
-			alert(chk);
-			location.reload(true); 
-		}
-	});
-	
 	//공지사항 등록 Ajax
 	function noticeInsertAjax() {
-		var noticeListFrm = $("#ADNoticeFrm").serializeObject();
-		console.log(ADNoticeFrm);
-		noticeListFrm.nt_title = $("#nt_title").val();
-		noticeListFrm.nt_contents = $("#nt_contents").val();
-		noticeListFrm.pageNum = '${pageNum}';
-		
-		console.log(noticeListFrm);
+		var noticeListFrm = $("#ADNoticeFrm").serializeObject(); // form 태그를 Json으로 변경
+		noticeListFrm.pageNum = $("#pageNum").val();
 		
 		$.ajax({
 			url: "ADNoticeInsert",
@@ -113,49 +96,28 @@
 			data: noticeListFrm,
 			dataType: "json",
 			success: function(data) {
-				// data = b.jsp의 html이 문자열로 넘어옴
-				// $(#div).html(data)
-				
-				console.log(data.ntlist);
 				var ntlist = '';
 				var inputFrm = '';
-				var test = $('#ntTable > tr').html();
-				for(var i = 0; i < data.ntlist.length; i++) {
-					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
-					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
-					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
-					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
-					test.replace(${notice.nt_num}, data.ntlist[i].nt_num)
-					
-					/*
+
+				for(var i = 0; i < data.ntList.length; i++) {
 					ntlist += '<tr>' + '<td class="text-center text-muted">'
 					+ '<input type="checkbox">' + '</td>'
-					+ '<td class="text-center">' + data.ntlist[i].nt_num + '</td>'
+					+ '<td class="text-center">' + data.ntList[i].nt_num + '</td>'
 					+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
 					+ '<div class="widget-content-left flex2">'
-					+ '<div class="widget-heading">' + data.ntlist[i].nt_title + '</div>'
+					+ '<div class="widget-heading">' + data.ntList[i].nt_title + '</div>'
 					+ '</div>'+'</div>'+'</td>'	
-					+ '<td class="text-center">' + data.ntlist[i].nt_id + '</td>'	
-					+ '<td class="text-center">' + data.ntlist[i].nt_count + '</td>'	
+					+ '<td class="text-center">' + data.ntList[i].nt_id + '</td>'	
+					+ '<td class="text-center">' + data.ntList[i].nt_count + '</td>'	
 					+ '<td class="text-center">'
 					+ '<a href="ADNoticeContents" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
 					+ '<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>'
 					+ '</a>'
 					+ '</td>'
 					+ '</tr>'
-					*/
 				}
-				inputFrm = '<div class="col-sm-10" style="padding: 0;">'
-					+'<input type="text" class="form-control" placeholder="제목" id="nt_title" name="nt_title" style="padding-right: 100px; width: 1180px;">'
-					+'</div>'
-					+'<br>'
-					+'<textarea class="form-control input-sm " placeholder="내용을 입력하세요" id="nt_contents" name="nt_contents" maxlength="140" rows="7" style="width: 1180px;">'
-					+'</textarea>'
-					
-				$('#inputFrm').html(inputFrm);
-				$('#ntTable').html(ntlist);
+				$('#ntTable').html(ntlist); 
 				alert("공지사항 등록 완료!");
-				location.reload();
 			},
 			error: function(error) {
 				alert("공지사항 등록 실패");

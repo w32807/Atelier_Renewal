@@ -3,22 +3,18 @@ package com.atelier.ad.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.atelier.ad.service.AD_Service;
 import com.atelier.dto.CO_NoticeDto;
 import com.atelier.dto.FT_FAQDto;
+import com.atelier.dto.PageDto;
 
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Log4j
@@ -27,19 +23,6 @@ public class AD_RestController {
 	@Autowired
 	AD_Service aServ;
 	
-	/* ---------------------------------------------------------------------------------
-	* 기능: 공지사항 입력 및 출력
-	* 작성자: KYH
-	* 작성일 : 2019.02.04
-	-----------------------------------------------------------------------------------*/
-	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
-	@ResponseBody
-	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, Integer pageNum, Integer maxNum) {
-		log.info("ADNoticeInsert.run()");
-		Map<String, List<CO_NoticeDto>> ntMap = aServ.ADNoticeInsert(ntdto, pageNum, maxNum);
-		return ntMap;
-	}
-	   
  	 /* ---------------------------------------------------------------------------------
  	  * 기능: FAQ입력 및 출력 기능
  	  * 작성자: JWJ
