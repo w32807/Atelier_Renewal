@@ -99,10 +99,9 @@ public class AD_controller extends CommonController{
 	 * 작성일 : 2019.02.05
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("ADNoticeDelete")
-	public ModelAndView adNoticeDelete(CO_NoticeDto ntdto, HttpServletRequest request, RedirectAttributes rttr) {
+	public ModelAndView adNoticeDelete(HttpServletRequest request, RedirectAttributes rttr) {
 		log.info("adNoticeDelete.run()");
-		String[] checkedBoxArr = request.getParameterValues("NoticeChk");
-		return aServ.ADNoticeDelete(ntdto, checkedBoxArr, rttr);
+		return aServ.ADNoticeDelete(request.getParameterValues("NoticeChk"), rttr);
 	}
 	
 	/* ---------------------------------------------------------------------------------

@@ -132,9 +132,7 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.05
 	  -----------------------------------------------------------------------------------*/
-	public ModelAndView ADNoticeDelete(CO_NoticeDto ntdto, String[] checkedBoxArr, RedirectAttributes rttr) {
-		Integer maxNum = null;
-		Integer pageNum = null;
+	public ModelAndView ADNoticeDelete(String[] checkedBoxArr, RedirectAttributes rttr) {
 		for(String nt_num : checkedBoxArr) {
 			ntDao.ADNoticeDelete(nt_num);
 		}

@@ -28,7 +28,7 @@
 												<th class="text-center">상세보기</th>
 											</tr>
 										</thead>
-										<tbody id="ntTable" name="ntTable">
+										<tbody id="ntTable">
 											<c:forEach var="notice" items="${ntlist}">
 												<tr>
 													<td class="text-center text-muted">
@@ -124,9 +124,8 @@
 	//공지사항 삭제
 	$("#deleteBtn").click(function(){
 		var checkedBox = $("input[name=NoticeChk]:checked").length;
-		console.log(checkedBox);
 		
-		if(checkedBox != 0) {
+		if(checkedBox > 0) {
 			if(confirm(checkedBox+"개의 목록을 삭제 하시겠습니까?")) {
 				$("#ADNoticeDeleteFrm").submit();
 				//window.location.reload();
