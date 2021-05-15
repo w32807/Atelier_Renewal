@@ -34,8 +34,44 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
+	
+	<!-- SQL Logger -->
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="off" />
+		<appender-ref ref="console"/> 
+	</logger>
+
+	<logger name="jdbc.sqlonly" additivity="false"> 
+		<level value="info"/> 
+		<appender-ref ref="console"/> 
+	</logger>
+
+	<logger name="jdbc.audit" additivity="false"> 
+		<level value="off"/>  
+		<appender-ref ref="console"/> 
+	</logger> 
+
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="off" />
+		<appender-ref ref="console"/> 
+	</logger>
+
+	<logger name="jdbc.resultsettable" additivity="false"> 
+		<level value="off"/>  
+		<appender-ref ref="console"/> 
+	</logger> 
+	
+	<logger name="com.zaxxer.hikari" additivity="false"> 
+		<level value="off"/>  
+		<appender-ref ref="console"/> 
+	</logger> 
+	
+	<logger name="com.zaxxer.hikari.HikariConfig" additivity="false"> 
+		<level value="off"/>  
+		<appender-ref ref="console"/> 
+	</logger> 
 	
 </log4j:configuration>

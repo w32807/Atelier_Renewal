@@ -76,9 +76,9 @@ public class AD_controller extends CommonController{
 	 * 작성일 : 2019.02.04
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADNoticeContents")
-	public ModelAndView goADNoticeContents(Integer nt_num) {
+	public ModelAndView adNoticeContents(Integer ntNum) {
 		log.info("goADNoticeContents.run()");
-		return aServ.getADNoticeDetail(nt_num);
+		return aServ.getADNoticeDetail(ntNum);
 	}
 	
 	/* ---------------------------------------------------------------------------------
@@ -87,9 +87,10 @@ public class AD_controller extends CommonController{
 	 * 작성일 : 2019.02.05
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("ADNoticeUpdate")
-	public String goADNoticeUpdate(CO_NoticeDto ntdto) {
+	@ResponseBody
+	public int adNoticeUpdate(CO_NoticeDto ntdto) {
 		log.info("goADNoticeUpdate.run()");
-		return aServ.goADNoticeUpdate(ntdto);
+		return aServ.adNoticeUpdate(ntdto);
 	}
 	
 	/* ---------------------------------------------------------------------------------

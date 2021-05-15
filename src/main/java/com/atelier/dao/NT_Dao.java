@@ -13,14 +13,13 @@ public interface NT_Dao {
 
 	public int getADNoticeCount();
 
-	public CO_NoticeDto getADNoticeDetail(Integer nt_num);
+	public CO_NoticeDto getADNoticeDetail(Integer ntNum);
 
 	public void ADNoticeInsert(CO_NoticeDto ntdto);
 
-	public boolean ADNoticeUpdate(CO_NoticeDto ntdto);
+	public int ADNoticeUpdate(CO_NoticeDto ntdto);
 
 	public boolean ADNoticeDelete(String nt_num);
-
 	//공방 공지사항 인터페이스
 	public boolean noticeWrite(AT_NT_Dto ntDto);
 

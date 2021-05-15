@@ -77,8 +77,8 @@ public class AD_Service {
 	public ModelAndView getADNoticeList(PageDto pageDto) {
 		mav = new ModelAndView();
 		
-		mav.addObject("ntlist", ntDao.getADNoticeList(pageDto));
-		mav.addObject("paging", setPageDto(pageDto).makeHtmlPaging());
+		mav.addObject("ntlist", ntDao.getADNoticeList(setPageDto(pageDto)));
+		mav.addObject("paging", pageDto.makeHtmlPaging());
 		mav.setViewName("/ad/ADNoticeList.tiles");
 		
 		return mav;
@@ -103,13 +103,13 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.04
 	  -----------------------------------------------------------------------------------*/
-	public ModelAndView getADNoticeDetail(Integer nt_num) {
+	public ModelAndView getADNoticeDetail(Integer ntNum) {
 		mav = new ModelAndView();
 		
-		CO_NoticeDto ntdto = ntDao.getADNoticeDetail(nt_num);
+		CO_NoticeDto ntdto = ntDao.getADNoticeDetail(ntNum);
 		
 		mav.addObject("ntdto", ntdto);
-		mav.setViewName("ADNoticeContents");
+		mav.setViewName("/ad/ADNoticeContents");
 		
 		return mav;
 	}
@@ -119,13 +119,12 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.05
 	  -----------------------------------------------------------------------------------*/
-	public String goADNoticeUpdate(CO_NoticeDto ntdto) {
+	public int adNoticeUpdate(CO_NoticeDto ntdto) {
 		String view = null;
-		ntdto.setNt_id("admin");
-		if(ntDao.ADNoticeUpdate(ntdto)) {
+		//if(ntDao.ADNoticeUpdate(ntdto)) {
 			view = "redirect:ADNoticeList";
-		}
-		return view;
+		//}
+		return ntDao.ADNoticeUpdate(ntdto);
 	}
 	
 	/* ---------------------------------------------------------------------------------

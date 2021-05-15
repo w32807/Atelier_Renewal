@@ -44,10 +44,9 @@
 													</td>	
 													<td class="text-center">${notice.nt_id}</td>	
 													<td class="text-center">${notice.nt_count}</td>	
-													<td class="text-center">${notice.nt_count}</td>	
 													<td class="text-center">
-														<a href="ADNoticeContents?nt_num=${notice.nt_num}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
-															<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm" onclick="noticeViewUpdateAjax();">Details</button>
+														<a href="ADNoticeContents?ntNum=${notice.nt_num}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
+															<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>
 														</a>
 													</td>
 												</tr>
@@ -87,42 +86,39 @@
 <script type="text/javascript">
 	//공지사항 등록 Ajax
 	function noticeInsertAjax() {
-		var noticeListFrm = $("#ADNoticeFrm").serializeObject(); // form 태그를 Json으로 변경
+		var noticeListFrm = fn_formToJson($("form")); // form 태그를 Json으로 변경
 		noticeListFrm.pageNum = $("#pageNum").val();
 		
-		$.ajax({
-			url: "ADNoticeInsert",
-			type: "post",
-			data: noticeListFrm,
-			dataType: "json",
-			success: function(data) {
-				var ntlist = '';
-				var inputFrm = '';
+		fn_comAjax(noticeListFrm, 'ADNoticeInsert', fn_attachList, fn_insertErr);
+	}
+	
+	function fn_attachList(data) {
+		var ntlist = '';
+		var inputFrm = '';
 
-				for(var i = 0; i < data.ntList.length; i++) {
-					ntlist += '<tr>' + '<td class="text-center text-muted">'
-					+ '<input type="checkbox">' + '</td>'
-					+ '<td class="text-center">' + data.ntList[i].nt_num + '</td>'
-					+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
-					+ '<div class="widget-content-left flex2">'
-					+ '<div class="widget-heading">' + data.ntList[i].nt_title + '</div>'
-					+ '</div>'+'</div>'+'</td>'	
-					+ '<td class="text-center">' + data.ntList[i].nt_id + '</td>'	
-					+ '<td class="text-center">' + data.ntList[i].nt_count + '</td>'	
-					+ '<td class="text-center">'
-					+ '<a href="ADNoticeContents" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
-					+ '<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>'
-					+ '</a>'
-					+ '</td>'
-					+ '</tr>'
-				}
-				$('#ntTable').html(ntlist); 
-				alert("공지사항 등록 완료!");
-			},
-			error: function(error) {
-				alert("공지사항 등록 실패");
-			}
-		})
+		for(var i = 0; i < data.ntList.length; i++) {
+			ntlist += '<tr>' + '<td class="text-center text-muted">'
+			+ '<input type="checkbox">' + '</td>'
+			+ '<td class="text-center">' + data.ntList[i].nt_num + '</td>'
+			+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
+			+ '<div class="widget-content-left flex2">'
+			+ '<div class="widget-heading">' + data.ntList[i].nt_title + '</div>'
+			+ '</div>'+'</div>'+'</td>'	
+			+ '<td class="text-center">' + data.ntList[i].nt_id + '</td>'	
+			+ '<td class="text-center">' + data.ntList[i].nt_count + '</td>'	
+			+ '<td class="text-center">'
+			+ '<a href="ADNoticeContents" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
+			+ '<button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>'
+			+ '</a>'
+			+ '</td>'
+			+ '</tr>'
+		}
+		$('#ntTable').html(ntlist); 
+		alert("공지사항 등록 완료!");
+	}
+	
+	function fn_insertErr() {
+		alert("공지사항 등록 실패!")
 	}
 	
 	//공지사항 삭제

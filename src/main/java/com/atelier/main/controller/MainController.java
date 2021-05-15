@@ -54,8 +54,6 @@ public class MainController extends CommonController{
 	 -----------------------------------------------------------------------------------------*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
-		log.info("1번");
-	
 		mav = new ModelAndView();
 		mav = mServ.getTodayAT();
 

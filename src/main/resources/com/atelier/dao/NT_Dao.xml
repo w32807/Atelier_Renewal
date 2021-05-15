@@ -23,25 +23,25 @@
 	</select>
 	
 	<select id="getADNoticeDetail" parameterType="Integer" resultType="com.atelier.dto.CO_NoticeDto">
-		SELECT * FROM NOTICES WHERE NT_NUM=#{nt_num}
+		SELECT * FROM NOTICES WHERE NT_NUM = #{ntNum}
 	</select>
 	
 	<insert id="ADNoticeInsert" parameterType="com.atelier.dto.CO_NoticeDto">
 		INSERT INTO NOTICES (NT_TITLE, NT_CONTENTS, NT_ID)
 		VALUES(#{nt_title}, #{nt_contents}, #{nt_id})
-   </insert>
+	</insert>
    
-   <update id="ADNoticeUpdate" parameterType="com.atelier.dto.CO_NoticeDto">
+	<update id="ADNoticeUpdate" parameterType="com.atelier.dto.CO_NoticeDto">
 		UPDATE NOTICES SET NT_TITLE=#{nt_title}, NT_CONTENTS=#{nt_contents}
 		WHERE NT_NUM=#{nt_num}
-   </update>
+	</update>
    
-   <delete id="ADNoticeDelete" parameterType="String">
+	<delete id="ADNoticeDelete" parameterType="String">
 		DELETE NOTICES WHERE NT_NUM=#{nt_num}
-   </delete>
+	</delete>
 
 	<!-- 공지사항 작성 -->
-   <insert id="noticeWrite"  parameterType="com.atelier.dto.AT_NT_Dto">
+   <insert id="noticeWrite" parameterType="com.atelier.dto.AT_NT_Dto">
 		INSERT INTO AT_NOTICE VALUES (AT_NT_NUM_SEQ.NEXTVAL,#{at_nt_title},#{at_nt_contents},#{at_nt_id},DEFAULT)
 	</insert>
 	
