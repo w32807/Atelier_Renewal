@@ -1,11 +1,9 @@
 package com.atelier.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.atelier.dto.AT_NT_Dto;
 import com.atelier.dto.CO_NoticeDto;
-import com.atelier.dto.NT_Dto;
 import com.atelier.dto.PageDto;
 
 public interface NT_Dao {
@@ -15,11 +13,11 @@ public interface NT_Dao {
 
 	public CO_NoticeDto getADNoticeDetail(Integer ntNum);
 
-	public void ADNoticeInsert(CO_NoticeDto ntdto);
+	public int ADNoticeInsert(CO_NoticeDto ntdto);
 
 	public int ADNoticeUpdate(CO_NoticeDto ntdto);
 
-	public boolean ADNoticeDelete(String nt_num);
+	public int ADNoticeDelete(String[] deleteKeyList);
 	//공방 공지사항 인터페이스
 	public boolean noticeWrite(AT_NT_Dto ntDto);
 

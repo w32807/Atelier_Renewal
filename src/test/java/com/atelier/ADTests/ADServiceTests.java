@@ -1,6 +1,7 @@
 package com.atelier.ADTests;
 
 
+
 import org.junit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,4 +20,9 @@ public class ADServiceTests extends ApplicationContextTest{
 		System.out.println(adServ.getADNoticeList(pageDto));
 	}
 	
+	@Test
+	public void ADNoticeDeleteTest() {
+		String[] arr = {"1991"};
+		adServ.ADNoticeDelete(arr);
+	}
 }

@@ -36,8 +36,11 @@
 		WHERE NT_NUM=#{nt_num}
 	</update>
    
-	<delete id="ADNoticeDelete" parameterType="String">
-		DELETE NOTICES WHERE NT_NUM=#{nt_num}
+	<delete id="ADNoticeDelete" >
+		DELETE FROM NOTICES WHERE NT_NUM IN 
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+		 	#{id}
+		</foreach>
 	</delete>
 
 	<!-- 공지사항 작성 -->

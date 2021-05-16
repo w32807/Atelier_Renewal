@@ -13,6 +13,7 @@
 		<org.aspectj-version>1.9.4</org.aspectj-version><!-- 수정 -->
 		<org.slf4j-version>1.7.25</org.slf4j-version><!-- 수정 -->
 		<org.tiles-version>3.0.5</org.tiles-version><!-- 수정 -->
+		<jackson.version>2.11.3</jackson.version><!-- 수정 -->
 	</properties>
 	
 	<dependencies>
@@ -272,6 +273,12 @@
             <artifactId>tiles-template</artifactId>
             <version>${org.tiles-version}</version>
         </dependency> 
+        
+		<dependency> 
+			<groupId>com.fasterxml.jackson.core</groupId> 
+			<artifactId>jackson-databind</artifactId> 
+			<version>${jackson.version}</version> 
+		</dependency>
 
     </dependencies>
     <build>

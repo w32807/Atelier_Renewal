@@ -1,8 +1,5 @@
 package com.atelier.ad.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,36 +36,32 @@ public class AD_controller extends CommonController{
 	}
 	
 	/* ---------------------------------------------------------------------------------
-	 * 기능: 공지사항 전체 출력
+	 * 기능: 공지사항 페이징 출력
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.01
 	 -----------------------------------------------------------------------------------*/
-	/*
-	@GetMapping("ADNoticeList")
-	public ModelAndView getADNoticeList(Integer pageNum, Integer maxNum) {
-		log.info("getADNoticeList.run()");
-		return aServ.getADNoticeList(pageNum, maxNum);
-	}
-	*/
 	@GetMapping("ADNoticeList")
 	public ModelAndView getADNoticeList(PageDto pageDto) {
 		log.info("getADNoticeList.run()");
 		return aServ.getADNoticeList(pageDto);
 	}
+	
+	@PostMapping("ADNoticeList")
+	public ModelAndView getADNoticeListWithAjax(PageDto pageDto) {
+		log.info("getADNoticeListWithAjax.run()");
+		return aServ.getADNoticeListWithAjax(pageDto);
+	}
 
 	/* ---------------------------------------------------------------------------------
-	* 기능: 공지사항 입력 및 출력
+	* 기능: 공지사항 입력
 	* 작성자: KYH
 	* 작성일 : 2019.02.04
 	-----------------------------------------------------------------------------------*/
 	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, List<CO_NoticeDto>> ADNoticeInsert(CO_NoticeDto ntdto, PageDto pageDto) {
+	public int ADNoticeInsert(CO_NoticeDto ntdto) {
 		log.info("ADNoticeInsert.run()");
-		Map<String, List<CO_NoticeDto>> ntMap = new HashMap<String, List<CO_NoticeDto>>();
-		ntMap.put("ntList", aServ.ADNoticeInsert(ntdto, pageDto));
-		System.out.println(ntMap);
-		return ntMap;
+		return aServ.ADNoticeInsert(ntdto);
 	}
 	
 	/* ---------------------------------------------------------------------------------
@@ -99,22 +93,41 @@ public class AD_controller extends CommonController{
 	 * 작성일 : 2019.02.05
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("ADNoticeDelete")
-	public ModelAndView adNoticeDelete(HttpServletRequest request, RedirectAttributes rttr) {
+	@ResponseBody
+	public ModelAndView adNoticeDelete(@RequestParam(value = "NoticeChk[]") String[] deleteKeyList) {
 		log.info("adNoticeDelete.run()");
-		return aServ.ADNoticeDelete(request.getParameterValues("NoticeChk"), rttr);
+		return aServ.ADNoticeDelete(deleteKeyList);
 	}
 	
 	/* ---------------------------------------------------------------------------------
-	 * 기능: FAQ 출력 
+	 * 기능: FAQ 페이징 출력 
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
-	@GetMapping("ADFAQ")
-	public ModelAndView goADFAQ(Integer pageNum , Integer maxNum) {
+	@GetMapping("ADFAQList")
+	public ModelAndView adFAQ(PageDto pageDto) {
 		log.info("goADFAQ.run()");
-		return aServ.getFAQList(pageNum,maxNum);
+		return aServ.getFAQList(pageDto);
 	}
 	
+	@PostMapping("ADFAQList")
+	public ModelAndView getADFAQListWithAjax(PageDto pageDto) {
+		log.info("getADFAQListWithAjax.run()");
+		return aServ.getFAQListWithAjax(pageDto);
+	}
+	
+	 /* ---------------------------------------------------------------------------------
+	 * 기능: FAQ입력 기능
+	 * 작성자: JWJ
+	 * 작성일 : 2019.02.02
+	 -----------------------------------------------------------------------------------*/
+	@PostMapping(value = "FAQInsert", produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public int FAQInsert(FT_FAQDto faq) {
+		log.info("FAQInsert.run()");
+		return aServ.FAQInsert(faq);
+		
+	}
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 상세보기
 	 * 작성자: JWJ
@@ -132,21 +145,20 @@ public class AD_controller extends CommonController{
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("FAQupdate")
-	public String FAQupdate(FT_FAQDto faq, RedirectAttributes rttr) {
+	@ResponseBody
+	public int FAQupdate(FT_FAQDto faq) {
 		log.info("FAQupdate.run()");
-		return aServ.FAQupdate(faq, rttr);
+		return aServ.FAQupdate(faq);
 	}
-	
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 삭제
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.03
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("delFAQ")
-	public ModelAndView delFAQ(HttpServletRequest request, RedirectAttributes rttr) {
+	public ModelAndView delFAQ(@RequestParam(value = "FAQchk[]") String[] deleteKeyList) {
 		log.info("delFAQ.run()");
-		String[] chkedBoxArr = request.getParameterValues("FAQchk");
-		return aServ.delFAQ(chkedBoxArr,rttr);
+		return aServ.delFAQ(deleteKeyList);
 	}
 
 	/* ---------------------------------------------------------------------------------

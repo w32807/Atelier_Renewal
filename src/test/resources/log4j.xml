@@ -62,5 +62,10 @@
 	<logger name="jdbc.resultsettable" additivity="false"> 
 		<level value="off"/>  
 		<appender-ref ref="console"/> 
+	</logger>
+	
+	<logger name="jdbc.connection" additivity="false"> 
+		<level value="off"/>  
+		<appender-ref ref="console"/> 
 	</logger> 
 </log4j:configuration>

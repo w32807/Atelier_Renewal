@@ -60,10 +60,12 @@ public class CO_Service {
 		List<FT_FAQDto> faqListBoard = coDao.getFAQList(num2);
 		//날짜를 yyyy-MM-dd 형태로 변환
 		SimpleDateFormat dataFm = new SimpleDateFormat("yyyy-MM-dd");
+		/*
 		for(int i=0;i<faqListBoard.size();i++) {
 			String convertDate = dataFm.format(faqListBoard.get(i).getFt_regdate());
 			faqListBoard.get(i).setFt_date(convertDate);
 		}
+		*/
 		mav.addObject("faqListBoard", faqListBoard);
 		mav.addObject("FAQpaging", getFAQPaging(num2));
 		mav.addObject("check",chk);

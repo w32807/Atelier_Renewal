@@ -2,36 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atelier.dao.AD_Dao">
 
-	<select id="getFAQList" parameterType="map"
-		resultType="com.atelier.dto.FT_FAQDto">
+	<select id="getFAQList"  resultType="com.atelier.dto.FT_FAQDto">
 		<![CDATA[
-		 SELECT * FROM 
-        (SELECT ROWNUM NUMROW, FT.* FROM 
-          (SELECT * FROM FT ORDER BY FT_NUM )FT  )
-        WHERE NUMROW <=#{maxNum}-(#{pageNum}-1)*10
-		AND NUMROW>=#{maxNum}-(#{pageNum}-1)*10-9
-		ORDER BY FT_NUM DESC
+			SELECT * FROM
+				(
+					SELECT 
+					ROW_NUMBER() OVER(ORDER BY FT_NUM) AS rownum
+					,  ft.* 
+					FROM FAQ ft
+				) A
+			WHERE 1=1
+				AND A.rownum <=#{maxNum}-(#{pageNum}-1)*10
+				AND A.rownum >=#{maxNum}-(#{pageNum}-1)*10-9
+				ORDER BY A.FT_NUM DESC;
 		]]>
 	</select>
 
 	<insert id="FAQInsert" parameterType="com.atelier.dto.FT_FAQDto">
-		INSERT INTO FT VALUES(FT_NUM_SEQ.NEXTVAL, #{ft_title},#{ft_contents},#{ft_id}, DEFAULT)
+		INSERT INTO FAQ (FT_TITLE, FT_CONTENTS, FT_ID)
+			VALUES(#{ft_title}, #{ft_contents}, #{ft_id})
 	</insert>
 	
 	<select id="getFAQDetail" parameterType="Integer" resultType="com.atelier.dto.FT_FAQDto">
-		SELECT * FROM FT WHERE FT_NUM=#{ft_num}
+		SELECT * FROM FAQ WHERE FT_NUM=#{ft_num}
 	</select>
 	
 	<update id="FAQupdate" parameterType="com.atelier.dto.FT_FAQDto">
-		UPDATE FT SET FT_TITLE=#{ft_title},FT_CONTENTS=#{ft_contents} WHERE FT_NUM=#{ft_num}
+		UPDATE FAQ SET FT_TITLE=#{ft_title},FT_CONTENTS=#{ft_contents} WHERE FT_NUM=#{ft_num}
 	</update>
 	
 	<select id="getFAQCount" resultType="Integer">
-		SELECT COUNT(*) FROM FT
+		SELECT COUNT(*) FROM FAQ
 	</select>
 	
-	<delete id="delFAQ" parameterType="String">
-		DELETE FROM FT WHERE FT_NUM=#{ft_num}
+	<delete id="delFAQ" >
+		DELETE FROM FAQ WHERE FT_NUM IN 
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+		 	#{id}
+		</foreach>
 	</delete>
 	
 	<insert id="materialInsert" parameterType="com.atelier.dto.AD_MaterialDto">

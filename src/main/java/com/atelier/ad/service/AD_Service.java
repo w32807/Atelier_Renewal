@@ -34,7 +34,6 @@ import com.atelier.dto.PD_productDto;
 import com.atelier.dto.PageDto;
 import com.atelier.util.AD_MaterialPaging;
 import com.atelier.util.FAQPaging;
-import com.atelier.util.NT_Paging;
 import com.atelier.util.PD_Paging;
 
 import lombok.extern.log4j.Log4j;
@@ -68,19 +67,22 @@ public class AD_Service {
 	@Autowired
 	MG_Dao mDao;
 	
-	
 	/* ---------------------------------------------------------------------------------
-	  * 기능: 공지사항 리스트 출력
+	  * 기능: 공지사항 페이징 출력
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.01
 	  -----------------------------------------------------------------------------------*/
 	public ModelAndView getADNoticeList(PageDto pageDto) {
-		mav = new ModelAndView();
-		
-		mav.addObject("ntlist", ntDao.getADNoticeList(setPageDto(pageDto)));
+		mav = new ModelAndView("/ad/ADNoticeList.tiles");
+		mav.addObject("list", ntDao.getADNoticeList(setPageDto(pageDto, ntDao.getADNoticeCount(), "ADNoticeList")));
 		mav.addObject("paging", pageDto.makeHtmlPaging());
-		mav.setViewName("/ad/ADNoticeList.tiles");
 		
+		return mav;
+	}
+	
+	public ModelAndView getADNoticeListWithAjax(PageDto pageDto) {
+		mav = new ModelAndView("jsonView");
+		mav.addObject("list", ntDao.getADNoticeList(setPageDto(pageDto, ntDao.getADNoticeCount(), "ADNoticeList")));
 		return mav;
 	}
 	
@@ -89,13 +91,11 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.04
 	  -----------------------------------------------------------------------------------*/
-	public List<CO_NoticeDto> ADNoticeInsert(CO_NoticeDto ntDto, PageDto pageDto) {
+	public int ADNoticeInsert(CO_NoticeDto ntDto) {
 		// 추후 트랜잭션 처리 필요
 		// 임시 아이디로 문자열 지정(추후 세션에서 받아오도록 수정하기)
 		ntDto.setNt_id("admin");
-		ntDao.ADNoticeInsert(ntDto);
-		
-		return ntDao.getADNoticeList(setPageDto(pageDto));
+		return ntDao.ADNoticeInsert(ntDto);
 	}
 
 	/* ---------------------------------------------------------------------------------
@@ -104,12 +104,8 @@ public class AD_Service {
 	  * 작성일 : 2019.02.04
 	  -----------------------------------------------------------------------------------*/
 	public ModelAndView getADNoticeDetail(Integer ntNum) {
-		mav = new ModelAndView();
-		
-		CO_NoticeDto ntdto = ntDao.getADNoticeDetail(ntNum);
-		
-		mav.addObject("ntdto", ntdto);
-		mav.setViewName("/ad/ADNoticeContents");
+		mav = new ModelAndView("/ad/ADNoticeContents");
+		mav.addObject("ntdto", ntDao.getADNoticeDetail(ntNum));
 		
 		return mav;
 	}
@@ -120,10 +116,6 @@ public class AD_Service {
 	  * 작성일 : 2019.02.05
 	  -----------------------------------------------------------------------------------*/
 	public int adNoticeUpdate(CO_NoticeDto ntdto) {
-		String view = null;
-		//if(ntDao.ADNoticeUpdate(ntdto)) {
-			view = "redirect:ADNoticeList";
-		//}
 		return ntDao.ADNoticeUpdate(ntdto);
 	}
 	
@@ -132,91 +124,44 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.05
 	  -----------------------------------------------------------------------------------*/
-	public ModelAndView ADNoticeDelete(String[] checkedBoxArr, RedirectAttributes rttr) {
-		for(String nt_num : checkedBoxArr) {
-			ntDao.ADNoticeDelete(nt_num);
-		}
+	public ModelAndView ADNoticeDelete(String[] deleteKeyList) {
+		mav = new ModelAndView("jsonView");
+		int result = ntDao.ADNoticeDelete(deleteKeyList);
+
+		mav.addObject("result", result);
+		mav.addObject("msg",  (result > 0) ? "공지사항 삭제 완료!" : "삭제된 데이터가 없습니다.");
 		
-		mav = new ModelAndView();
-		mav.setViewName("redirect:ADNoticeList");
-		rttr.addFlashAttribute("check", "공지사항 삭제 완료!");
 		return mav;
 	}
 	
 	 /* ---------------------------------------------------------------------------------
-	  * 기능: FAQ 전체 출력
+	  * 기능: FAQ 페이징 출력
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.02
 	  -----------------------------------------------------------------------------------*/
-	public ModelAndView getFAQList(Integer pageNum,Integer maxNum) {
-		mav = new ModelAndView();
-		int num = (pageNum == null)? 1 : pageNum;
-		maxNum = aDao.getFAQCount();
-		Map<String, Integer> pageInt = new HashMap<String, Integer>();
-		pageInt.put("pageNum", num);
-		pageInt.put("maxNum", maxNum);
-		List<FT_FAQDto> faqList = aDao.getFAQList(pageInt);
+	public ModelAndView getFAQList(PageDto pageDto) {
+		mav = new ModelAndView("/ad/ADFAQ.tiles");
+		mav.addObject("list", aDao.getFAQList(setPageDto(pageDto, aDao.getFAQCount(), "ADFAQ")));
+		mav.addObject("paging", pageDto.makeHtmlPaging());
 		
-		//날짜를 yyyy-MM-dd 형태로 변환
-		SimpleDateFormat dataFm = new SimpleDateFormat("yyyy-MM-dd");
-		for(int i=0;i<faqList.size();i++) {
-			String convertDate = dataFm.format(faqList.get(i).getFt_regdate());
-			faqList.get(i).setFt_date(convertDate);
-		}
-		
-		mav.addObject("faqList",faqList);
-		mav.addObject("paging",getPaging(num));
-		commonServ.getHttpSession().setAttribute("pageNum", num);
-		mav.setViewName("ADFAQ");
 		return mav;
 	}
 
-	 /* ---------------------------------------------------------------------------------
-	  * 기능: FAQ paging 처리
-	  * 작성자: JWJ
-	  * 작성일 : 2019.02.02
-	  -----------------------------------------------------------------------------------*/
-	private Object getPaging(int num) {
-		int maxNum = aDao.getFAQCount();
-		int listCount = 10;
-		int pageCount = 5;
-		String listName = "ADFAQ";
-		FAQPaging paging = new FAQPaging(maxNum, num, listCount, pageCount, listName);
-		String PagingHtml = paging.makeHtmlPaging();
-		
-		return PagingHtml;
+	public ModelAndView getFAQListWithAjax(PageDto pageDto) {
+		mav = new ModelAndView("jsonView");
+		mav.addObject("list", aDao.getFAQList(setPageDto(pageDto, aDao.getFAQCount(), "getFAQList")));
+		return mav;
 	}
-	   
- 	 /* ---------------------------------------------------------------------------------
- 	  * 기능: FAQ입력 및 출력(ajax)
- 	  * 작성자: JWJ
- 	  * 작성일 : 2019.02.02
- 	  -----------------------------------------------------------------------------------*/
-	public Map<String, List<FT_FAQDto>> FAQInsert(FT_FAQDto faq,Integer pageNum,Integer maxNum) {
-		Map<String, List<FT_FAQDto>> faqmap = null;
-		
-		try {
-			aDao.FAQInsert(faq);
-			maxNum = aDao.getFAQCount();
-			Map<String, Integer> pageInt = new HashMap<String, Integer>();
-			pageInt.put("pageNum", pageNum);
-			pageInt.put("maxNum", maxNum);
-			List<FT_FAQDto> faqList = aDao.getFAQList(pageInt);
-			//DB에서 가져온 날짜 값을 yyyy-MM-dd 로 변환
-			SimpleDateFormat dataFm = new SimpleDateFormat("yyyy-MM-dd"); 
-			String convertDate = dataFm.format(faqList.get(1).getFt_regdate());
-			Date parsedate = dataFm.parse(convertDate); 
-			Timestamp convertedDate = new Timestamp(parsedate.getTime()); 
-			faqList.get(1).setFt_regdate(convertedDate);
-			
-			faqmap = new HashMap<String, List<FT_FAQDto>>();
-			faqmap.put("faqList", faqList);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			faqmap = null;
-		}
-		return faqmap;
+	
+	/* ---------------------------------------------------------------------------------
+	* 기능: FAQ입력 및 출력(ajax)
+	* 작성자: JWJ
+	* 작성일 : 2019.02.02
+	-----------------------------------------------------------------------------------*/
+	public int FAQInsert(FT_FAQDto faq) {
+		// 임시 아이디로 문자열 지정(추후 세션에서 받아오도록 수정하기)
+		faq.setFt_id("admin");
+		return aDao.FAQInsert(faq);
 	}
 
 	 /* ---------------------------------------------------------------------------------
@@ -225,10 +170,8 @@ public class AD_Service {
 	  * 작성일 : 2019.02.02
 	  -----------------------------------------------------------------------------------*/
 	public ModelAndView getFAQDetail(FT_FAQDto faq) {
-		mav = new ModelAndView();
-		faq = aDao.getFAQDetail(faq.getFt_num());
-		mav.addObject("faq",faq);
-		mav.setViewName("ADFAQContents");
+		mav = new ModelAndView("ad/ADFAQContents");
+		mav.addObject("faq",aDao.getFAQDetail(faq.getFt_num()));
 		
 		return mav;
 	}
@@ -238,13 +181,8 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.02
 	  -----------------------------------------------------------------------------------*/
-	public String FAQupdate(FT_FAQDto faq, RedirectAttributes rttr) {
-		String view = null;
-		if(aDao.FAQupdate(faq)) {
-			view = "redirect:ADFAQ";
-			rttr.addFlashAttribute("check", "수정 성공");
-		}
-		return view;
+	public int FAQupdate(FT_FAQDto faq) {
+		return aDao.FAQupdate(faq);
 	}
 
 	/* ---------------------------------------------------------------------------------
@@ -253,19 +191,15 @@ public class AD_Service {
 	  * 작성일 : 2019.02.03
 	  -----------------------------------------------------------------------------------*/
 	@Transactional
-	public ModelAndView delFAQ(String[] chkedBoxArr, RedirectAttributes rttr) {
-		Integer maxNum = null;
-		Integer pageNum = null;
-		for(String ft_num : chkedBoxArr) {
-			aDao.delFAQ(ft_num);
-		}
-		rttr.addFlashAttribute("check","삭제 완료!");
-		
-		mav = getFAQList(pageNum,maxNum);
+	public ModelAndView delFAQ(String[] deleteKeyList) {
+		mav = new ModelAndView("jsonView");
+		int result = aDao.delFAQ(deleteKeyList);
+
+		mav.addObject("result", result);
+		mav.addObject("msg",  (result > 0) ? "FAQ 삭제 완료!" : "삭제된 데이터가 없습니다.");
 		
 		return mav;
 	}
-	
 	/* ---------------------------------------------------------------------------------
 	  * 기능: 원자재 등록 서비스
 	  * 작성자: JSH
@@ -744,9 +678,11 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2021.05.09
 	  -----------------------------------------------------------------------------------*/
-	private PageDto setPageDto(PageDto pageDto) {
-		pageDto.setMaxNum(ntDao.getADNoticeCount());
-		pageDto.setListName("ADNoticeList");
+	private PageDto setPageDto(PageDto pageDto, int maxNum, String listName) {
+		//pageDto.setMaxNum(ntDao.getADNoticeCount());
+		//pageDto.setListName("ADNoticeList");
+		pageDto.setMaxNum(maxNum);
+		pageDto.setListName(listName.trim());
 		return pageDto;
 	}
 }//AD_Service Class end

@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.multipart.commons.CommonsFileUploadSupport;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 //servlet-context.xml에 설정된 모든 내용을 담는 클래스
 @EnableWebMvc // 여기서는 @EnableWebMvc 어노테이션 + WebMvcConfigurer 인터페이스 상속을 받아서 사용함
@@ -19,13 +22,14 @@ import org.springframework.web.servlet.view.JstlView;
 public class ServletConfig implements WebMvcConfigurer{
 
     @Override
-    // viewResolver 설정
+    // WebMvcConfigurer 상속을 통한 기본 viewResolver 설정
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setViewClass(JstlView.class);
-        bean.setPrefix("/WEB-INF/views/");
-        bean.setSuffix(".jsp");
-        registry.viewResolver(bean);
+    	// 기본 viewResolver
+        InternalResourceViewResolver resolver1 = new InternalResourceViewResolver();
+        resolver1.setViewClass(JstlView.class);
+        resolver1.setPrefix("/WEB-INF/views/");
+        resolver1.setSuffix(".jsp");
+        registry.viewResolver(resolver1);
     }
     
     @Override
@@ -53,6 +57,21 @@ public class ServletConfig implements WebMvcConfigurer{
         resolver.setMaxInMemorySize(1024 * 1024);
         //resolver.setUploadTempDir(new FileSystemResource("C:\\upload\\tmp"));
         resolver.setDefaultEncoding("UTF-8");
+        return resolver;
+    }
+    
+    @Bean(name = "jsonView")
+    public MappingJackson2JsonView getJsonView() {
+    	MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+    	jsonView.setContentType("application/json;charset=UTF-8");
+    	return jsonView;
+    }
+    
+    @Bean
+    public ViewResolver customViewResolver() {
+        // jsonView Resolver
+        BeanNameViewResolver resolver = new BeanNameViewResolver();
+        resolver.setOrder(0);
         return resolver;
     }
 }

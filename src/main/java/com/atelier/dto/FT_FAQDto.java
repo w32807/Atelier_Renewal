@@ -1,22 +1,18 @@
 package com.atelier.dto;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class FT_FAQDto {
-
-	private int ft_num;
-	private String ft_title;
-	private String ft_contents;
-	private String ft_id;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Timestamp ft_regdate;
-	private String ft_date;
-	
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class FT_FAQDto extends BaseDto{
+	private int ft_num; // 글번호
+	private int ft_count; // 조회수
+	private String ft_title;// 제목
+	private String ft_contents;// 내용
+	private String ft_id;// 작성자
 }

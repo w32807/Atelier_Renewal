@@ -9,7 +9,7 @@ import com.atelier.dao.NT_Dao;
 import com.atelier.dto.CO_NoticeDto;
 import com.atelier.testConfig.ApplicationContextTest;
 
-public class NtDaoTest extends ApplicationContextTest{
+public class NtDaoTests extends ApplicationContextTest{
 	@Autowired
 	NT_Dao ntDao;
 	
@@ -45,6 +45,12 @@ public class NtDaoTest extends ApplicationContextTest{
 		
 		if(ntDao.ADNoticeUpdate(ntDto) > 0)
 			System.out.println(ntDao.getADNoticeDetail(ntDto.getNt_num()));
+	}
+	
+	@Test
+	public void ADNoticeDelete() {
+		String[] arr = {"2042","2041","2040","2039","2038","2037","2036","2035" };
+		ntDao.ADNoticeDelete(arr);
 	}
 
 }

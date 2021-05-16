@@ -17,7 +17,6 @@ function isStrNull(str){
 			(str === 'NaN') || (str === '0') || (str === 'false')) ? false : true;
 }
 
-
 function fn_comAjax(json, url, successCallback, errCallback){
 	// dataType을 명시하지 않으면 모든 타입의 데이터를 서버로부터 가져올 수 있음
 	$.ajax({
@@ -25,12 +24,10 @@ function fn_comAjax(json, url, successCallback, errCallback){
 		type: "post",
 		data: json,
 		success: function(data) {
-			console.log('success')
-			successCallback(data);
+			if(typeof successCallback === 'function') successCallback(data);
 		},
 		error: function(error) {
-			console.log('Error')
-			errCallback();
+			if(typeof errCallback === 'function') errCallback();
 		}
 	})
 }
@@ -40,14 +37,19 @@ function fn_formToJson(form){
 	return (formTag.prop('tagName') === 'FORM') ? formTag.serializeObject() : '';
 }
 
+function fn_saveValChkOfStr(tags){
+	var result = true;
+	$.each(tags, function(idx, item){
+		if(!isStrNull($.trim($(item).val()))) result = false;	
+	});
+	return result;
+}
 /**
  * Usage: var json = $('#form-login').serializeObject();
  * Output: {username: "admin", password: "123456"}
  * Output: {username: "admin", password: "123456", subscription: ["news","offer"]}
  * */
 
-
-//경로 src/main/webapp/resources/js/jquery.serializeObject.js
 $.fn.serializeObject = function() {
     var obj = {};
     var arr = this.serializeArray();

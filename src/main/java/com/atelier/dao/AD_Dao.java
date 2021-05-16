@@ -9,20 +9,21 @@ import com.atelier.dto.AD_MaterialDto;
 import com.atelier.dto.FT_FAQDto;
 import com.atelier.dto.MG_Dto;
 import com.atelier.dto.PD_productDto;
+import com.atelier.dto.PageDto;
 
 public interface AD_Dao {
 
-	public boolean FAQInsert(FT_FAQDto faq);
+	public int FAQInsert(FT_FAQDto faq);
 
-	public List<FT_FAQDto> getFAQList(Map<String, Integer> pageInt);
+	public List<FT_FAQDto> getFAQList(PageDto pageDto);
 
 	public FT_FAQDto getFAQDetail(Integer ft_num);
 
-	public boolean FAQupdate(FT_FAQDto faq);
+	public int FAQupdate(FT_FAQDto faq);
 
 	public int getFAQCount();
 
-	public boolean delFAQ(String ft_num);
+	public int delFAQ(String[] deleteKeyList);
 	
 	public boolean materialInsert (AD_MaterialDto material);
 	
