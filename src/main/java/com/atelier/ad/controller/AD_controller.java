@@ -31,7 +31,6 @@ public class AD_controller extends CommonController{
 
 	@GetMapping("ADNotice")
 	public String goADNotice() {
-		log.info("goADNotice.run()");
 		return "ADNotice";
 	}
 	
@@ -42,13 +41,11 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADNoticeList")
 	public ModelAndView getADNoticeList(PageDto pageDto) {
-		log.info("getADNoticeList.run()");
 		return aServ.getADNoticeList(pageDto);
 	}
 	
 	@PostMapping("ADNoticeList")
 	public ModelAndView getADNoticeListWithAjax(PageDto pageDto) {
-		log.info("getADNoticeListWithAjax.run()");
 		return aServ.getADNoticeListWithAjax(pageDto);
 	}
 
@@ -60,7 +57,6 @@ public class AD_controller extends CommonController{
 	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public int ADNoticeInsert(CO_NoticeDto ntdto) {
-		log.info("ADNoticeInsert.run()");
 		return aServ.ADNoticeInsert(ntdto);
 	}
 	
@@ -71,7 +67,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADNoticeContents")
 	public ModelAndView adNoticeContents(Integer ntNum) {
-		log.info("goADNoticeContents.run()");
 		return aServ.getADNoticeDetail(ntNum);
 	}
 	
@@ -83,7 +78,6 @@ public class AD_controller extends CommonController{
 	@PostMapping("ADNoticeUpdate")
 	@ResponseBody
 	public int adNoticeUpdate(CO_NoticeDto ntdto) {
-		log.info("goADNoticeUpdate.run()");
 		return aServ.adNoticeUpdate(ntdto);
 	}
 	
@@ -95,7 +89,6 @@ public class AD_controller extends CommonController{
 	@PostMapping("ADNoticeDelete")
 	@ResponseBody
 	public ModelAndView adNoticeDelete(@RequestParam(value = "NoticeChk[]") String[] deleteKeyList) {
-		log.info("adNoticeDelete.run()");
 		return aServ.ADNoticeDelete(deleteKeyList);
 	}
 	
@@ -106,13 +99,11 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADFAQList")
 	public ModelAndView adFAQ(PageDto pageDto) {
-		log.info("goADFAQ.run()");
 		return aServ.getFAQList(pageDto);
 	}
 	
 	@PostMapping("ADFAQList")
 	public ModelAndView getADFAQListWithAjax(PageDto pageDto) {
-		log.info("getADFAQListWithAjax.run()");
 		return aServ.getFAQListWithAjax(pageDto);
 	}
 	
@@ -124,7 +115,6 @@ public class AD_controller extends CommonController{
 	@PostMapping(value = "FAQInsert", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public int FAQInsert(FT_FAQDto faq) {
-		log.info("FAQInsert.run()");
 		return aServ.FAQInsert(faq);
 		
 	}
@@ -135,7 +125,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADFAQContents")
 	public ModelAndView goADFAQContents(FT_FAQDto faq) {
-		log.info("goADFAQContents.run()");
 		return aServ.getFAQDetail(faq);
 	}
 	
@@ -147,7 +136,6 @@ public class AD_controller extends CommonController{
 	@PostMapping("FAQupdate")
 	@ResponseBody
 	public int FAQupdate(FT_FAQDto faq) {
-		log.info("FAQupdate.run()");
 		return aServ.FAQupdate(faq);
 	}
 	/* ---------------------------------------------------------------------------------
@@ -157,7 +145,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("delFAQ")
 	public ModelAndView delFAQ(@RequestParam(value = "FAQchk[]") String[] deleteKeyList) {
-		log.info("delFAQ.run()");
 		return aServ.delFAQ(deleteKeyList);
 	}
 
@@ -168,7 +155,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADATMemberUp")
 	public ModelAndView goADATMemberUp() {
-		log.info("goADATMemberUp.run()");
 		return aServ.getApplicant();
 	}
 	
@@ -179,7 +165,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ATMemberUpCheck")
 	public ModelAndView atMemberUpCheck(String check, String id) {
-		log.info("atMemberUpCheck.run()");
 		return aServ.ATMemberCheckProc(check, id);
 	}
 	
@@ -190,7 +175,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADATList")
 	public ModelAndView goADATList() {
-		log.info("goADATList.run()");
 		return aServ.ADATListProc();
 	}
 	
@@ -201,7 +185,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADATListStateProc")
 	public ModelAndView adATListStateProc(String id, String state, RedirectAttributes rttr, String check) {
-		log.info("adATListStateProc.run()");
 		return aServ.ADATListStateProc(id, state, rttr, check);
 	}
 	
@@ -212,14 +195,12 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADATListSearch")
 	public ModelAndView adATListSearchProc(String searchName) {
-		log.info("adATListSearchProc.run()");
 		return aServ.ADATListSearchProc(searchName);
 	}
 	
 	
 	@GetMapping("ADCompanyInsert")
 	public String goADCompanyInsert() {
-		log.info("goADCompanyInsert.run()");
 		return "ADCompanyInsert";
 	}
 	
@@ -230,7 +211,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("MaterialInsert")
 	public ModelAndView materialInsert(AD_MaterialDto material, RedirectAttributes rttr) {
-		log.info("materialInsert.run()");
 		return aServ.MaterialInsert(material, rttr);
 	}
 	
@@ -241,7 +221,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADCompany")
 	public ModelAndView adCompany(Integer adcPageNum,Integer maxNum) {
-		log.info("adCompany.run()");
 		return aServ.getADCompanyList(adcPageNum,maxNum);
 	}
 	
@@ -252,7 +231,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADCompanyFix")
 	public ModelAndView adCompanyFix(Integer rmNum) {
-		log.info("adCompanyFix.run()");
 		return aServ.getADCompanyFix(rmNum);
 	}
 	
@@ -263,7 +241,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@PostMapping("MaterialFix")
 	public ModelAndView materialFix(AD_MaterialDto material, RedirectAttributes rttr) {
-		log.info("materialFix.run()");
 		return aServ.MaterialFix(material, rttr);
 	}
 		
@@ -274,7 +251,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADCompanyDel")
 	public ModelAndView adCompanyDel(Integer rmNum) {
-		log.info("adCompanyDel.run()");
 		return aServ.MaterialDel(rmNum);
 	}
 
@@ -285,9 +261,7 @@ public class AD_controller extends CommonController{
 		 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADMessage")
 	public ModelAndView goADMessage() {
-		log.info("goADMessage.run()");
-		CM_Dto cmDto = (CM_Dto) session.getAttribute("mb");
-		return aServ.goADMessage(cmDto.getCm_id());
+		return aServ.goADMessage(((CM_Dto) session.getAttribute("mb")).getCm_id());
 	}
 
 	/* ---------------------------------------------------------------------------------
@@ -297,7 +271,6 @@ public class AD_controller extends CommonController{
 	-----------------------------------------------------------------------------------*/
 	@GetMapping("ADMessageContents")
 	public ModelAndView adMessagecon(Integer mgNum) {
-		log.info("adMessagecon.run()");
 		return aServ.ADMessagecon(mgNum);
 	}
 
@@ -308,7 +281,6 @@ public class AD_controller extends CommonController{
 	-----------------------------------------------------------------------------------*/
 	@GetMapping("ADmessageSendBtn")
 	public ModelAndView adMessageSendBtn(MG_Dto mDto) {
-		log.info("adMessageSendBtn.run()");
 		return aServ.MessageSendBtn(mDto);
 	}
 
@@ -319,7 +291,6 @@ public class AD_controller extends CommonController{
 	-----------------------------------------------------------------------------------*/
 	@GetMapping("delMessage")
 	public ModelAndView delMessage(HttpServletRequest hs, RedirectAttributes rttr) {
-		log.info("delMessage.run()");
 		String[] check = hs.getParameterValues("prod");
 		return aServ.delMessage(check, rttr);
 	}
@@ -331,7 +302,6 @@ public class AD_controller extends CommonController{
 	 -----------------------------------------------------------------------------------*/
 	@GetMapping("ADProdManage")
 	public ModelAndView getATProdList() {
-		log.info("getATProdList.run()");
 		return aServ.getADProdList();
 	}
 
@@ -342,7 +312,6 @@ public class AD_controller extends CommonController{
 	-----------------------------------------------------------------------------------------*/
 	@GetMapping("productDelete")
 	public ModelAndView productDelete(HttpServletRequest hs, RedirectAttributes rttr) {
-		log.info("productDelete.run()");
 		String[] check = hs.getParameterValues("prod");
 		return aServ.productDelete(check,rttr);
 	}
@@ -354,7 +323,6 @@ public class AD_controller extends CommonController{
 		-----------------------------------------------------------------------------------------*/
 	@GetMapping("ADProdDetail")
 	public ModelAndView adUpdateManager1(Integer pdCode) {
-		log.info("adUpdateManager1.run()");
 		return aServ.productUpdate1(pdCode);
 	}
 
@@ -365,7 +333,6 @@ public class AD_controller extends CommonController{
 		-----------------------------------------------------------------------------------------*/
 	@GetMapping("ProdUpdate")
 	public ModelAndView adUpdateManager2(PD_productDto pdDto) {
-		log.info("adUpdateManager2.run()");
 		return aServ.productUpdate2(pdDto);
 	}
 	
@@ -376,7 +343,6 @@ public class AD_controller extends CommonController{
  	-----------------------------------------------------------------------------------------*/
 	@GetMapping("searchProduct")
 	public ModelAndView searchProc(String search) {
-		log.info("searchProc.run()");
 		return aServ.SearchProc(search);
 	}
 	
@@ -387,7 +353,6 @@ public class AD_controller extends CommonController{
 		-----------------------------------------------------------------------------------------*/
 	@PostMapping("AdminMessage")
 	public ModelAndView adminMessage(MG_Dto mgDto) {
-		log.info("adminMessage.run()");
 		return aServ.AdminMessage(mgDto);
 	}
 }//AD_controller Class end

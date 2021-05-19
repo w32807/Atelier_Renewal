@@ -21,9 +21,8 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration // xml 대신 설정파일로 만들고자 하는 클래스에 붙이는 어노테이션
-@EnableAspectJAutoProxy
 @EnableScheduling
-@EnableTransactionManagement
+@EnableTransactionManagement // 트랜잭션 사용을 위한 선언 <tx:annotation-driven/>과 매칭됨
 // controller외의 Bean 패키지를 스캔
 @ComponentScan(basePackages = {"com.atelier.*.service"})
 @MapperScan(basePackages = {"com.atelier.dao"})

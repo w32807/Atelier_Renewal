@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class DataSourceTest extends ApplicationContextTest{
 
-	@Setter(onMethod_ = @Autowired)
+	@Autowired
 	private DataSource dataSource;
 	
 	@Test
