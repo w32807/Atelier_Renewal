@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsFileUploadSupport;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -19,6 +22,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 //servlet-context.xml에 설정된 모든 내용을 담는 클래스
 @EnableWebMvc // 여기서는 @EnableWebMvc 어노테이션 + WebMvcConfigurer 인터페이스 상속을 받아서 사용함
 @ComponentScan(basePackages = {"com.atelier.*.controller"})
+@EnableTransactionManagement // 트랜잭션 사용을 위한 선언 <tx:annotation-driven/>과 매칭됨
 public class ServletConfig implements WebMvcConfigurer{
 
     @Override

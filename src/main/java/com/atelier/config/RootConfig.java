@@ -14,6 +14,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -70,10 +71,9 @@ public class RootConfig {
 		sessionFactory.setDataSource(dataSource());
 		return (SqlSessionFactory) sessionFactory.getObject(); // Object를 얻어 형변환
 	}
- 
-	@Bean
-	// 트랜잭션 처리
-	public DataSourceTransactionManager txManager() {
-		return new DataSourceTransactionManager(dataSource());
-	}
+    
+    @Bean(name = "transactionManager")
+    public PlatformTransactionManager txManager() {
+    	return new DataSourceTransactionManager(dataSource());
+    }
 }
