@@ -37,7 +37,7 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-@Transactional
+@Transactional(value = "transactionManager")
 public class AD_Service {
 	ModelAndView mav;
 
@@ -70,7 +70,7 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.01
 	  -----------------------------------------------------------------------------------*/
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public ModelAndView getADNoticeList(PageDto pageDto) {
 		mav = new ModelAndView("/ad/ADNoticeList.tiles");
 		mav.addObject("list", ntDao.getADNoticeList(setPageDto(pageDto, ntDao.getADNoticeCount(), "ADNoticeList")));
@@ -138,7 +138,7 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.02
 	  -----------------------------------------------------------------------------------*/
-	@Transactional(readOnly = true)
+	@Transactional(value = "transactionManager", readOnly = true)
 	public ModelAndView getFAQList(PageDto pageDto) {
 		mav = new ModelAndView("/ad/ADFAQ.tiles");
 		mav.addObject("list", aDao.getFAQList(setPageDto(pageDto, aDao.getFAQCount(), "ADFAQ")));
@@ -190,7 +190,7 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.03
 	  -----------------------------------------------------------------------------------*/
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public ModelAndView delFAQ(String[] deleteKeyList) {
 		mav = new ModelAndView("jsonView");
 		int result = aDao.delFAQ(deleteKeyList);
@@ -475,7 +475,7 @@ public class AD_Service {
 	 * 작성자: KBH
 	 * 작성일 : 2020.02.11 / 수정(KBH) 2020.02.13
 	-----------------------------------------------------------------------------------*/
-	@Transactional
+	@Transactional(value = "transactionManager")
 	public ModelAndView delMessage(String[] check, RedirectAttributes rttr) {
 		mav = new ModelAndView();
 		

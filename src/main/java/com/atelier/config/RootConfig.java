@@ -1,18 +1,28 @@
 package com.atelier.config;
 
+import java.util.Properties;
+
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -26,6 +36,7 @@ import com.zaxxer.hikari.HikariDataSource;
 // controller외의 Bean 패키지를 스캔
 @ComponentScan(basePackages = {"com.atelier.*.service"})
 @MapperScan(basePackages = {"com.atelier.dao"})
+@EnableJpaRepositories(basePackages = {"com.atelier.testJpa"}, entityManagerFactoryRef="emf", transactionManagerRef="txManager")
 public class RootConfig {
 	
 	@Value("#{global['db.driver']}") 
@@ -63,7 +74,7 @@ public class RootConfig {
 		return bean;
 	}
  
-	@Bean
+	@Bean(name = "sqlSessionFactory")
 	// mybatis 관련 설정으로 sqlSession을 생성
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -72,7 +83,66 @@ public class RootConfig {
 	}
     
     @Bean(name = "transactionManager")
-    public PlatformTransactionManager txManager() {
+    public PlatformTransactionManager transactionManager() {
     	return new DataSourceTransactionManager(dataSource());
     }
+    
+    /////////////////////////////////////////////////////////////////
+    // Hibernate 설정을 위한 Bean 설정 (Hibernate로 한번에 변경이 어려우므로, Mybatis와 동시 사용을 위함)
+    // JPA 사용을 위해서 JPA transaction manager를 사용해야 하며 Hibernate를 이용하여 JPA transaction manager bean을 설정한다.
+
+    @Bean 
+    // 1. LocalContainerEntityManagerFactoryBean에 주입할 HibernateJpaVendorAdapter 생성
+    // JPA를 구현한 Hibernate 만의 설정을 해주는 bean (그러나 properties를 만들어 설정해주어도 된다)
+    public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() { 
+    	HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter(); 
+    	hibernateJpaVendorAdapter.setShowSql(true); 
+    	hibernateJpaVendorAdapter.setGenerateDdl(true);
+    	return hibernateJpaVendorAdapter; 
+    }
+    
+    @Bean(name = "emf")
+    // 스프링이 직접 제공하는 컨테이너 관리 EntityManager를 구현한 EntityManagerFactory를 만들어준다. 
+    // 이 방법을 이용하면 JavaEE 서버에 배치하지 않아도 컨테이너에서 동작하는 
+    // JPA의 기능을 활용할 수 있을 뿐만 아니라, 스프링이 제공하는 일관성 있는 데이터 액세스 기술의 
+    // 접근 방법을 적용할 수 있고 스프링의 JPA 확장 기능도 활용할 수 있다.
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        // 1) Factory Bean에 adaptor 주입 (JPA를 구현한 제품은 여러가지가 있는데 그 제품마다 설정방법이 다르다.
+        // 그러나 adaptor를 주입해주면, 각 제품마다 설정이 달라고 JPA 설정에서는 동일한 코드 사용이 가능하다.
+        emf.setJpaVendorAdapter(hibernateJpaVendorAdapter());
+        // 2) Entity를 스캔
+        emf.setPackagesToScan("com.atelier.dto");
+        emf.setDataSource(dataSource());
+        // POJO 클래스의 바이트 코드를 조작하여, 지연된 로딩, 엔티티 값의 변화를 추적, 최적화와 그룹 페칭 등을 사용하기 위한 LTW 주입
+        emf.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
+        emf.setJpaProperties(hibernateProperties());
+        emf.afterPropertiesSet();
+        return emf;
+    }
+
+    // JPA 사용을 위해서는 hibernate transaction manager가 아닌 JpaTransactionManager를 사용해야 한다.
+    @Bean(name = "txManager")
+    public PlatformTransactionManager jpaTransactionManager() throws Exception {
+    	return new JpaTransactionManager(entityManagerFactory().getObject());
+    }   
+    
+    @Bean
+    public HibernateExceptionTranslator hibernateExceptionTranslator() {
+        return new HibernateExceptionTranslator();
+    }
+    
+    private Properties hibernateProperties() {
+        Properties properties = new Properties();
+        // hibernate의 ddl 사용. 보통 실 운영 DB에서는 none을, create는 있는 테이블을 지우고 재 생성, update 는 테이블이 있으면 그대로, 없으면 생성을 한다.
+        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        // hibernate와 사용하는 DB를 연결
+        properties.setProperty("hibernate.hbm2ddl.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        // hibernate5 이상부터는 jta.platform 설정을 해 주어야 한다.
+        properties.setProperty("hibernate.transaction.jta.platform", "org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform");
+        // hibernate의 자동키 생성 전략 설정
+        properties.setProperty("hibernate.id.new_generator_mappings", "true");
+        return properties;
+    }
+    
 }
