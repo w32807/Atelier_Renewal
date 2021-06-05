@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 public class CommonController {
 	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-
 	@Autowired
 	protected HttpSession session;
 }

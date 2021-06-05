@@ -23,7 +23,6 @@ import com.atelier.dto.PD_productDto;
 import com.atelier.dto.PageDto;
 
 
-@Controller
 public class AD_controller extends CommonController{
 	
 	@Autowired

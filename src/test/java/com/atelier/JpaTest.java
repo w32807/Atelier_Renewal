@@ -25,11 +25,12 @@ public class JpaTest extends ApplicationContextTest{
 
 	@Autowired
 	PersonDao personDao;
+	
 	@Autowired
 	LocalContainerEntityManagerFactoryBean emf;
 	
 	@Test
-	public void  isNullChk() {
+	public void isNullChk() {
 		assertNotNull(personDao);
 		assertNotNull(emf);
 	}

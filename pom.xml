@@ -14,7 +14,6 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version><!-- 수정 -->
 		<org.tiles-version>3.0.5</org.tiles-version><!-- 수정 -->
 		<jackson.version>2.11.3</jackson.version><!-- 수정 -->
-		<!-- <hibernate.version>5.4.10.Final</hibernate.version> -->
 		<hibernate.version>5.4.29.Final</hibernate.version>
 	</properties>
 	
@@ -244,6 +243,13 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-tx</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- 일단 @EnableJpaAuditing를 사용하기 위해 추가 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aspects</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
 	

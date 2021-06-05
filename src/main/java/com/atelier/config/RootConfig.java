@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -34,9 +35,10 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableScheduling
 @EnableTransactionManagement // 트랜잭션 사용을 위한 선언 <tx:annotation-driven/>과 매칭됨
 // controller외의 Bean 패키지를 스캔
-@ComponentScan(basePackages = {"com.atelier.*.service"})
+@ComponentScan(basePackages = {"com.atelier.*.service", "com.atelier.*.*.service"})
 @MapperScan(basePackages = {"com.atelier.dao"})
-@EnableJpaRepositories(basePackages = {"com.atelier.testJpa"}, entityManagerFactoryRef="emf", transactionManagerRef="txManager")
+@EnableJpaRepositories(basePackages = {"com.atelier.testJpa", "com.atelier.repository"}, entityManagerFactoryRef="emf", transactionManagerRef="txManager")
+@EnableJpaAuditing
 public class RootConfig {
 	
 	@Value("#{global['db.driver']}") 
@@ -112,7 +114,8 @@ public class RootConfig {
         // 그러나 adaptor를 주입해주면, 각 제품마다 설정이 달라고 JPA 설정에서는 동일한 코드 사용이 가능하다.
         emf.setJpaVendorAdapter(hibernateJpaVendorAdapter());
         // 2) Entity를 스캔
-        emf.setPackagesToScan("com.atelier.dto");
+        emf.setPackagesToScan("com.atelier.dto","com.atelier.entity");
+        //emf.setPackagesToScan(new String []{"com.atelier.dto"});
         emf.setDataSource(dataSource());
         // POJO 클래스의 바이트 코드를 조작하여, 지연된 로딩, 엔티티 값의 변화를 추적, 최적화와 그룹 페칭 등을 사용하기 위한 LTW 주입
         emf.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
