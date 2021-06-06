@@ -2,11 +2,14 @@ package com.atelier.entity;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.atelier.dto.responseDto.CoNoticeResponseDto;
 
 import lombok.*;
 
 @Entity
+@DynamicInsert // (insert 시 null인 필드 제외) -> db의 컬럼은 not null로 잡고, default 값을 설정하여 해당 값 설정 가능
 @Table(name = "NOTICES")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,10 +31,10 @@ public class CoNoticeEntity extends BaseEntity{
 	@Column(name = "NT_CONTENTS", length = 1000, nullable = false, columnDefinition = "varchar(1000) ''")
 	private String ntContents;
 	
-	@Column(name = "NT_ID", length = 50, nullable = false, columnDefinition = "varchar(50) ''")
+	@Column(name = "NT_ID", length = 50, columnDefinition = "varchar(50) ''")
 	private String ntId;
 	
-	@Column(name = "NT_COUNT", nullable = false, columnDefinition = "integer default 0")
+	@Column(name = "NT_COUNT", columnDefinition = "integer default 0")
 	private Integer ntCount;
 	
 	public CoNoticeResponseDto toDto() {

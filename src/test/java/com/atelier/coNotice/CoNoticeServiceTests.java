@@ -25,8 +25,8 @@ public class CoNoticeServiceTests extends ApplicationContextTest{
 	
 	@Test
 	public void getListTest() {
-		PageResultDto<CoNoticeResponseDto, CoNoticeEntity> list = coNoticeService.getList(new PageRequestDto());
+		PageRequestDto pageRequestDto = PageRequestDto.builder().page(2).size(10).build();
+		PageResultDto<CoNoticeResponseDto, CoNoticeEntity> list = coNoticeService.getList(pageRequestDto);
 		assertEquals(10, list.getDtoList().size());
 	}
-
 }

@@ -22,22 +22,23 @@ import com.atelier.dto.MG_Dto;
 import com.atelier.dto.PD_productDto;
 import com.atelier.dto.PageDto;
 
-
+@Controller
 public class AD_controller extends CommonController{
 	
 	@Autowired
 	AD_Service aServ;
-
+	/*
 	@GetMapping("ADNotice")
 	public String goADNotice() {
 		return "ADNotice";
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공지사항 페이징 출력
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.01
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("ADNoticeList")
 	public ModelAndView getADNoticeList(PageDto pageDto) {
 		return aServ.getADNoticeList(pageDto);
@@ -47,18 +48,19 @@ public class AD_controller extends CommonController{
 	public ModelAndView getADNoticeListWithAjax(PageDto pageDto) {
 		return aServ.getADNoticeListWithAjax(pageDto);
 	}
-
+*/
 	/* ---------------------------------------------------------------------------------
 	* 기능: 공지사항 입력
 	* 작성자: KYH
 	* 작성일 : 2019.02.04
 	-----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping(value = "ADNoticeInsert", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public int ADNoticeInsert(CO_NoticeDto ntdto) {
 		return aServ.ADNoticeInsert(ntdto);
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공지사항 상세내용 보기
 	 * 작성자: KYH

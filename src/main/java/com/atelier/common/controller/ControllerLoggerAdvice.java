@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j;
 public class ControllerLoggerAdvice {
 	
 	// 1. 원하는 포인트 컷을 메소드로써 등록
-	@Pointcut("execution(* com.atelier.*.controller.*.*(..))")
+	@Pointcut("execution(* com.atelier.*.controller.*.*(..)) || execution(* com.atelier.*.*.controller.*.*(..))")
 	public void controllerLogger() {};
 	
 	// 2. AOP를 적용할 시점을 5가지의 annotation으로 구분하여 적용 @Before, @AfterRetuning, @AfterThrowing, @After, @Around

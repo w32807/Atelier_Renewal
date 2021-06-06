@@ -29,23 +29,24 @@
 										</tr>
 									</thead>
 									<tbody id="tbody">
-										<c:forEach var="notice" items="${list}">
+										<%-- <c:forEach var="notice" items="${list}"> --%>
+										<c:forEach var="notice" items="${result.dtoList}">
 											<tr>
 												<td class="text-center text-muted">
-													<input type="checkbox" name="NoticeChk" value="${notice.nt_num}">
+													<input type="checkbox" name="NoticeChk" value="${notice.ntNum}">
 												</td>
-												<td class="text-center">${notice.nt_num}</td>
+												<td class="text-center">${notice.ntNum}</td>
 												<td>
 													<div class="widget-content p-0" style="text-align: center;">
 														<div class="widget-content-left flex2">
-															<div class="widget-heading">${notice.nt_title}</div>
+															<div class="widget-heading">${notice.ntTitle}</div>
 														</div>
 													</div>
 												</td>	
-												<td class="text-center">${notice.nt_id}</td>	
-												<td class="text-center">${notice.nt_count}</td>	
+												<td class="text-center">${notice.ntId}</td>	
+												<td class="text-center">${notice.ntCount}</td>	
 												<td class="text-center">
-													<a href="ADNoticeContents?ntNum=${notice.nt_num}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
+													<a href="ADNoticeContents?ntNum=${notice.ntNum}" onclick="window.open(this.href, '_blank', 'width=800px,height=600px,toolbars=no,scrollbars=yes');return false;">
 														<button type="button" class="btn btn-primary btn-sm">Details</button>
 													</a>
 												</td>
@@ -60,7 +61,23 @@
 			</div>
 			<div class="row" style="padding-left: 650px;">
 				<div class="container">
-					<ul class="pagination">${paging}</ul>
+					<ul class="pagination">
+						<c:if test="${result.prev eq true}">
+						    <li>
+								<a href='ADNoticeList?page=${result.start - 1 }' >«</a>
+							</li>
+						</c:if>
+						<c:forEach var="page" items="${result.pageList}">
+							<li class="${result.page == page ? 'active' : '' }">
+								<a href='ADNoticeList?page=${page }' >${page }</a>
+							</li>
+						</c:forEach>
+						<c:if test="${result.next eq true}">
+						    <li>
+								<a href='ADNoticeList?page=${result.end + 1 }' >»</a>
+							</li>
+						</c:if>
+					</ul>
 				</div> 		
 			</div>
 			<div class="container">
@@ -69,10 +86,10 @@
 					<form id="ADNoticeFrm" name="ADNoticeFrm">
 						<div id="inputFrm" class="form-group col-md-12" style="margin-left: -50px;" >
 							<div class="col-sm-10" style="padding: 0;">
-								<input type="text" class="form-control"  id="nt_title" name="nt_title" style="padding-right: 100px; width: 1180px;" data-saveValChk placeholder="제목">
+								<input type="text" class="form-control"  id="ntTitle" name="ntTitle" style="padding-right: 100px; width: 1180px;" data-saveValChk placeholder="제목">
 							</div>
 							<br>
-							<textarea class="form-control input-sm " id="nt_contents" name="nt_contents" maxlength="500" rows="7" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" ></textarea>
+							<textarea class="form-control input-sm " id="ntContents" name="ntContents" maxlength="1000" rows="7" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" ></textarea>
 						</div>
 						<div class="d-block text-center card-footer" style="margin-left: -33px; width: 1180px;">
 							<button type="button" class="btn-wide btn btn-info" onclick="noticeInsertAjax();">Save</button>
@@ -90,15 +107,15 @@
 						, fn_insertSuccessCallback, function() {alert("공지사항 등록 실패!");});
 			}else{
 				alert("제목 혹은 내용을 확인 해 주세요.");
-				$('#nt_title').focus();
+				$('#ntTitle').focus();
 			}
 		}
 		
 		function fn_insertSuccessCallback(data) {
 			if(data > 0) alert("공지사항 등록 완료!");
-			fn_comAjax($("#pageNum").val(), 'ADNoticeList', fn_attachList, '');
-			$('#nt_title').val('');
-			$('#nt_contents').val('');
+			fn_comAjax('', 'ADNoticeList', fn_attachList, '');
+			$('#ntTitle').val('');
+			$('#ntContents').val('');
 		}
 		
 		//공지사항 삭제
@@ -120,19 +137,20 @@
 		
 		function fn_attachList(data) {
 			var ntlist = '';
+			var dtoList = data.result.dtoList;
 	
-			for(var i = 0; i < data.list.length; i++) {
+			for(var i = 0; i < dtoList.length; i++) {
 				ntlist += '<tr>' + '<td class="text-center text-muted">'
-				+ '<input type="checkbox" name="NoticeChk" value="' + data.list[i].nt_num + '">' + '</td>'
-				+ '<td class="text-center">' + data.list[i].nt_num + '</td>'
+				+ '<input type="checkbox" name="NoticeChk" value="' + dtoList[i].ntNum + '">' + '</td>'
+				+ '<td class="text-center">' + dtoList[i].ntNum + '</td>'
 				+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
 				+ '<div class="widget-content-left flex2">'
-				+ '<div class="widget-heading">' + data.list[i].nt_title + '</div>'
+				+ '<div class="widget-heading">' + dtoList[i].ntTitle + '</div>'
 				+ '</div>'+'</div>'+'</td>'	
-				+ '<td class="text-center">' + data.list[i].nt_id + '</td>'	
-				+ '<td class="text-center">' + data.list[i].nt_count + '</td>'	
+				+ '<td class="text-center">' + dtoList[i].ntId + '</td>'	
+				+ '<td class="text-center">' + dtoList[i].ntCount + '</td>'	
 				+ '<td class="text-center">'
-				+ '<a href="ADNoticeContents?ntNum=' + data.list[i].nt_num + '" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
+				+ '<a href="ADNoticeContents?ntNum=' + dtoList[i].ntNum + '" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
 				+ '<button type="button" class="btn btn-primary btn-sm">Details</button>'
 				+ '</a>'
 				+ '</td>'

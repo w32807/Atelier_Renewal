@@ -32,6 +32,8 @@ public class PageResultDto<DTO, EN> {
 	// 페이지 번호 목록
 	private List<Integer> pageList;
 	
+	// result : DAO에서 받아온 Page<Entity> List
+	// fn : result를 변환 할 Fuction
 	public PageResultDto(Page<EN> result, Function<EN, DTO> fn) {
 		// DAO에서 가져온 Page<EN>와 사용자 정의 함수를 매개변수로 받아서, 함수처리를 한 List를 반환
 		// 즉 Entity List를 DTO List로 변환하는 역할
@@ -46,7 +48,7 @@ public class PageResultDto<DTO, EN> {
 		this.size = pageable.getPageSize();
 		
 		// temp end Page
-		int tmpEnd = (int)(Math.ceil(page)/10.0) * 10;
+		int tmpEnd = (int)(Math.ceil(page/10.0)) * 10;
 		start = tmpEnd - 9;
 		prev = start > 1;
 		end = totalPage > tmpEnd ? tmpEnd : totalPage;
@@ -54,6 +56,5 @@ public class PageResultDto<DTO, EN> {
 		
 		// 화면에 보여줄 페이지번호를 Integer 타입으로 boxing.
 		pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-		
 	}
 }
