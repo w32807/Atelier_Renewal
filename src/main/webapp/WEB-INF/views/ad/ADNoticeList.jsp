@@ -29,7 +29,6 @@
 										</tr>
 									</thead>
 									<tbody id="tbody">
-										<%-- <c:forEach var="notice" items="${list}"> --%>
 										<c:forEach var="notice" items="${result.dtoList}">
 											<tr>
 												<td class="text-center text-muted">
@@ -78,6 +77,9 @@
 							</li>
 						</c:if>
 					</ul>
+					<input type="hidden" id="page" name="page" value="${result.page }"/>
+					<input type="hidden" id="type" name="type" value="${pageRequestDto.type }"/>
+					<input type="hidden" id="keyword" value="${pageRequestDto.keyword }"/>
 				</div> 		
 			</div>
 			<div class="container">
@@ -86,10 +88,10 @@
 					<form id="ADNoticeFrm" name="ADNoticeFrm">
 						<div id="inputFrm" class="form-group col-md-12" style="margin-left: -50px;" >
 							<div class="col-sm-10" style="padding: 0;">
-								<input type="text" class="form-control"  id="ntTitle" name="ntTitle" style="padding-right: 100px; width: 1180px;" data-saveValChk placeholder="제목">
+								<input type="text" class="form-control"  id="ntTitle" name="ntTitle" value="${notice.ntTitle }" style="padding-right: 100px; width: 1180px;" data-saveValChk placeholder="제목">
 							</div>
 							<br>
-							<textarea class="form-control input-sm " id="ntContents" name="ntContents" maxlength="1000" rows="7" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" ></textarea>
+							<textarea class="form-control input-sm " id="ntContents" name="ntContents"  maxlength="1000" rows="7" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" >${notice.ntContents }</textarea>
 						</div>
 						<div class="d-block text-center card-footer" style="margin-left: -33px; width: 1180px;">
 							<button type="button" class="btn-wide btn btn-info" onclick="noticeInsertAjax();">Save</button>
@@ -112,8 +114,8 @@
 		}
 		
 		function fn_insertSuccessCallback(data) {
-			if(data > 0) alert("공지사항 등록 완료!");
-			fn_comAjax('', 'ADNoticeList', fn_attachList, '');
+			(data > 0) ? alert("공지사항 등록 완료!") : alert("공지사항 등록 실패!");
+			fn_comAjax($("#page").val(), 'ADNoticeList', fn_attachList, '');
 			$('#ntTitle').val('');
 			$('#ntContents').val('');
 		}
@@ -126,7 +128,7 @@
 					fn_comAjax(fn_formToJson($('#ADNoticeDeleteFrm')), 'ADNoticeDelete', 
 						function(data) {
 							alert(data.msg);
-							fn_comAjax($("#pageNum").val(), 'ADNoticeList', fn_attachList, '');
+							fn_comAjax($("#page").val(), 'ADNoticeList', fn_attachList, '');
 							$('#allCheck').prop("checked", false);
 						}
 					,'');
@@ -136,11 +138,11 @@
 		});
 		
 		function fn_attachList(data) {
-			var ntlist = '';
-			var dtoList = data.result.dtoList;
+			var list = '';
+			var dtoList = data.dtoList;
 	
 			for(var i = 0; i < dtoList.length; i++) {
-				ntlist += '<tr>' + '<td class="text-center text-muted">'
+				list += '<tr>' + '<td class="text-center text-muted">'
 				+ '<input type="checkbox" name="NoticeChk" value="' + dtoList[i].ntNum + '">' + '</td>'
 				+ '<td class="text-center">' + dtoList[i].ntNum + '</td>'
 				+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
@@ -156,7 +158,7 @@
 				+ '</td>'
 				+ '</tr>'
 			}
-			$('#tbody').html(ntlist); 
+			$('#tbody').html(list); 
 		}
 	</script>
 </html>

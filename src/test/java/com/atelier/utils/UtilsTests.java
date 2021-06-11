@@ -24,5 +24,4 @@ public class UtilsTests {
 		coNoticeEntity = CoNoticeEntity.builder().ntNum(10L).ntTitle("test Title").build();
 		assertEquals(coNoticeEntity.getNtNum(), Optional.ofNullable(coNoticeEntity.getNtNum()).orElse(0L));
 	}
-	
 }

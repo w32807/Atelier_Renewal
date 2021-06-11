@@ -1,7 +1,5 @@
 package com.atelier.dto.requestDto;
 
-
-
 import com.atelier.entity.CoNoticeEntity;
 
 import lombok.AllArgsConstructor;

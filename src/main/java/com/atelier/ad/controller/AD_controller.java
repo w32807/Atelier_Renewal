@@ -66,38 +66,42 @@ public class AD_controller extends CommonController{
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.04
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("ADNoticeContents")
 	public ModelAndView adNoticeContents(Integer ntNum) {
 		return aServ.getADNoticeDetail(ntNum);
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공지사항 수정
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.05
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("ADNoticeUpdate")
 	@ResponseBody
 	public int adNoticeUpdate(CO_NoticeDto ntdto) {
 		return aServ.adNoticeUpdate(ntdto);
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공지사항 삭제
 	 * 작성자: KYH
 	 * 작성일 : 2019.02.05
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("ADNoticeDelete")
 	@ResponseBody
 	public ModelAndView adNoticeDelete(@RequestParam(value = "NoticeChk[]") String[] deleteKeyList) {
 		return aServ.ADNoticeDelete(deleteKeyList);
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 페이징 출력 
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("ADFAQList")
 	public ModelAndView adFAQ(PageDto pageDto) {
 		return aServ.getFAQList(pageDto);
@@ -107,48 +111,53 @@ public class AD_controller extends CommonController{
 	public ModelAndView getADFAQListWithAjax(PageDto pageDto) {
 		return aServ.getFAQListWithAjax(pageDto);
 	}
-	
+	*/
 	 /* ---------------------------------------------------------------------------------
 	 * 기능: FAQ입력 기능
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping(value = "FAQInsert", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public int FAQInsert(FT_FAQDto faq) {
 		return aServ.FAQInsert(faq);
-		
 	}
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 상세보기
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("ADFAQContents")
 	public ModelAndView goADFAQContents(FT_FAQDto faq) {
 		return aServ.getFAQDetail(faq);
 	}
-	
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 수정
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.02
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("FAQupdate")
 	@ResponseBody
 	public int FAQupdate(FT_FAQDto faq) {
 		return aServ.FAQupdate(faq);
 	}
+	*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: FAQ 삭제
 	 * 작성자: JWJ
 	 * 작성일 : 2019.02.03
 	 -----------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("delFAQ")
 	public ModelAndView delFAQ(@RequestParam(value = "FAQchk[]") String[] deleteKeyList) {
 		return aServ.delFAQ(deleteKeyList);
 	}
-
+*/
 	/* ---------------------------------------------------------------------------------
 	 * 기능: 공방회원신청서 화면으로 이동
 	 * 작성자: JSG

@@ -2,25 +2,23 @@ package com.atelier.config;
 
 import java.util.Properties;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -35,9 +33,10 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableScheduling
 @EnableTransactionManagement // 트랜잭션 사용을 위한 선언 <tx:annotation-driven/>과 매칭됨
 // controller외의 Bean 패키지를 스캔
-@ComponentScan(basePackages = {"com.atelier.*.service", "com.atelier.*.*.service"})
+// hibernate-vaildator API도 있음
+@ComponentScan(basePackages = {"com.atelier.*.service", "com.atelier.*.*.service", "com.atelier.validator"})
 @MapperScan(basePackages = {"com.atelier.dao"})
-@EnableJpaRepositories(basePackages = {"com.atelier.testJpa", "com.atelier.repository"}, entityManagerFactoryRef="emf", transactionManagerRef="txManager")
+@EnableJpaRepositories(basePackages = {"com.atelier.testJpa", "com.atelier.repository"}, entityManagerFactoryRef="emf", transactionManagerRef="jpaTxManager")
 @EnableJpaAuditing
 public class RootConfig {
 	
@@ -84,7 +83,7 @@ public class RootConfig {
 		return (SqlSessionFactory) sessionFactory.getObject(); // Object를 얻어 형변환
 	}
     
-    @Bean(name = "transactionManager")
+    @Bean(name = "mybatisTxManager")
     public PlatformTransactionManager transactionManager() {
     	return new DataSourceTransactionManager(dataSource());
     }
@@ -125,7 +124,7 @@ public class RootConfig {
     }
 
     // JPA 사용을 위해서는 hibernate transaction manager가 아닌 JpaTransactionManager를 사용해야 한다.
-    @Bean(name = "txManager")
+    @Bean(name = "jpaTxManager")
     public PlatformTransactionManager jpaTransactionManager() throws Exception {
     	return new JpaTransactionManager(entityManagerFactory().getObject());
     }   
@@ -146,6 +145,16 @@ public class RootConfig {
         // hibernate의 자동키 생성 전략 설정
         properties.setProperty("hibernate.id.new_generator_mappings", "true");
         return properties;
+    }
+    
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource() {
+    	ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+    	source.setBasename("com/atelier/properties/message.properties");
+    	source.setDefaultEncoding("UTF-8");
+    	source.setCacheSeconds(600);
+    	source.setUseCodeAsDefaultMessage(true);
+    	return source;
     }
     
 }

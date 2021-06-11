@@ -10,5 +10,9 @@ public interface CoNoticeService {
 
 	PageResultDto<CoNoticeResponseDto, CoNoticeEntity> getList(PageRequestDto requestDto);
 
-	long insert(CoNoticeRequestDto dto);
+	long save(CoNoticeRequestDto dto);
+
+	void delete(String[] deleteKeyList);
+
+	CoNoticeResponseDto getDetail(long ntNum);
 }

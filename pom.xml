@@ -186,7 +186,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version><!-- 수정 -->
 			<scope>test</scope>
-		</dependency>        
+		</dependency>   
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.10.19</version>
+		    <scope>test</scope>
+		</dependency>
 		<!-- 추가 라이브러리 설정 -->
 	
 		<!-- json 처리용 라이브러리 java object와 json object를 서로 변환--> 

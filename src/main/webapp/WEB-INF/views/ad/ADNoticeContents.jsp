@@ -22,11 +22,11 @@
 					</div>
 					<form id="ADNoticeUpdateFrm" method="post">
 						<div class="col-sm-10" style="padding: 0;">
-							<input type="hidden" name="nt_num" value="${ntdto.nt_num}">
-							<input type="text" id="title" name="nt_title" class="form-control" value="${ntdto.nt_title}" style="padding-right: 100px; width: 750px;" readonly>
+							<input type="hidden" name="ntNum" value="${notice.ntNum}">
+							<input type="text" id="title" name="ntTitle" class="form-control" value="${notice.ntTitle}" style="padding-right: 100px; width: 750px;" readonly>
 						</div>
 						<br>
-						<textarea class="form-control input-sm " readonly="readonly" id="contents" name="nt_contents" maxlength="140" rows="15" style="width: 750px;">${ntdto.nt_contents}</textarea>
+						<textarea class="form-control input-sm " readonly="readonly" id="contents" name="ntContents" maxlength="140" rows="15" style="width: 750px;">${ntdto.ntContents}</textarea>
 					</form>	
 				</div>
 				<div class="d-block text-center card-footer" style="margin-left: -33px; width: 750px;">
@@ -40,8 +40,8 @@
 	
 	<script type="text/javascript">
 		$("#modifyBtn").click(function() {
-			$("#nt_title").removeAttr('readonly');	//선택한 요소의 특정 속성 제거
-			$("#nt_contents").removeAttr('readonly');	//선택한 요소의 특정 속성 제거
+			$("#title").removeAttr('readonly');	//선택한 요소의 특정 속성 제거
+			$("#contents").removeAttr('readonly');	//선택한 요소의 특정 속성 제거
 			$("#saveBtn").show();
 			$("#closeBtn").hide();
 		})

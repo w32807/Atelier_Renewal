@@ -21,12 +21,12 @@
 					    <input type="hidden" value="날짜">
 					</div>
 					<form id="FAQupdateFrm" >
-				        <input type="hidden" name="ft_num" value="${faq.ft_num}">
+				        <input type="hidden" name="ftNum" value="${faq.ftNum}">
 						<div class="col-sm-10" style="padding: 0;">
-							<input type="text" class="form-control"  id="title"  name="ft_title"  value="${faq.ft_title}" readonly="readonly" style="padding-right: 100px; width: 750px;">
+							<input type="text" class="form-control"  id="title"  name="ftTitle"  value="${faq.ftTitle}" readonly="readonly" style="padding-right: 100px; width: 750px;">
 						</div>
 						<br>
-						<textarea class="form-control input-sm"  readonly="readonly" id="contents" maxlength="140" rows="15" name="ft_contents" style="width: 750px;" >${faq.ft_contents}</textarea>
+						<textarea class="form-control input-sm"  readonly="readonly" id="contents" maxlength="140" rows="15" name="ftContents" style="width: 750px;" >${faq.ftContents}</textarea>
 				    </form>
 				</div>
 				<div class="d-block text-center card-footer" style="margin-left: -33px; width: 750px;">

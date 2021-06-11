@@ -22,12 +22,12 @@ public class AdTransactionTest extends ApplicationContextTest{
 	AD_Service adServ;
 	
 	@Autowired
-	PlatformTransactionManager transactionManager;
+	PlatformTransactionManager mybatisTxManager;
 	
 	@Test
 	public void isNull() {
 		assertNotNull(adServ);
-		assertNotNull(transactionManager);
+		assertNotNull(mybatisTxManager);
 	}
 	
 	@Test (expected = TransientDataAccessResourceException.class)
@@ -36,7 +36,7 @@ public class AdTransactionTest extends ApplicationContextTest{
 		DefaultTransactionDefinition txDefinition = new DefaultTransactionDefinition();
 		txDefinition.setReadOnly(true);
 
-		TransactionStatus status = transactionManager.getTransaction(txDefinition);
+		TransactionStatus status = mybatisTxManager.getTransaction(txDefinition);
 		// 1. readonly = true로 처리 될 메소드
 		adServ.getADNoticeList(new PageDto());
 		// 2. readonly = false로 처리 될 메소드
@@ -48,7 +48,7 @@ public class AdTransactionTest extends ApplicationContextTest{
 					.nt_count(0).build();
 			adServ.ADNoticeInsert(ntDto);
 		}
-		transactionManager.commit(status);
+		mybatisTxManager.commit(status);
 	}
 }
 

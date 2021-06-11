@@ -30,14 +30,13 @@ import com.atelier.dto.MG_Dto;
 import com.atelier.dto.PD_productDto;
 import com.atelier.dto.PageDto;
 import com.atelier.util.AD_MaterialPaging;
-import com.atelier.util.FAQPaging;
 import com.atelier.util.PD_Paging;
 
 import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-@Transactional(value = "transactionManager")
+@Transactional(value = "mybatisTxManager")
 public class AD_Service {
 	ModelAndView mav;
 
@@ -70,7 +69,7 @@ public class AD_Service {
 	  * 작성자: KYH
 	  * 작성일 : 2019.02.01
 	  -----------------------------------------------------------------------------------*/
-	@Transactional(value = "transactionManager", readOnly = true)
+	@Transactional(value = "mybatisTxManager", readOnly = true)
 	public ModelAndView getADNoticeList(PageDto pageDto) {
 		mav = new ModelAndView("/ad/ADNoticeList.tiles");
 		mav.addObject("list", ntDao.getADNoticeList(setPageDto(pageDto, ntDao.getADNoticeCount(), "ADNoticeList")));
@@ -138,7 +137,7 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.02
 	  -----------------------------------------------------------------------------------*/
-	@Transactional(value = "transactionManager", readOnly = true)
+	@Transactional(value = "mybatisTxManager", readOnly = true)
 	public ModelAndView getFAQList(PageDto pageDto) {
 		mav = new ModelAndView("/ad/ADFAQ.tiles");
 		mav.addObject("list", aDao.getFAQList(setPageDto(pageDto, aDao.getFAQCount(), "ADFAQ")));
@@ -190,7 +189,7 @@ public class AD_Service {
 	  * 작성자: JWJ
 	  * 작성일 : 2019.02.03
 	  -----------------------------------------------------------------------------------*/
-	@Transactional(value = "transactionManager")
+	@Transactional(value = "mybatisTxManager")
 	public ModelAndView delFAQ(String[] deleteKeyList) {
 		mav = new ModelAndView("jsonView");
 		int result = aDao.delFAQ(deleteKeyList);
@@ -475,7 +474,7 @@ public class AD_Service {
 	 * 작성자: KBH
 	 * 작성일 : 2020.02.11 / 수정(KBH) 2020.02.13
 	-----------------------------------------------------------------------------------*/
-	@Transactional(value = "transactionManager")
+	@Transactional(value = "mybatisTxManager")
 	public ModelAndView delMessage(String[] check, RedirectAttributes rttr) {
 		mav = new ModelAndView();
 		

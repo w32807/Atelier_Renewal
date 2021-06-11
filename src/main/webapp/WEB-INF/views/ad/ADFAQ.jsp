@@ -29,23 +29,23 @@
 	                                    </tr>
 	                                </thead>
 	                                <tbody id="tbody">
-		                                <c:forEach var='FAQ' items="${list}">
+		                                <c:forEach var="faq" items="${result.dtoList}">
 		                                    <tr>
-		                                        <td class="text-center text-muted"><input type="checkbox" name="FAQchk" value="${FAQ.ft_num}"></td>
-		                                        <td class="text-center text-muted">${FAQ.ft_num}</td>
+		                                        <td class="text-center text-muted"><input type="checkbox" name="FAQchk" value="${faq.ftNum}"></td>
+		                                        <td class="text-center text-muted">${faq.ftNum}</td>
 		                                        <td>
 		                                        	<div class="widget-content p-0" style="text-align: center;">
 		                                                <div class="widget-content-wrapper">
 		                                                    <div class="widget-content-left flex2">
-		                                                        <div class="widget-heading">${FAQ.ft_title}</div>
+		                                                        <div class="widget-heading">${faq.ftTitle}</div>
 		                                                    </div>
 		                                                </div>
 		                                            </div>
 		                                        </td>
-		                                        <td class="text-center">${FAQ.ft_id}</td>
-		                                        <td class="text-center">${FAQ.ft_count}</td>
+		                                        <td class="text-center">${faq.ftId}</td>
+		                                        <td class="text-center">${faq.ftCount}</td>
 		                                        <td class="text-center">
-		                                            <a href="ADFAQContents?ft_num=${FAQ.ft_num}" onclick="window.open(this.href,'_blank','width=800px,height=600px,toolbars=no,scrollbars=no');return false;">
+		                                            <a href="ADFAQContents?ftNum=${faq.ftNum}" onclick="window.open(this.href,'_blank','width=800px,height=600px,toolbars=no,scrollbars=no');return false;">
 		                                                    <button type="button" class="btn btn-primary btn-sm">Details</button>
 		                                            </a>
 		                                        </td>
@@ -58,23 +58,40 @@
                     </div>
                 </div>
             </div>
-            <div class="row" style="padding-left: 650px;">
-                 <div class="container">
-                    <ul class="pagination">
-                         ${paging} 
-                    </ul>
-                </div> 
-            </div>
+			<div class="row" style="padding-left: 650px;">
+				<div class="container">
+					<ul class="pagination">
+						<c:if test="${result.prev eq true}">
+						    <li>
+								<a href='ADFAQList?page=${result.start - 1 }' >«</a>
+							</li>
+						</c:if>
+						<c:forEach var="page" items="${result.pageList}">
+							<li class="${result.page == page ? 'active' : '' }">
+								<a href='ADFAQList?page=${page }' >${page }</a>
+							</li>
+						</c:forEach>
+						<c:if test="${result.next eq true}">
+						    <li>
+								<a href='ADFAQList?page=${result.end + 1 }' >»</a>
+							</li>
+						</c:if>
+					</ul>
+					<input type="hidden" id="page" name="page" value="${result.page }"/>
+					<input type="hidden" id="type" name="type" value="${pageRequestDto.type }"/>
+					<input type="hidden" id="keyword" value="${pageRequestDto.keyword }"/>
+				</div> 		
+			</div>
             <div class="container">
                 <div style="min-height: 430px;">
                     <br style="clear: both">
                     <form id="FAQFrm"  name="FAQFrm">
                         <div class="form-group col-md-12 " style="margin-left: -50px;" id="inputFrm">
                             <div class="col-sm-10" style="padding: 0;">
-                                <input type="text" class="form-control" id="ft_title" name="ft_title" style="padding-right: 100px; width: 1180px;" placeholder="제목"  data-saveValChk>
+                                <input type="text" class="form-control" id="ftTitle" name="ftTitle" value="${faq.ftTitle }"  style="padding-right: 100px; width: 1180px;" placeholder="제목"  data-saveValChk>
                             </div>
                             <br>
-                            <textarea class="form-control input-sm "  id="ft_contents" name="ft_contents" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" ></textarea>
+                            <textarea class="form-control input-sm " id="ftContents" name="ftContents"  maxlength="1000" rows="7" style="width: 1180px;" data-saveValChk placeholder="내용을 입력하세요" >${faq.ftContents }</textarea>
                         </div>
                     </form>
                     <div class="d-block text-center card-footer"style="margin-left: -33px; width: 1180px;">
@@ -91,15 +108,15 @@
 				, fn_insertSuccessCallback, function() {alert("FAQ 등록 실패!");});
 			}else{
 				alert("제목 혹은 내용을 확인 해 주세요.");
-				$('#ft_title').focus();
+				$('#ftTitle').focus();
 			}
 		}
       
 		function fn_insertSuccessCallback(data) {
 			if(data > 0) alert("FAQ 등록 완료!");
-			fn_comAjax($("#pageNum").val(), 'ADFAQList', fn_attachList, '');
-			$('#ft_title').val('');
-			$('#ft_contents').val('');
+			fn_comAjax($("#page").val(), 'ADFAQList', fn_attachList, '');
+			$('#ftTitle').val('');
+			$('#ftContents').val('');
 		}
 
 		//공지사항 삭제
@@ -110,7 +127,7 @@
 					fn_comAjax(fn_formToJson($('#delFAQFrm')), 'delFAQ', 
 						function(data) {
 							alert(data.msg);
-							fn_comAjax($("#pageNum").val(), 'ADFAQList', fn_attachList, '');
+							fn_comAjax($("#page").val(), 'ADFAQList', fn_attachList, '');
 							$('#allCheck').prop("checked", false);
 						}
 					,'');
@@ -120,26 +137,27 @@
 		});
 	
 		function fn_attachList(data) {
-			var ftlist = '';
+			var list = '';
+			var dtoList = data.dtoList;
 	
-			for(var i = 0; i < data.list.length; i++) {
-				ftlist += '<tr>' + '<td class="text-center text-muted">'
-				+ '<input type="checkbox" name="FAQchk" value="' + data.list[i].ft_num + '">' + '</td>'
-				+ '<td class="text-center">' + data.list[i].ft_num + '</td>'
+			for(var i = 0; i < dtoList.length; i++) {
+				list += '<tr>' + '<td class="text-center text-muted">'
+				+ '<input type="checkbox" name="FAQchk" value="' + dtoList[i].ftNum + '">' + '</td>'
+				+ '<td class="text-center">' + dtoList[i].ftNum + '</td>'
 				+ '<td>'+'<div class="widget-content p-0" style="text-align: center;">'
 				+ '<div class="widget-content-left flex2">'
-				+ '<div class="widget-heading">' + data.list[i].ft_title + '</div>'
+				+ '<div class="widget-heading">' + dtoList[i].ftTitle + '</div>'
 				+ '</div>'+'</div>'+'</td>'	
-				+ '<td class="text-center">' + data.list[i].ft_id + '</td>'	
-				+ '<td class="text-center">' + data.list[i].ft_count + '</td>'	
+				+ '<td class="text-center">' + dtoList[i].ftId + '</td>'	
+				+ '<td class="text-center">' + dtoList[i].ftCount + '</td>'	
 				+ '<td class="text-center">'
-				+ '<a href="ADFAQContents?ftNum=' + data.list[i].ft_num + '" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
+				+ '<a href="ADFAQContents?ftNum=' + dtoList[i].ftNum + '" onclick="window.open(this.href, "_blank", "width=800px,height=600px,toolbars=no,scrollbars=yes");return false;">'
 				+ '<button type="button" class="btn btn-primary btn-sm">Details</button>'
 				+ '</a>'
 				+ '</td>'
 				+ '</tr>'
 			}
-			$('#tbody').html(ftlist); 
+			$('#tbody').html(list); 
 		}
    </script>
 </html>

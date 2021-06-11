@@ -1,4 +1,4 @@
-package com.atelier.coNotice;
+package com.atelier.faq;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,13 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.atelier.dto.responseDto.CoNoticeResponseDto;
 import com.atelier.entity.CoNoticeEntity;
-import com.atelier.repository.CoNoticeRepository;
+import com.atelier.entity.FaqEntity;
+import com.atelier.repository.FaqRepository;
 import com.atelier.testConfig.ApplicationContextTest;
 
-public class CoNoticeRepoTests extends ApplicationContextTest{
+public class FaqRepoTests extends ApplicationContextTest{
 	
 	@Autowired
-	private CoNoticeRepository repository;
+	private FaqRepository repository;
 	
 	@Test
 	public void isNullTest() {
@@ -34,31 +35,31 @@ public class CoNoticeRepoTests extends ApplicationContextTest{
 	@Ignore
 	public void insertTest() {
 		IntStream.range(1,300).forEach(i -> {
-			CoNoticeEntity coNoticeEntity = CoNoticeEntity.builder().ntId("admin@google.com").ntTitle(i + "번 째 글제목")
-				.ntContents(i + "번 째 글내용").ntCount(0).build();
-			repository.save(coNoticeEntity);
+			FaqEntity faqEntity = FaqEntity.builder().ftId("admin@google.com").ftTitle(i + "번 째 글제목")
+				.ftContents(i + "번 째 글내용").build();
+			repository.save(faqEntity);
 		});
 	}
 	
 	@Test
 	public void findByIdTest() {
-		Optional<CoNoticeEntity> coNoticeEntity = repository.findById(12L);
-		if(coNoticeEntity.isPresent()) {
-			assertEquals("12번 째 글제목", coNoticeEntity.get().getNtTitle());
+		Optional<FaqEntity> faqEntity = repository.findById(12L);
+		if(faqEntity.isPresent()) {
+			assertEquals("12번 째 글제목", faqEntity.get().getFtTitle());
 		}
 	}
 	
 	@Test
 	public void findAllTest() {
-		List<CoNoticeEntity> coNoticeEntityList = repository.findAll();
-		assertFalse(coNoticeEntityList.isEmpty());
+		List<FaqEntity> faqEntityList = repository.findAll();
+		assertFalse(faqEntityList.isEmpty());
 	}
 	
 	@Test 
 	public void deleteTest() {
 		long key = 7L;
 		repository.deleteById(key);
-		Optional<CoNoticeEntity> dto = repository.findById(key); 
+		Optional<FaqEntity> dto = repository.findById(key); 
 		
 		assertFalse(dto.isPresent());
 	}

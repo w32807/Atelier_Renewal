@@ -37,10 +37,11 @@ public class ServletConfig implements WebMvcConfigurer{
     @Override
     // 정적 리소스 설정
     // <resources mapping="/resources/**" location="/resources/" /> 과 대응
+    // 위의 태그를 사용하면 굳이 <mvc: default-serblet-handler>를 사용할 필요는 없지만
+    // 정적리소스의 일부를 특정 서블릿에 위임할 것이라면 사용한다.
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
-    
     // 파일 업로드를 위한 MultipartResolver Bean으로 등록
     /*
     @Bean
