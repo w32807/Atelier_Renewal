@@ -356,7 +356,7 @@
 		    <version>29.0-jre</version>
 		</dependency>
 		
-		<!-- QueryDsl -->
+		<!-- QueryDsl 
 		<dependency>
 		    <groupId>com.querydsl</groupId>
 		    <artifactId>querydsl-jpa</artifactId>
@@ -368,7 +368,7 @@
 		    <artifactId>querydsl-apt</artifactId>
 		    <version>${querydsl.version}</version>
 		</dependency>
-
+-->
     </dependencies>
     <build>
         <plugins>
@@ -415,7 +415,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>            
             </plugin>
-            <!-- Querydsl 픓러그인 -->
+            <!-- Querydsl 픓러그인 
 			<plugin> 
 				<groupId>com.mysema.maven</groupId> 
 				<artifactId>apt-maven-plugin</artifactId> 
@@ -431,7 +431,7 @@
 						</configuration> 
 					</execution> 
 				</executions> 
-			</plugin>
+			</plugin>-->
         </plugins>
     </build>
 </project>

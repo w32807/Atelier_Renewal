@@ -3,3 +3,9 @@
 2. 데이터를 ajax로 처리할 때는 rest? JsonView?
 
 3. 데이터는 service에서 전부 처리하여 컨트롤러에서 받아오고, View Name은 컨트롤러에서 잡아주자
+
+4. 채팅을 위한 웹소켓 사용
+	1) TextWebSocketHandler를 상속한 클래스 (채팅 메세지 관리 컨트롤러?? 를 설정)
+	2) 1:1 채팅은 특정 아이디를 가진 유저와의 소통이므로, key값인 id , webSession을 가진 맵을 선언
+		(모든 유저에게 보내는 실시간 메세지 같은 경우는 List<WebSocketSession> 으로 관리.
+	3) 채팅 jsp에서 SocketJs를 만들고, 서버로 보내는 sendMessage, getMessage를 선언

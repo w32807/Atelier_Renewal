@@ -1,0 +1,8 @@
+package com.atelier.main.login.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class LoginController {
+
+}

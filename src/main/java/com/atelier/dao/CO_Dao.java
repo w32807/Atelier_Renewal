@@ -24,5 +24,4 @@ public interface CO_Dao {
 
 	public void noticeCountUpdate(Integer noticenum);
 
-
 }

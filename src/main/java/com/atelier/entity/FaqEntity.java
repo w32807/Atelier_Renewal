@@ -26,6 +26,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class FaqEntity extends BaseEntity{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FT_NUM")
