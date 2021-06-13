@@ -55,7 +55,8 @@ public class CoNoticeController {
 		this.pageVidator.validate(requestDto, bindingResult); 
 		model.addAttribute("notice", new CoNoticeRequestDto());
 		model.addAttribute("result", (bindingResult.hasErrors()) ? null : service.getList(requestDto));
-		return "/ad/ADNoticeList.tiles";
+		//return "/ad/ADNoticeList.adminTiles";
+		return "/ad/ADNoticeList.adminTiles";
 	}
 	
 	@PostMapping("ADNoticeList")

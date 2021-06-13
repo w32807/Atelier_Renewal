@@ -1,48 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Fashi Template">
-    <meta name="keywords" content="Fashi, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Atelier | Sign In</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/css/style.css" type="text/css">
-    
-    <script type="text/javascript">
-      		window.onload = function() {//이 페이지가 실행 되면, 이 함수를 실행해라
-				var chk = "${check}";
-				if(chk == "fail"){
-					alert("회원 가입 실패");
-					location.reload(true);//화면을 다시 한번 불러오면서 check를 리셋함 
-				}
+<script type="text/javascript">
+  		window.onload = function() {//이 페이지가 실행 되면, 이 함수를 실행해라
+			var chk = "${check}";
+			if(chk == "fail"){
+				alert("회원 가입 실패");
+				location.reload(true);//화면을 다시 한번 불러오면서 check를 리셋함 
 			}
-	</script>
-</head>
+		}
+</script>
 
 <body>
-    <!-- 상단바 Include -->
-	<jsp:include page="Main_Upper.jsp" flush="false"/>
-
-
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
@@ -65,24 +35,20 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                     <div class="newslatter-item">
-                         <a href="main">
-                                <img src="./resources/main/img/logo_bottom.png" alt="" style="margin-top: 25px;">
-                            </a>
+						<a href="main">
+						    <img src="./resources/main/img/logo_bottom.png" alt="" style="margin-top: 25px;">
+						</a>
                     </div>
-                        
                         <form id="memberJoinFrm" action="memberInsert" method="post" onsubmit="return check()">
                             <div class="group-input">
-                                <label for="CM_ID">Email을 입력하세요. *</label> 
-                                <input type="text" name="cm_id" id="CM_ID" placeholder="Ex) example@example.com" required>
-                                <!-- 
-                                <input type="button" value="중복검사" class="site-btn register-btn" id="CM_ID" >
-                                 -->
+                                <label for="cmEmail">Email을 입력하세요. *</label> 
+                                <input type="text" name="cmEmail" id="cmEmail" placeholder="Ex) example@example.com" value="${user.cmEmail }" required >
                                  <div class="check_font" id="id_check"></div>
                             </div>
                             
                             <div class="group-input">
-                                <label for="CM_PWD">Password를 입력하세요. *</label>
-                                <input type="text" name ="cm_pwd" id="CM_PWD" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" required onblur=checkvalue();>
+                                <label for="cmPwd">Password를 입력하세요. *</label>
+                                <input type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" required onblur=checkvalue();>
                             </div>
                             <div class="group-input">
                                 <label for="CON_CM_PWD">Password 확인 *</label>
@@ -91,20 +57,23 @@
                             <!-- 비밀번호 일치/불일치 출력 -->
                             <input type="text" name="status" style="border:0;color:highlight;font size:12px 굴림;width:160" readonly onfocus="this.blur();" value=" 비밀번호를 입력해 주세요 ">  
                             <div class="group-input">
-                                <label for="CM_NAME">성함을 입력하세요. *</label>
-                                <input type="text" name="cm_name" id="CM_NAME" required>
+                                <label for="cmName">성함을 입력하세요. *</label>
+                                <input type="text" name="cmName" id="cmName" value="${user.cmName }" required>
                             </div>
                             <div class="group-input">
-                                <label for="CM_NICK">닉네임을 입력하세요. *</label>
-                                <input type="text" name="cm_nick" id="CM_NICK" required>
+                                <label for="cmNick">닉네임을 입력하세요. *</label>
+                                <input type="text" name="cmNick" id="cmNick" value="${user.cmNick }" required>
                             </div>
                             <div class="group-input">
                                 <label for="CM_PHONE">전화번호를 입력하세요. *</label>
-                                <input type="text" name="cm_phone" id="CM_PHONE" placeholder="Ex) 070-6749-5882" required>
+                                <input type="tel" name="cmPhone1" id="cmPhone1" value="${user.cmPhone1 }" maxlength="3" required style="width: 100px;">
+                                <input type="tel" name="cmPhone2" id="cmPhone2" value="${user.cmPhone2 }" maxlength="4" required style="width: 100px;">
+                                <input type="tel" name="cmPhone3" id="cmPhone3" value="${user.cmPhone3 }" maxlength="4" required style="width: 100px;">
                             </div>
                             <div class="group-input">
-                                <label for="CM_ADDR">주소를 입력하세요. *</label>
-                                <input type="text" name="cm_addr" id="CM_ADDR" required>
+                                <label for="saAddrHead">주소를 입력하세요. *</label>
+                                <input type="text" name="saAddrHead" id="saAddrHead" required>
+                                <input type="text" name="saAddrDetail" id="saAddrDetail" required>
                             </div>
                             <div class="payment-check">
                                     <div class="pc-item">
@@ -125,25 +94,8 @@
             </div>
         </div>
     </div>
-    <!-- Register Form Section End -->
-    
-    <!-- 하단바 Include -->
-	<jsp:include page="Main_Footer.jsp" flush="false"/>
-
-    <!-- Js Plugins -->
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery.countdown.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery.zoom.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery.dd.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/main/js/main.js"></script>
-
 <!-- 비밀번호 확인 -->
-	<script language='javascript'>
+<script>
 /*---------------------------------------------------------------------------------
  * 기능 : 비밀번호 변경시 일치여부
  * 작성인 : KJH

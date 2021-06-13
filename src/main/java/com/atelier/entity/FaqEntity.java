@@ -14,6 +14,7 @@ import com.atelier.dto.responseDto.FaqResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -23,8 +24,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
 @ToString
-@Data
 public class FaqEntity extends BaseEntity{
 	
 	@Id
@@ -32,13 +33,13 @@ public class FaqEntity extends BaseEntity{
 	@Column(name = "FT_NUM")
 	private Long ftNum;
 	
-	@Column(name = "FT_TITLE", length = 100, nullable = false, columnDefinition = "varchar(100) ''")
+	@Column(name = "FT_TITLE", length = 100, nullable = false, columnDefinition = "varchar(100) default ''")
 	private String ftTitle;
 	
-	@Column(name = "FT_CONTENTS", length = 1000, nullable = false, columnDefinition = "varchar(1000) ''")
+	@Column(name = "FT_CONTENTS", length = 1000, nullable = false, columnDefinition = "varchar(1000) default ''")
 	private String ftContents;
 	
-	@Column(name = "FT_ID  ", length = 50, columnDefinition = "varchar(50) ''")
+	@Column(name = "FT_ID  ", length = 50, columnDefinition = "varchar(50) default ''")
 	private String ftId;
 	
 	@Column(name = "FT_COUNT", columnDefinition = "integer default 0")

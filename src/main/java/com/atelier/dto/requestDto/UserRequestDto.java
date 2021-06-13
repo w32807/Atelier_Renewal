@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 // 서비스 혹은 DAO에서 처리되기 위한 toEntity 메소드를 가지고 있다
 public class UserRequestDto{
 	
-	private Long cmEmail;
+	private String cmEmail;
 	private String cmPwd;
 	private String cmName;
 	private String cmNick;

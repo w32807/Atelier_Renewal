@@ -13,7 +13,7 @@ public class TilesConfig {
     // Tiles Configure를 위한 경로 지정
     public TilesConfigurer tileConfigurer() {
     	final TilesConfigurer configurer = new TilesConfigurer();
-    	configurer.setDefinitions(new String[] {"WEB-INF/views/tiles/adTiles/default-layout.xml"});
+    	configurer.setDefinitions(new String[] {"WEB-INF/views/tiles/adTiles/default-layout.xml", "WEB-INF/views/tiles/mainTiles/default-layout.xml"});
     	configurer.setCheckRefresh(true);
     	return configurer;
     }

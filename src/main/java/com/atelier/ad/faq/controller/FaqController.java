@@ -41,7 +41,7 @@ public class FaqController {
 		this.pageVidator.validate(requestDto, bindingResult); 
 		model.addAttribute("faq", new FaqRequestDto());
 		model.addAttribute("result", (bindingResult.hasErrors()) ? null : service.getList(requestDto));
-		return "/ad/ADFAQ.tiles";
+		return "/ad/ADFAQ.adminTiles";
 	}
 	
 	@PostMapping("ADFAQList")

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.atelier.common.controller.CommonController;
 import com.atelier.dto.CM_Dto;
 import com.atelier.dto.PR_Dto;
+import com.atelier.dto.requestDto.ShippingAddRequestDto;
+import com.atelier.dto.requestDto.UserRequestDto;
 import com.atelier.main.service.CM_Service;
 
 import lombok.Setter;
@@ -96,21 +99,21 @@ public class MainController extends CommonController{
 		mav.addObject("msg","logoutSuccess");
 		return mav;
 	}
-
+	/*
 	//회원가입창 출력
 	@RequestMapping(value = "/memJoinFrm", method = RequestMethod.GET)
 	public String memJoinFrm(Locale locale, Model model) {
 
 		return "memJoinFrm";
 	}
-
+	 */
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 회원 가입 컨트롤러
 	 * 작성자: JSH
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
 	@PostMapping("memberInsert")
-	public ModelAndView memberInsert(CM_Dto member, RedirectAttributes rttr) {
+	public ModelAndView memberInsert(CM_Dto member, RedirectAttributes rttr, @ModelAttribute UserRequestDto user, @ModelAttribute ShippingAddRequestDto saDto) {
 		mav = mServ.memberInsert(member, rttr);
 		log.warn("memberInsert()");
 		

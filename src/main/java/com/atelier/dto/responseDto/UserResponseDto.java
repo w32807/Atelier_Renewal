@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserResponseDto{
-	private Long cmEmail;
+	
+	private String cmEmail;
 	private String cmPwd;
 	private String cmName;
 	private String cmNick;
@@ -26,6 +27,7 @@ public class UserResponseDto{
 	private String cmPfphoto;
 	
 	public String getPhoneNum() {
-		return Joiner.on("-").join(Arrays.asList(cmPhone1.trim(), cmPhone2.trim(), cmPhone3.trim()));
+		return Joiner.on("-").join(cmPhone1.trim(), cmPhone2.trim(), cmPhone3.trim());
 	}
+	
 }

@@ -71,7 +71,7 @@ public class AD_Service {
 	  -----------------------------------------------------------------------------------*/
 	@Transactional(value = "mybatisTxManager", readOnly = true)
 	public ModelAndView getADNoticeList(PageDto pageDto) {
-		mav = new ModelAndView("/ad/ADNoticeList.tiles");
+		mav = new ModelAndView("/ad/ADNoticeList.adminTiles");
 		mav.addObject("list", ntDao.getADNoticeList(setPageDto(pageDto, ntDao.getADNoticeCount(), "ADNoticeList")));
 		mav.addObject("paging", pageDto.makeHtmlPaging());
 		
@@ -139,7 +139,7 @@ public class AD_Service {
 	  -----------------------------------------------------------------------------------*/
 	@Transactional(value = "mybatisTxManager", readOnly = true)
 	public ModelAndView getFAQList(PageDto pageDto) {
-		mav = new ModelAndView("/ad/ADFAQ.tiles");
+		mav = new ModelAndView("/ad/ADFAQ.adminTiles");
 		mav.addObject("list", aDao.getFAQList(setPageDto(pageDto, aDao.getFAQCount(), "ADFAQ")));
 		mav.addObject("paging", pageDto.makeHtmlPaging());
 		
