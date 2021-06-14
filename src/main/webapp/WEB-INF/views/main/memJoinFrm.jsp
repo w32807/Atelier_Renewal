@@ -66,9 +66,7 @@
                             </div>
                             <div class="group-input">
                                 <label for="CM_PHONE">전화번호를 입력하세요. *</label>
-                                <input type="tel" name="cmPhone1" id="cmPhone1" value="${user.cmPhone1 }" maxlength="3" required style="width: 100px;">
-                                <input type="tel" name="cmPhone2" id="cmPhone2" value="${user.cmPhone2 }" maxlength="4" required style="width: 100px;">
-                                <input type="tel" name="cmPhone3" id="cmPhone3" value="${user.cmPhone3 }" maxlength="4" required style="width: 100px;">
+                                <input type="tel" name="cmPhone" id="cmPhone" value="${user.cmPhone }" maxlength="14" required>
                             </div>
                             <div class="group-input">
                                 <label for="saAddrHead">주소를 입력하세요. *</label>
@@ -77,9 +75,9 @@
                             </div>
                             <div class="payment-check">
                                     <div class="pc-item">
-                                        <label for="pc-check">
+                                        <label for="pcCheck">
                                             개인정보 수집 및 이용에 대한 안내(필수)
-                                            <input type="checkbox" id="pc-check" required>
+                                            <input type="checkbox" id="pcCheck" required>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>                          

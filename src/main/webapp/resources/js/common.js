@@ -44,6 +44,16 @@ function fn_saveValChkOfStr(tags){
 	});
 	return result;
 }
+
+function fn_emailChk (email){
+    const regex = /[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.]+/;
+    return regex.test(email);
+}
+
+function fn_phoneNumChk (phoneNum){
+    const regex = /\d{2,3}[- .]\d{3,4}[- .]\d{4}/;
+    return regex.test(phoneNum);
+}
 /**
  * Usage: var json = $('#form-login').serializeObject();
  * Output: {username: "admin", password: "123456"}
