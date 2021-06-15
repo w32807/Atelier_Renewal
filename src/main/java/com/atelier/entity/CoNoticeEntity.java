@@ -37,8 +37,4 @@ public class CoNoticeEntity extends BaseEntity{
 	@Column(name = "NT_COUNT", columnDefinition = "integer default 0")
 	private Integer ntCount;
 	
-	public CoNoticeResponseDto toDto() {
-		return CoNoticeResponseDto.builder().ntNum(ntNum).ntTitle(ntTitle)
-				.ntContents(ntContents).ntId(ntId).ntCount(ntCount).build();
-	}
 }

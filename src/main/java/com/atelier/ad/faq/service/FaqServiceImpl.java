@@ -31,7 +31,7 @@ public class FaqServiceImpl implements FaqService{
 	@Transactional(value = "jpaTxManager" , readOnly = true)
 	public PageResultDto<FaqResponseDto, FaqEntity> getList(PageRequestDto requestDto) {
 		Page<FaqEntity> result = faqRepository.findAll(requestDto.getPageable(Sort.by("ftNum").descending()));
-		Function<FaqEntity, FaqResponseDto> fn = (entity -> entity.toDto());
+		Function<FaqEntity, FaqResponseDto> fn = (entity -> new FaqResponseDto(entity));
 		return new PageResultDto<FaqResponseDto, FaqEntity>(result, fn);
 	}
 	
@@ -44,7 +44,7 @@ public class FaqServiceImpl implements FaqService{
 	@Transactional(value = "jpaTxManager" , readOnly = true)
 	public FaqResponseDto getDetail(long ftNum) {
 		faqRepository.findById(ftNum);
-		return Optional.ofNullable(faqRepository.findById(ftNum)).map(optionalResult -> optionalResult.get().toDto()).orElse(null);
+		return Optional.ofNullable(faqRepository.findById(ftNum)).map(optionalResult -> new FaqResponseDto(optionalResult.get())).orElse(null);
 	}
 	
 	@Override

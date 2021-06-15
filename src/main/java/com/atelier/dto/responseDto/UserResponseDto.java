@@ -1,33 +1,30 @@
 package com.atelier.dto.responseDto;
 
 
-import java.util.Arrays;
-
+import com.atelier.entity.UserEntity;
 import com.google.common.base.Joiner;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class UserResponseDto{
+	
+	public UserResponseDto(UserEntity user){
+		this.cmEmail = user.getCmEmail();
+		this.cmPwd = user.getCmPwd();
+		this.cmName = user.getCmName();
+		this.cmNick = user.getCmNick();
+		this.cmPhoneNum = Joiner.on("-").join(user.getCmPhone1().trim(), user.getCmPhone2().trim(), user.getCmPhone3().trim());
+		this.cmState = user.getCmState();
+		this.cmPfphoto = user.getCmPfphoto();
+	}
 	
 	private String cmEmail;
 	private String cmPwd;
 	private String cmName;
 	private String cmNick;
-	private String cmPhone1;
-	private String cmPhone2;
-	private String cmPhone3;
+	private String cmPhoneNum;
 	private String cmState;
 	private String cmPfphoto;
-	
-	public String getPhoneNum() {
-		return Joiner.on("-").join(cmPhone1.trim(), cmPhone2.trim(), cmPhone3.trim());
-	}
 	
 }

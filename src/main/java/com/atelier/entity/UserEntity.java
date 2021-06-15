@@ -7,8 +7,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 
-import com.atelier.dto.responseDto.UserResponseDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,9 +51,4 @@ public class UserEntity extends BaseEntity{
 	@Column(name = "CM_PFPHOTO", length = 100, nullable = false, columnDefinition = "varchar(100) default ''")
 	private String cmPfphoto;
 	
-	public UserResponseDto toDto() {
-		return UserResponseDto.builder().cmEmail(cmEmail).cmPwd(cmPwd).cmName(cmName)
-				.cmNick(cmNick).cmPhone1(cmPhone1).cmPhone2(cmPhone2).cmPhone3(cmPhone3)
-				.cmState(cmState).cmPfphoto(cmPfphoto).build();
-	}
 }

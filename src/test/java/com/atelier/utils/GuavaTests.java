@@ -3,12 +3,10 @@ package com.atelier.utils;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
+import com.google.common.base.*;
 
 public class GuavaTests {
 
@@ -28,5 +26,11 @@ public class GuavaTests {
 		for(String result : list) {
 			System.out.println(result);
 		}
+	}
+	
+	@Test
+	public void nullToEmptyTest() {
+		String str = null;
+		assertEquals(Strings.nullToEmpty(str), "");
 	}
 }

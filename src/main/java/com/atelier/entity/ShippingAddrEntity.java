@@ -51,7 +51,7 @@ public class ShippingAddrEntity extends BaseEntity{
 	
 	@Column(name = "SA_DAFAULT_YN", nullable = false, columnDefinition = "varchar(1) default 'N'")
 	@org.hibernate.annotations.Type(type="yes_no")
-	private boolean saDafaultYn;
+	private boolean saDefaultYn;
 	
 	// 1명의 유저는 최대 N개의 배송지 정보를 저장할 수 있다.
 	// 배송지와 1 : N 관계 (JPA에서 연관관계를 해석할 때, PK를 기준으로 잡고 모델링한다)
@@ -60,11 +60,5 @@ public class ShippingAddrEntity extends BaseEntity{
 	@ManyToOne (targetEntity = UserEntity.class, fetch = FetchType.LAZY)
 	//@JoinColumn(name = "SA_EMAIL")
 	private UserEntity userEntity;
-	
-	public ShippingAddReponseDto toDto() {
-		return ShippingAddReponseDto.builder().saId(saId).saName(saName)
-					.saPost(saPost).saAddrHead(saAddrHead).saAddrDetail(saAddrDetail)
-					.saDafaultYn(saDafaultYn).build();
-	}
 	
 }

@@ -23,3 +23,5 @@
 <script type="text/javascript" src="./resources/main/js/owl.carousel.min.js"/></script>
 <script type="text/javascript" src="./resources/main/js/main.js"/></script>
 <script type="text/javascript" type="text/javascript" src="./resources/js/common.js"></script>
+<script type="text/javascript" type="text/javascript" src="./resources/js/utils.js"></script>
+<script type="text/javascript" type="text/javascript" src="./resources/js/valid/registValid.js"></script>

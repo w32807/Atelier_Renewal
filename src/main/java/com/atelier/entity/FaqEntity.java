@@ -44,9 +44,5 @@ public class FaqEntity extends BaseEntity{
 	
 	@Column(name = "FT_COUNT", columnDefinition = "integer default 0")
 	private Integer ftCount;
-	
-	public FaqResponseDto toDto() {
-		return FaqResponseDto.builder().ftNum(ftNum).ftTitle(ftTitle)
-				.ftContents(ftContents).ftId(ftId).ftCount(ftCount).build();
-	}
+
 }

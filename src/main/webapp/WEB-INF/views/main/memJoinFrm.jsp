@@ -48,11 +48,11 @@
                             
                             <div class="group-input">
                                 <label for="cmPwd">Password를 입력하세요. *</label>
-                                <input type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" required onblur=checkvalue();>
+                                <input type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" required>
                             </div>
                             <div class="group-input">
                                 <label for="CON_CM_PWD">Password 확인 *</label>
-                                <input type="text" name ="CON_CM_PWD" id="CON_CM_PWD" required onblur=checkvalue();>
+                                <input type="text" name ="CON_CM_PWD" id="CON_CM_PWD" required>
                             </div>
                             <!-- 비밀번호 일치/불일치 출력 -->
                             <input type="text" name="status" style="border:0;color:highlight;font size:12px 굴림;width:160" readonly onfocus="this.blur();" value=" 비밀번호를 입력해 주세요 ">  
@@ -94,38 +94,59 @@
     </div>
 <!-- 비밀번호 확인 -->
 <script>
-/*---------------------------------------------------------------------------------
- * 기능 : 비밀번호 변경시 일치여부
- * 작성인 : KJH
- * 작성날짜 : 2020.02.04     최종수정일 :2020.02.18
- ----------------------------------------------------------------------------------*/
-// checkvalue 기능
-function checkvalue() {
-
-	if(memberJoinFrm.cm_pwd.value && memberJoinFrm.CON_CM_PWD.value) {
-		  if(memberJoinFrm.cm_pwd.value!=memberJoinFrm.CON_CM_PWD.value){
-			   memberJoinFrm.status.value = "일치하지 않습니다";
-			   memberJoinFrm.status.style.width = 120;
-		  } else {
-			   memberJoinFrm.status.value = "일치합니다";
-			   memberJoinFrm.status.style.width = 83;
-		  }
-	} else {
-		  memberJoinFrm.status.value = "비밀번호를 입력해 주세요";
-		  memberJoinFrm.status.style.width = 160;
+	/*---------------------------------------------------------------------------------
+	 * 기능 : 비밀번호 변경시 일치여부
+	 * 작성인 : KJH
+	 * 작성날짜 : 2020.02.04     최종수정일 :2020.02.18
+	 ----------------------------------------------------------------------------------*/
+	// checkvalue 기능
+	/*
+	function checkvalue() {
+	
+		if(memberJoinFrm.cm_pwd.value && memberJoinFrm.CON_CM_PWD.value) {
+			  if(memberJoinFrm.cm_pwd.value!=memberJoinFrm.CON_CM_PWD.value){
+				   memberJoinFrm.status.value = "일치하지 않습니다";
+				   memberJoinFrm.status.style.width = 120;
+			  } else {
+				   memberJoinFrm.status.value = "일치합니다";
+				   memberJoinFrm.status.style.width = 83;
+			  }
+		} else {
+			  memberJoinFrm.status.value = "비밀번호를 입력해 주세요";
+			  memberJoinFrm.status.style.width = 160;
+		}
 	}
-
-}
-
-</script>
-
-
-	<script>
-/* ---------------------------------------------------------------------------------------
- * 기능: 회원가입 / 아이디 유효성 검사
- * 작성자: JSH
- * 작성일: 2020.02.04
- -----------------------------------------------------------------------------------------*/
+*/
+	$("#cmEmail").change(function(){
+		registValid.emailValidChk($(this).val());
+	});
+	
+	$("#cmPwd").change(function(){
+		registValid.pwdValidChk($(this).val());
+	});
+	
+	$("#cmName").change(function(){
+		registValid.nameValidChk($(this).val());
+	});
+	
+	$("#cmNick").change(function(){
+		registValid.nickValidChk($(this).val());
+	});
+	
+	$("#cmPhone").change(function(){
+		registValid.phoneNumValidChk($(this).val());
+	});
+	
+	$("#pcCheck").change(function(){
+		registValid.pcCheckValidChk($(this));
+	});
+	
+	/* ---------------------------------------------------------------------------------------
+	 * 기능: 회원가입 / 아이디 유효성 검사
+	 * 작성자: JSH
+	 * 작성일: 2020.02.04
+	 -----------------------------------------------------------------------------------------*/
+	 /*
 	$("#CM_ID").blur(function() {
 		console.log("JSP 유효성 검사 실행")
 		// id = "id_reg" / name = "userId"
@@ -173,6 +194,7 @@ function checkvalue() {
 				}
 			});
 		})
+		*/
 </script>
 </body>
 </html>

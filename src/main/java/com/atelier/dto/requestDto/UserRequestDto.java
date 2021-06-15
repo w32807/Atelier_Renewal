@@ -1,6 +1,9 @@
 package com.atelier.dto.requestDto;
 
+import java.util.List;
+
 import com.atelier.entity.UserEntity;
+import com.google.common.base.Splitter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +22,21 @@ public class UserRequestDto{
 	private String cmPwd;
 	private String cmName;
 	private String cmNick;
+	private String cmPhone;
 	private String cmPhone1;
 	private String cmPhone2;
 	private String cmPhone3;
 	private String cmState;
 	private String cmPfphoto;
+	
+	public void setCmPhone(String cmPhone) {
+		this.cmPhone = cmPhone;
+		
+		List<String> list = Splitter.onPattern("[. -]").trimResults().omitEmptyStrings().splitToList(cmPhone);
+		this.cmPhone1 = list.get(0);
+		this.cmPhone2 = list.get(1);
+		this.cmPhone3 = list.get(2);
+	}
 	
 	public UserEntity toEntity() {
 		return UserEntity.builder().cmEmail(cmEmail).cmPwd(cmPwd).cmName(cmName)

@@ -21,11 +21,11 @@ public class ShippingAddRequestDto{
 	private String saPost;
 	private String saAddrHead;
 	private String saAddrDetail;
-	private boolean saDafaultYn; 
+	private boolean saDefaultYn; 
 	
 	public ShippingAddrEntity toEntity() {
 		return ShippingAddrEntity.builder().saId(saId).saName(saName)
 					.saPost(saPost).saAddrHead(saAddrHead).saAddrDetail(saAddrDetail)
-					.saDafaultYn(saDafaultYn).build();
+					.saDefaultYn(saDefaultYn).build();
 	}
 }

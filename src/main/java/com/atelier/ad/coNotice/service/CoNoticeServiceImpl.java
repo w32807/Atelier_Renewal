@@ -29,7 +29,7 @@ public class CoNoticeServiceImpl implements CoNoticeService {
 	public PageResultDto<CoNoticeResponseDto, CoNoticeEntity> getList(PageRequestDto requestDto) {
 		// 어떻게 paging을 할 것인지 설정 (Sort는 DB의 컬럼명이 아닌 Entity의 속성명을 따라간다.
 		Page<CoNoticeEntity> result = coNoticeRepository.findAll(requestDto.getPageable(Sort.by("ntNum").descending()));
-		Function<CoNoticeEntity, CoNoticeResponseDto> fn = (entity -> entity.toDto());
+		Function<CoNoticeEntity, CoNoticeResponseDto> fn = (entity -> new CoNoticeResponseDto(entity));
 		return new PageResultDto<CoNoticeResponseDto, CoNoticeEntity>(result, fn);
 	}
 	
@@ -43,7 +43,8 @@ public class CoNoticeServiceImpl implements CoNoticeService {
 	@Transactional(value = "jpaTxManager" , readOnly = true)
 	public CoNoticeResponseDto getDetail(long ntNum) {
 		coNoticeRepository.findById(ntNum);
-		return Optional.ofNullable(coNoticeRepository.findById(ntNum)).map(optionalResult -> optionalResult.get().toDto()).orElse(null);
+		//return Optional.ofNullable(coNoticeRepository.findById(ntNum)).map(optionalResult -> optionalResult.get().toDto()).orElse(null);
+		return Optional.ofNullable(coNoticeRepository.findById(ntNum)).map(optionalResult -> new CoNoticeResponseDto(optionalResult.get())).orElse(null);
 	}
 	
 	@Override

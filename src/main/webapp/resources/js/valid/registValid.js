@@ -19,6 +19,10 @@ var registValid = (function (){
 					return false;
 				}
 			);			
+		}else{
+			alert("이메일을 다시 입력 해 주세요.");
+			focus(reset($("#cmEmail")));
+			return false;
 		}
 	}
 	
@@ -70,7 +74,7 @@ var registValid = (function (){
 		phoneNum = $.trim(phoneNum);
 		if(!phoneNumChk(phoneNum)){
 			alert("전화번호를 다시 입력 해 주세요.");
-			focus(reset($("#cmName")));
+			focus(reset($("#cmPhone")));
 			return false;
 		}
 	}
