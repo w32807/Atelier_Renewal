@@ -112,6 +112,7 @@ public class MainController extends CommonController{
 	 * 작성자: JSH
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("memberInsert")
 	public ModelAndView memberInsert(CM_Dto member, RedirectAttributes rttr, @ModelAttribute UserRequestDto user, @ModelAttribute ShippingAddRequestDto saDto) {
 		mav = mServ.memberInsert(member, rttr);
@@ -119,7 +120,7 @@ public class MainController extends CommonController{
 		
 		return mav;
 	}
-
+	 */
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 회원 가입 / 아이디 유효성 검사 컨트롤러
 	 * 작성자: JSH

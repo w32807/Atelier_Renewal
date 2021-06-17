@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="zxx">
 <script type="text/javascript">
@@ -39,20 +41,23 @@
 						    <img src="./resources/main/img/logo_bottom.png" alt="" style="margin-top: 25px;">
 						</a>
                     </div>
-                        <form id="memberJoinFrm" action="memberInsert" method="post" onsubmit="return check()">
+                        <form:form modelAttribute="user" action="memberInsert" method="POST">
                             <div class="group-input">
-                                <label for="cmEmail">Email을 입력하세요. *</label> 
-                                <input type="text" name="cmEmail" id="cmEmail" placeholder="Ex) example@example.com" value="${user.cmEmail }" required >
+                                <form:label path="cmEmail"  for="cmEmail">Email을 입력하세요. *</form:label> 
+                                <form:input path="cmEmail"  type="text" name="cmEmail" id="cmEmail" placeholder="Ex) example@example.com" value="${user.cmEmail }" />
+								<form:errors path="cmEmail"/>
                                  <div class="check_font" id="id_check"></div>
                             </div>
-                            
+                                                 
+                            <button type="submit" class="site-btn register-btn">Atelier 회원가입</button>
+                        </form:form>         
                             <div class="group-input">
                                 <label for="cmPwd">Password를 입력하세요. *</label>
                                 <input type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" required>
                             </div>
                             <div class="group-input">
-                                <label for="CON_CM_PWD">Password 확인 *</label>
-                                <input type="text" name ="CON_CM_PWD" id="CON_CM_PWD" required>
+                                <label for="conCmPwd">Password 확인 *</label>
+                                <input type="text" name ="conCmPwd" id="conCmPwd" required>
                             </div>
                             <!-- 비밀번호 일치/불일치 출력 -->
                             <input type="text" name="status" style="border:0;color:highlight;font size:12px 굴림;width:160" readonly onfocus="this.blur();" value=" 비밀번호를 입력해 주세요 ">  
@@ -81,9 +86,7 @@
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>                          
-                                </div>
-                            <button type="submit" class="site-btn register-btn">Atelier 회원가입</button>
-                        </form>
+  </div>
                         <div class="switch-login">
                             <a href="login" class="or-login">로그인</a>
                         </div>
@@ -103,8 +106,8 @@
 	/*
 	function checkvalue() {
 	
-		if(memberJoinFrm.cm_pwd.value && memberJoinFrm.CON_CM_PWD.value) {
-			  if(memberJoinFrm.cm_pwd.value!=memberJoinFrm.CON_CM_PWD.value){
+		if(memberJoinFrm.cm_pwd.value && memberJoinFrm.conCmPwd.value) {
+			  if(memberJoinFrm.cm_pwd.value!=memberJoinFrm.conCmPwd.value){
 				   memberJoinFrm.status.value = "일치하지 않습니다";
 				   memberJoinFrm.status.style.width = 120;
 			  } else {
@@ -116,7 +119,7 @@
 			  memberJoinFrm.status.style.width = 160;
 		}
 	}
-*/
+
 	$("#cmEmail").change(function(){
 		registValid.emailValidChk($(this).val());
 	});
@@ -141,6 +144,15 @@
 		registValid.pcCheckValidChk($(this));
 	});
 	
+	$("#memberJoinFrm").on('click', function() {
+		fn_comAjax(fn_formToJson($('#memberJoinFrm')), 'ADNoticeDelete', 
+				function(data) {
+					alert(data.msg);
+					fn_comAjax($("#page").val(), 'ADNoticeList', fn_attachList, '');
+					$('#allCheck').prop("checked", false);
+				}
+			,'');
+	})*/
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 회원가입 / 아이디 유효성 검사
 	 * 작성자: JSH

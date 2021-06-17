@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
 import com.atelier.testConfig.ApplicationContextTest;
@@ -17,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class DataSourceTest extends ApplicationContextTest{
-
+	
 	@Autowired
 	private DataSource dataSource;
 	

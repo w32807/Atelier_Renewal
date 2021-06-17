@@ -26,7 +26,7 @@ function fn_comAjax(json, url, successCallback, errCallback){
 		success: function(data) {
 			if(typeof successCallback === 'function') successCallback(data);
 		},
-		error: function(error) {
+		error: function(request,status,error) {
 			if(typeof errCallback === 'function') errCallback();
 		}
 	})

@@ -146,11 +146,12 @@ public class RootConfig {
         properties.setProperty("hibernate.id.new_generator_mappings", "true");
         return properties;
     }
-    
+
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
     	ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-    	source.setBasename("com/atelier/properties/message.properties");
+    	// 주의점. message 프로퍼티의 확장자명을 적어주면 안된다.
+    	source.setBasename("classpath:com/atelier/properties/message");
     	source.setDefaultEncoding("UTF-8");
     	source.setCacheSeconds(600);
     	source.setUseCodeAsDefaultMessage(true);
