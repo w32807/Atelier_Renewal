@@ -11,11 +11,9 @@ import java.util.stream.IntStream;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.atelier.dto.responseDto.UserResponseDto;
 import com.atelier.entity.UserEntity;
 import com.atelier.repository.UserRepository;
 import com.atelier.testConfig.ApplicationContextTest;
-import com.google.common.base.Joiner;
 
 public class UserRepositoryTests extends ApplicationContextTest{
 

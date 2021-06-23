@@ -3,9 +3,12 @@ package com.atelier.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
+
+import com.google.common.base.Strings;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@DynamicInsert // (insert 시 null인 필드 제외) -> db의 컬럼은 not null로 잡고, default 값을 설정하여 해당 값 설정 가능
+@DynamicInsert(value = true) // (insert 시 null인 필드 제외) -> db의 컬럼은 not null로 잡고, default 값을 설정하여 해당 값 설정 가능
 @Table(name = "COMMON_MEMBER")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,4 +54,11 @@ public class UserEntity extends BaseEntity{
 	@Column(name = "CM_PFPHOTO", length = 100, nullable = false, columnDefinition = "varchar(100) default ''")
 	private String cmPfphoto;
 	
+	@PrePersist
+	// JPA의 영속성이 적용되기 전 실행되는 메소드 (@DynamicInsert 보다 직관적이고, Entity에 null 값이 아닌 "" 가 남기 때문에 더 좋다)
+	// @PrePersist, @PostPersist, @PreRemove, @PostRemove, @PreUpdate, @PostUpdate, @PostLoad 가 추가로 있다.
+	public void prePersist() {
+		this.cmState = (Strings.isNullOrEmpty(cmState)) ? "" : this.cmState;
+		this.cmPfphoto = (Strings.isNullOrEmpty(cmPfphoto)) ? "" : this.cmPfphoto;
+	}
 }

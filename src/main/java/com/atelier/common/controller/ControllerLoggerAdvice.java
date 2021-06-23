@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import lombok.extern.log4j.Log4j;
 
@@ -19,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 */
 
 // 여기서는 AOP를 적용할 대상이 Controller 이므로 Dynamic Proxy 방식이 아닌 AspectJ를 이용하여 처리
-@Component 
+@ControllerAdvice 
 @Aspect
 @Log4j
 public class ControllerLoggerAdvice {

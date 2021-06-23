@@ -26,7 +26,7 @@ public class ServletConfig implements WebMvcConfigurer{
     @Override
     // WebMvcConfigurer 상속을 통한 기본 viewResolver 설정
     public void configureViewResolvers(ViewResolverRegistry registry) {
-    	// 기본 viewResolver
+    	// 기본 viewResolver(JSP를 사용할 때는 꼭 기본으로 있어야 하는 ViewResolver이다.
         InternalResourceViewResolver resolver1 = new InternalResourceViewResolver();
         resolver1.setViewClass(JstlView.class);
         resolver1.setPrefix("/WEB-INF/views/");

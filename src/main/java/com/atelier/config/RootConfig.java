@@ -97,8 +97,6 @@ public class RootConfig {
     // JPA를 구현한 Hibernate 만의 설정을 해주는 bean (그러나 properties를 만들어 설정해주어도 된다)
     public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() { 
     	HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter(); 
-    	hibernateJpaVendorAdapter.setShowSql(true); 
-    	hibernateJpaVendorAdapter.setGenerateDdl(true);
     	return hibernateJpaVendorAdapter; 
     }
     
@@ -144,6 +142,9 @@ public class RootConfig {
         properties.setProperty("hibernate.transaction.jta.platform", "org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform");
         // hibernate의 자동키 생성 전략 설정
         properties.setProperty("hibernate.id.new_generator_mappings", "true");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.use_sql_comments", "true");
         return properties;
     }
 

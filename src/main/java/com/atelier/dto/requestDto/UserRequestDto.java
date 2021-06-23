@@ -27,6 +27,16 @@ public class UserRequestDto{
 	private String cmState;
 	private String cmPfphoto;
 	
+	UserRequestDto(String cmEmail, String cmPwd, String conCmPwd, String cmName, String cmNick, String cmPhone){
+		this.cmEmail = cmEmail;
+		this.cmPwd = cmPwd;
+		this.conCmPwd = conCmPwd;
+		this.cmNick = cmNick;
+		this.cmPhone = cmPhone;
+		this.cmState = "1";
+		this.cmPfphoto = "";
+	}
+	
 	public UserEntity toEntity() {
 		List<String> list = Splitter.onPattern("[. -]").trimResults().omitEmptyStrings().splitToList(cmPhone);
 		
