@@ -17,21 +17,22 @@ public class UserServiceTest extends ApplicationContextTest{
 	@Autowired
 	UserService service;
 	
+	@Test
 	public void isNullTest() {
 		assertNotNull(service);
 	}
 	
+	@Test
 	public void emailDplChkTest() {
 		assertNotEquals(service.emailDplChk("1234"), 1);
 	}
 	
 	@Test
 	public void userInsertTest() {
-		UserRequestDto user = UserRequestDto.builder().cmEmail("w32807@nate.com").cmPhone("010-1234-5678").build();
-		assertEquals(user.getCmEmail(), service.save(user));
-		
-		//ShippingAddRequestDto shipping = ShippingAddRequestDto.builder().saId(1L).build();
-		//assertEquals(1L, service.userSave(user, shipping));
+		UserRequestDto user = UserRequestDto.builder().cmEmail("w32807@nate.com").cmName("원준").cmNick("닉네임")
+											.cmPwd("dd").conCmPwd("").cmPhone("010-1234-5678").build();
+		ShippingAddRequestDto shipping = ShippingAddRequestDto.builder().saId(1L).saAddrDetail("123호").saAddrHead("dddsad").build();
+		assertEquals(1L, service.userSave(user, shipping));
 	}
 
 }

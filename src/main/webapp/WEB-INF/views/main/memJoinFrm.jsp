@@ -29,46 +29,46 @@
 						    <img src="./resources/main/img/logo_bottom.png" alt="" style="margin-top: 25px;">
 						</a>
                     </div>
-                        <form:form modelAttribute="userVo" action="memberInsert" method="POST">
+                        <form:form modelAttribute="userRequestDto" action="memberInsert" method="POST">
                             <div class="group-input">
-                                <form:label path="user.cmEmail"  for="cmEmail">Email을 입력하세요. *</form:label> 
-                                <form:input path="user.cmEmail"  type="text" name="cmEmail" id="cmEmail" placeholder="Ex) example@example.com" value="${userVo.user.cmEmail }" />
-								<form:errors path="user.cmEmail"/>
+                                <form:label path="cmEmail"  for="cmEmail">Email을 입력하세요. *</form:label> 
+                                <form:input path="cmEmail"  type="text" name="cmEmail" id="cmEmail" placeholder="Ex) example@example.com" value="${userRequestDto.cmEmail }" />
+								<form:errors path="cmEmail"/>
                                  <div class="check_font" id="id_check"></div>
                             </div>
                             <div class="group-input">
-                                <form:label path="user.cmPwd" for="cmPwd">Password를 입력하세요. *</form:label>
-                                <form:input path="user.cmPwd"  type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" />
-								<form:errors path="user.cmPwd"/>
+                                <form:label path="cmPwd" for="cmPwd">Password를 입력하세요. *</form:label>
+                                <form:input path="cmPwd"  type="text" name ="cmPwd" id="cmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" />
+								<form:errors path="cmPwd"/>
                             </div>
                             <div class="group-input">
-                               <form:label path="user.conCmPwd" for="cmPwd">Password 확인 *</form:label>
-                                <form:input path="user.conCmPwd"  type="text" name ="conCmPwd" id="conCmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" />
-								<form:errors path="user.conCmPwd"/>
+                               <form:label path="conCmPwd" for="cmPwd">Password 확인 *</form:label>
+                                <form:input path="conCmPwd"  type="text" name ="conCmPwd" id="conCmPwd" placeholder="영문과 숫자를 조합한 8자리이상의 비밀번호 입력" />
+								<form:errors path="conCmPwd"/>
                             </div>
                             <!-- 비밀번호 일치/불일치 출력 -->
                             <input type="text" name="status" style="border:0;color:highlight;font size:12px 굴림;width:160"  value=" 비밀번호를 입력해 주세요 " readonly="readonly" onfocus="this.blur();">  
                             <div class="group-input">
-                                <form:label path="user.cmName" for="cmName">성함을 입력하세요. *</form:label>
-                                <form:input path="user.cmName"  type="text" name="cmName" id="cmName" value="${userVo.user.cmName }" />
-								<form:errors path="user.cmName"/>
+                                <form:label path="cmName" for="cmName">성함을 입력하세요. *</form:label>
+                                <form:input path="cmName"  type="text" name="cmName" id="cmName" value="${userRequestDto.cmName }" />
+								<form:errors path="cmName"/>
                             </div>
                             <div class="group-input">
-                                <form:label path="user.cmNick" for="cmNick">닉네임을 입력하세요. *</form:label>
-                                <form:input path="user.cmNick" type="text" name="cmNick" id="cmNick" value="${userVo.user.cmNick }" />
-								<form:errors path="user.cmNick"/>
+                                <form:label path="cmNick" for="cmNick">닉네임을 입력하세요. *</form:label>
+                                <form:input path="cmNick" type="text" name="cmNick" id="cmNick" value="${userRequestDto.cmNick }" />
+								<form:errors path="cmNick"/>
                             </div>
                             <div class="group-input">
-                                <form:label path="user.cmPhone" for="CM_PHONE">전화번호를 입력하세요. *</form:label>
-                                <form:input path="user.cmPhone" type="tel" name="cmPhone" id="cmPhone" value="${userVo.user.cmPhone }" maxlength="14" />
-								<form:errors path="user.cmPhone"/>
+                                <form:label path="cmPhone" for="CM_PHONE">전화번호를 입력하세요. *</form:label>
+                                <form:input path="cmPhone" type="tel" name="cmPhone" id="cmPhone" value="${userRequestDto.cmPhone }" maxlength="14" />
+								<form:errors path="cmPhone"/>
                             </div>
                             <div class="group-input">
-                                <form:label path="shipping.saAddrHead"  for="saAddrHead">주소를 입력하세요. *</form:label>
-                                <form:input path="shipping.saAddrHead" type="text" name="saAddrHead" id="saAddrHead"  value="${userVo.shipping.saAddrHead }" />
-								<form:errors path="shipping.saAddrHead"/>
-                                <form:input path="shipping.saAddrDetail" type="text" name="saAddrDetail" id="saAddrDetail"  value="${userVo.shipping.saAddrDetail }" />
-								<form:errors path="shipping.saAddrDetail"/>
+                                <form:label path="saAddrHead"  for="saAddrHead">주소를 입력하세요. *</form:label>
+                                <form:input path="saAddrHead" type="text" name="saAddrHead" id="saAddrHead"  value="${userRequestDto.saAddrHead }" />
+								<form:errors path="saAddrHead"/>
+                                <form:input path="saAddrDetail" type="text" name="saAddrDetail" id="saAddrDetail"  value="${userRequestDto.saAddrDetail }" />
+								<form:errors path="saAddrDetail"/>
                             </div>
                             <div class="payment-check">
                                 <div class="pc-item">

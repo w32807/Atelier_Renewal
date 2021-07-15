@@ -29,7 +29,8 @@ public class UserController {
 	//회원가입창 출력
 	@RequestMapping(value = "/memJoinFrm", method = RequestMethod.GET)
 	public String memJoinFrm(Model model) {
-		model.addAttribute("userVo", new UserVo());
+		//model.addAttribute("userVo", new UserVo());
+		model.addAttribute("userRequestDto", new UserRequestDto());
 		return "/main/memJoinFrm.mainTiles";
 	}
 	
@@ -51,14 +52,14 @@ public class UserController {
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
 	@PostMapping("memberInsert")
-	public String memberInsert(@ModelAttribute("userVo") UserVo userVo, BindingResult bindingResult, Model model) {
+	public String memberInsert(@ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult bindingResult, Model model) {
 		// shiipng은 일단 나중에
-		this.userValidator.validate(userVo, bindingResult);
+		this.userValidator.validate(userRequestDto, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "/main/memJoinFrm.mainTiles";
 		}
 		// 
-		
+		service.save(userRequestDto);
 		return "/main/memJoinFrm.mainTiles";
 	}
 }

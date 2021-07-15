@@ -58,7 +58,7 @@ public class UserEntity extends BaseEntity{
 	// JPA의 영속성이 적용되기 전 실행되는 메소드 (@DynamicInsert 보다 직관적이고, Entity에 null 값이 아닌 "" 가 남기 때문에 더 좋다)
 	// @PrePersist, @PostPersist, @PreRemove, @PostRemove, @PreUpdate, @PostUpdate, @PostLoad 가 추가로 있다.
 	public void prePersist() {
-		this.cmState = (Strings.isNullOrEmpty(cmState)) ? "" : this.cmState;
+		this.cmState = (Strings.isNullOrEmpty(cmState)) ? "Y" : this.cmState;
 		this.cmPfphoto = (Strings.isNullOrEmpty(cmPfphoto)) ? "" : this.cmPfphoto;
 	}
 }

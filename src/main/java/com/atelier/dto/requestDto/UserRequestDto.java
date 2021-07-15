@@ -2,8 +2,10 @@ package com.atelier.dto.requestDto;
 
 import java.util.List;
 
+import com.atelier.entity.ShippingAddrEntity;
 import com.atelier.entity.UserEntity;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,9 @@ public class UserRequestDto{
 	private String cmPhone;
 	private String cmState;
 	private String cmPfphoto;
-	
+	private String saAddrHead;
+	private String saAddrDetail;
+	/*
 	UserRequestDto(String cmEmail, String cmPwd, String conCmPwd, String cmName, String cmNick, String cmPhone){
 		this.cmEmail = cmEmail;
 		this.cmPwd = cmPwd;
@@ -36,12 +40,18 @@ public class UserRequestDto{
 		this.cmState = "1";
 		this.cmPfphoto = "";
 	}
-	
-	public UserEntity toEntity() {
+	*/
+	public UserEntity toUserEntity() {
 		List<String> list = Splitter.onPattern("[. -]").trimResults().omitEmptyStrings().splitToList(cmPhone);
 		
 		return UserEntity.builder().cmEmail(cmEmail).cmPwd(cmPwd).cmName(cmName)
 				.cmNick(cmNick).cmPhone1(list.get(0)).cmPhone2(list.get(1)).cmPhone3(list.get(2))
-				.cmState(cmState).cmPfphoto(cmPfphoto).build();
+				.cmState((Strings.nullToEmpty(cmState).equals("") ? "1" : cmState))
+				.cmPfphoto((Strings.nullToEmpty(cmPfphoto).equals("") ? "" : cmPfphoto)).build();
+	}
+	
+	public ShippingAddrEntity toShippingAddrEntity() {
+		return ShippingAddrEntity.builder().saName("").saPost("").saAddrHead(saAddrHead).saAddrDetail(saAddrDetail)
+					.saDefaultYn(false).userEntity(toUserEntity()).build();
 	}
 }

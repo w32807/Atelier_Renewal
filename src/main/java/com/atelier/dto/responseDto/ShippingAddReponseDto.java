@@ -3,10 +3,7 @@ package com.atelier.dto.responseDto;
 
 import com.atelier.entity.ShippingAddrEntity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 // RequestDto는 클라이언트에서 값을 받아올 때 사용되며,

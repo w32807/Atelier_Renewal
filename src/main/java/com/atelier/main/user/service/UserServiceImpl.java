@@ -38,13 +38,17 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public String save(UserRequestDto dto) {
-		userRepository.save(dto.toEntity());
+		userRepository.save(dto.toUserEntity());
+		shippingAddrRepository.save(dto.toShippingAddrEntity());
 		//return Optional.ofNullable(userRepository.save(dto.toEntity())).map(entity -> entity.getCmEmail()).orElse("");
-		return "";
+		return dto.getCmEmail();
 	}
 	
 	@Override
 	public long userSave(UserRequestDto user, ShippingAddRequestDto shipping) {
-		return (this.save(shipping) > 0 && !Strings.isNullOrEmpty(this.save(user))) ? 1L : 0L;
+		String a = this.save(user);
+		long ab = this.save(shipping);
+		
+		return (!Strings.isNullOrEmpty(this.save(user)) && this.save(shipping) > 0) ? 1L : 0L;
 	}
 }

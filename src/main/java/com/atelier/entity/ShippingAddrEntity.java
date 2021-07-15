@@ -7,11 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 
 import com.atelier.dto.responseDto.ShippingAddReponseDto;
+import com.google.common.base.Strings;
+import com.google.common.primitives.Booleans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,4 +64,10 @@ public class ShippingAddrEntity extends BaseEntity{
 	//@JoinColumn(name = "SA_EMAIL")
 	private UserEntity userEntity;
 	
+	
+	@PrePersist
+	public void prePersist() {
+		this.saName = (Strings.isNullOrEmpty(saName)) ? "" : this.saName;
+		this.saPost = (Strings.isNullOrEmpty(saPost)) ? "" : this.saPost;
+	}
 }
