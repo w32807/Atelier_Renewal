@@ -1,14 +1,20 @@
 package com.atelier.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 
-import com.google.common.base.Strings;
+import com.atelier.enums.Roles;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,11 +60,12 @@ public class UserEntity extends BaseEntity{
 	@Column(name = "CM_PFPHOTO", length = 100, nullable = false, columnDefinition = "varchar(100) default ''")
 	private String cmPfphoto;
 	
-	@PrePersist
-	// JPA의 영속성이 적용되기 전 실행되는 메소드 (@DynamicInsert 보다 직관적이고, Entity에 null 값이 아닌 "" 가 남기 때문에 더 좋다)
-	// @PrePersist, @PostPersist, @PreRemove, @PostRemove, @PreUpdate, @PostUpdate, @PostLoad 가 추가로 있다.
-	public void prePersist() {
-		this.cmState = (Strings.isNullOrEmpty(cmState)) ? "Y" : this.cmState;
-		this.cmPfphoto = (Strings.isNullOrEmpty(cmPfphoto)) ? "" : this.cmPfphoto;
+	@ElementCollection(fetch = FetchType.LAZY) // 컬렉션 객체임을 알려주는 Annotation
+	@Builder.Default
+	@Enumerated(EnumType.STRING) // 기본으로 Enum 값이 컬럼에 들어가면 선언된 순서인 정수값이 들어간다.
+	private Set<Roles> roleSet = new HashSet<>();
+	
+	public void addRole(Roles roles) {
+		roleSet.add(roles);
 	}
 }

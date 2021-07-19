@@ -1,7 +1,5 @@
 package com.atelier.main.user.controller;
 
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,16 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.atelier.dto.requestDto.ShippingAddRequestDto;
 import com.atelier.dto.requestDto.UserRequestDto;
 import com.atelier.main.user.service.UserService;
 import com.atelier.validator.UserValidator;
-import com.atelier.vo.UserVo;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserController {
 	
 	private final UserService service;
@@ -34,13 +30,13 @@ public class UserController {
 		return "/main/memJoinFrm.mainTiles";
 	}
 	
-	@PostMapping("emailDplChk")
+	@PostMapping("/emailDplChk")
 	@ResponseBody
 	public int emailDplChk(String email) {
 		return service.emailDplChk(email);
 	}
 	
-	@PostMapping("nickNameDplChk")
+	@PostMapping("/nickNameDplChk")
 	@ResponseBody
 	public int nickNameDplChk(String nickName) {
 		return service.nickNameDplChk(nickName);
@@ -51,7 +47,7 @@ public class UserController {
 	 * 작성자: JSH
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
-	@PostMapping("memberInsert")
+	@PostMapping("/memberInsert")
 	public String memberInsert(@ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult bindingResult, Model model) {
 		// shiipng은 일단 나중에
 		this.userValidator.validate(userRequestDto, bindingResult);

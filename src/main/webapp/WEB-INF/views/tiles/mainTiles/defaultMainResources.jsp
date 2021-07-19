@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="./resources/main/css/style.css" type="text/css">
 
 <script type="text/javascript" src="./resources/main/js/jquery-3.3.1.min.js"/></script>
-<script type="text/javascript" src="./resources/main/js/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript" src="./resources/main/js/bootstrap.min.js"/></script>
 <script type="text/javascript" src="./resources/main/js/jquery-ui.min.js"/></script>
 <script type="text/javascript" src="./resources/main/js/jquery.countdown.min.js"/></script>

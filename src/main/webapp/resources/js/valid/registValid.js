@@ -81,8 +81,7 @@ var registValid = (function (){
 	
 	// 6. 개인정보 수집 체크
 	// 체크박스 여부 체크
-		function pcCheckValidChk(obj){
-		phoneNum = $.trim(phoneNum);
+	function pcCheckValidChk(obj){
 		if(!$(obj).prop("checked")){
 			alert("개인정보 수집 여부 동의가 필요합니다.");
 			return false;

@@ -20,8 +20,9 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     */
     @Override
     // root-context.xml을 대신하는 메소드 (DB, Bean scan 등의 내용을 작성)
+    // Security관련 설정은 Root 쪽에 선언해야 오류가 안 난다 (getServletConfigClasses 쪽의 Bean이 먼저 생성되는 듯?)
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {RootConfig.class}; 
+        return new Class[] {RootConfig.class, SecurityConfig.class}; 
     }
 
     @Override

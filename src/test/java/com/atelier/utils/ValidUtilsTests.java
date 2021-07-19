@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.atelier.enums.Roles;
 import com.atelier.util.ValidUtils;
 
 
@@ -46,6 +47,12 @@ public class ValidUtilsTests {
 		assertFalse(ValidUtils.nameChk("ㄴㅁㄴ#ㄹ"));
 		assertFalse(ValidUtils.nameChk(" "));
 		assertFalse(ValidUtils.nameChk("ㅈㄱ2"));
+	}
+	
+	@Test
+	public void test() {
+		System.out.println(Roles.ADMIN);
+		System.out.println(Roles.ATRELIER);
 	}
 
 }
