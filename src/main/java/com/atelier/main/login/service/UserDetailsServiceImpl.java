@@ -1,0 +1,33 @@
+package com.atelier.main.login.service;
+
+
+import java.util.Optional;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.atelier.entity.UserEntity;
+import com.atelier.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@RequiredArgsConstructor
+@Log4j
+public class UserDetailsServiceImpl implements UserDetailsService{
+
+	private final UserRepository repository;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("loadUserByUsername 실행 됩니다");
+		Optional<UserEntity> result = repository.findByEmail(username);
+		if(!result.isPresent()) throw new UsernameNotFoundException("이메일을 확인 해 주세요.");
+		
+		UserEntity user = result.get();
+		
+		// UserResultDto가 User 클래스를 상속받고, 생성자를 만들어줘야 됨
+		return null;
+	}
+}

@@ -24,7 +24,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="login-form">
                     <h2>Login</h2>
-                    <form action="loginProc" method="post" >
+                    <form action="/loginProc" method="post" >
                         <div class="group-input">
                             <label for="username">E-mail을 입력해주세요. *</label>
                             <input type="text" id="username" name="cm_id" placeholder="Ex) example@example.com" required>

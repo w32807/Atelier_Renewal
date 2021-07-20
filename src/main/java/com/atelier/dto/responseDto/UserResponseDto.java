@@ -1,14 +1,18 @@
 package com.atelier.dto.responseDto;
 
 
+import org.springframework.security.core.userdetails.User;
+
 import com.atelier.entity.UserEntity;
 import com.google.common.base.Joiner;
 
 import lombok.Data;
 
 @Data
-public class UserResponseDto{
+public class UserResponseDto extends User{
 	
+	
+	/*
 	public UserResponseDto(UserEntity user){
 		this.cmEmail = user.getCmEmail();
 		this.cmPwd = user.getCmPwd();
@@ -18,7 +22,7 @@ public class UserResponseDto{
 		this.cmState = user.getCmState();
 		this.cmPfphoto = user.getCmPfphoto();
 	}
-	
+	*/
 	private String cmEmail;
 	private String cmPwd;
 	private String cmName;

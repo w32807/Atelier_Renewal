@@ -36,6 +36,7 @@ public class UserRepositoryTests extends ApplicationContextTest{
 	}
 	
 	@Test
+	@Ignore
 	public void findByIdTest() {
 		Optional<UserEntity> userEntity = repository.findById("user5@google.com");
 		if(userEntity.isPresent()) {
@@ -44,6 +45,7 @@ public class UserRepositoryTests extends ApplicationContextTest{
 	}
 	
 	@Test
+	@Ignore
 	public void findAllTest() {
 		List<UserEntity> userEntityList = repository.findAll();
 		assertFalse(userEntityList.isEmpty());
@@ -57,5 +59,11 @@ public class UserRepositoryTests extends ApplicationContextTest{
 		Optional<UserEntity> dto = repository.findById(key); 
 		
 		assertFalse(dto.isPresent());
+	}
+	
+	@Test
+	public void findByEmail() {
+		Optional<UserEntity> dto = repository.findByEmail("w32807@naver.com");
+		System.out.println(dto.get().getCmEmail());
 	}
 }

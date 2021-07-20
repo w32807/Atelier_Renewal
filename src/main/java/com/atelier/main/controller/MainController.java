@@ -63,19 +63,19 @@ public class MainController extends CommonController{
 		return mav;
 	}
 
-
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 아이디 입력 후 로그인 프로세스 처리
 	 * 작성자: JSG
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
+	/*
 	@PostMapping("loginProc")
 	public ModelAndView login(CM_Dto cmDto, RedirectAttributes rttr) {
 		mav = mServ.loginProc(cmDto, rttr);
 		
 		return mav;
 	}
-
+	*/
 	/* ---------------------------------------------------------------------------------------
 	 * 기능: 로그아웃 프로세스
 	 * 작성자: JSG

@@ -1,4 +1,4 @@
-package com.atelier.login;
+package com.atelier.main.login.security;
 
 import java.io.IOException;
 
