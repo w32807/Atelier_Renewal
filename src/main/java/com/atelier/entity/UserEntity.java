@@ -20,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -37,6 +38,7 @@ public class UserEntity extends BaseEntity{
 	private String cmEmail;
 	
 	@Column(name = "CM_PWD", length = 100, nullable = false, columnDefinition = "varchar(100) default ''")
+	@Setter
 	private String cmPwd;
 	
 	@Column(name = "CM_NAME", length = 30, nullable = false, columnDefinition = "varchar(30) default ''")

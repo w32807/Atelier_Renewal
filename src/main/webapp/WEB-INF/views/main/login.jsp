@@ -27,11 +27,12 @@
                     <form action="/loginProc" method="post" >
                         <div class="group-input">
                             <label for="username">E-mail을 입력해주세요. *</label>
-                            <input type="text" id="username" name="cm_id" placeholder="Ex) example@example.com" required>
+                            <input type="text" id="username" name="username" value="${username }" placeholder="Ex) example@example.com" required>
+                            <p style="color: red"><c:out value="${msg}"/></p>
                         </div>
                         <div class="group-input">
                             <label for="pass">Password를 입력해주세요. *</label>
-                            <input type="password" id="pass" name="cm_pwd" required>
+                            <input type="password" id="pass" name="password" required>
                         </div>
                         <div class="group-input gi-check">
                             <div class="gi-more">

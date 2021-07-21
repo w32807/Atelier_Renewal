@@ -7,22 +7,7 @@
             </div>
             <!-- 로그인, 회원가입 -->
             <div class="ht-right">
-				<script>
-					function goPage(){
-						var f = document.gologout;
-						f.action = "logout";
-						f.method = "post";
-						f.submit();
-					}
-				</script>
-				<form name="gologout"></form>
 				<a href="logout" class="hideandshow login-panel"><i class="fa fa-user"></i>로그아웃</a>
-				<c:if test="${msg == 'logoutSuccess' }">
-					<script type="text/javascript">
-						//alert('로그아웃을 성공했습니다.');
-					</script>
-				</c:if>
-				
                 <a href="login" class="showandhide login-panel"><i class="fa fa-user"></i>로그인</a>
                 <a href="memJoinFrm" class="showandhide login-panel"><i class="fa fa-user"></i>회원가입</a>
                 <a href="CONotice" class="login-panel"><i class="fa fa-user"></i>고객센터</a>

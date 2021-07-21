@@ -13,6 +13,13 @@ public class LoginController {
 	 * 작성일: 2020.02.04
 	 -----------------------------------------------------------------------------------------*/
 	@GetMapping("/login")
-	public String login() {return "/main/login.mainTiles";}
+	public String login() {
+		return "/main/login.mainTiles";
+	}
+	
+	@PostMapping("/loginFail")
+	public String loginFail(){
+		return "/main/login.mainTiles";
+	}
 	
 }

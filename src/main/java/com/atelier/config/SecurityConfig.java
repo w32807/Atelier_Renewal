@@ -49,12 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		// 로그아웃 시
 		http.logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("remember-me", "JSESSION_ID");
 	}
-	/*
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailService()).passwordEncoder(passwordEncoder());
-	}
-	*/
+
 	@Bean
 	public UserDetailsService userDetailService() {
 		return new UserDetailsServiceImpl(userRepository);

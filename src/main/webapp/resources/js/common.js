@@ -13,7 +13,8 @@ $(document).ready(function() {
 
 // String null Check
 function isStrNull(str){
-	return (!str || (str === 'null') || (str === 'undefined') || 
+	str = $.trim(str);
+	return (!str || (str === 'null') || (str === 'undefined') || (str === '') || 
 			(str === 'NaN') || (str === '0') || (str === 'false')) ? false : true;
 }
 

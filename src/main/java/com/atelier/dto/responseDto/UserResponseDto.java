@@ -1,19 +1,26 @@
 package com.atelier.dto.responseDto;
 
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import com.atelier.entity.UserEntity;
 import com.google.common.base.Joiner;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
+@SuppressWarnings("serial")
 public class UserResponseDto extends User{
 	
-	
-	/*
-	public UserResponseDto(UserEntity user){
+	public UserResponseDto(UserEntity user, Collection<? extends GrantedAuthority> authorities) {
+		super(user.getCmEmail(), user.getCmPwd(), authorities);
 		this.cmEmail = user.getCmEmail();
 		this.cmPwd = user.getCmPwd();
 		this.cmName = user.getCmName();
@@ -22,7 +29,8 @@ public class UserResponseDto extends User{
 		this.cmState = user.getCmState();
 		this.cmPfphoto = user.getCmPfphoto();
 	}
-	*/
+	
+	
 	private String cmEmail;
 	private String cmPwd;
 	private String cmName;

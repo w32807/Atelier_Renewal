@@ -1,6 +1,7 @@
 package com.atelier.main.user.service;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService{
 	
 	private final UserRepository userRepository;
 	private final ShippingAddrRepository shippingAddrRepository;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public int emailDplChk(String email) {
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService{
 	public String save(UserRequestDto dto) {
 		UserEntity user = dto.toUserEntity();
 		user.addRole(Roles.MEMBER);
-		
+		user.setCmPwd(passwordEncoder.encode(user.getCmPwd()));
 		userRepository.save(user);
 		shippingAddrRepository.save(dto.toShippingAddrEntity());
 		return dto.getCmEmail();

@@ -49,12 +49,8 @@ public class UserController {
 	 -----------------------------------------------------------------------------------------*/
 	@PostMapping("/memberInsert")
 	public String memberInsert(@ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult bindingResult, Model model) {
-		// shiipng은 일단 나중에
 		this.userValidator.validate(userRequestDto, bindingResult);
-		if(bindingResult.hasErrors()) {
-			return "/main/memJoinFrm.mainTiles";
-		}
-		// 
+		if(bindingResult.hasErrors()) return "/main/memJoinFrm.mainTiles";
 		service.save(userRequestDto);
 		return "/main/memJoinFrm.mainTiles";
 	}
