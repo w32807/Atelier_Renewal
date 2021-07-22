@@ -34,10 +34,14 @@
                             <label for="pass">Password를 입력해주세요. *</label>
                             <input type="password" id="pass" name="password" required>
                         </div>
-                        <div class="group-input gi-check">
-                            <div class="gi-more">
-                            </div>
-                        </div>
+                        <div class="payment-check">
+                            <div class="pc-item">
+                                <label for="reMeChk">
+                                    <input type="checkbox" id="reMeChk" name="reMeChk">
+                                    자동 로그인
+                                </label>
+                            </div>                          
+						</div>
                         <button type="submit" class="site-btn login-btn">Atelier 로그인</button>
                     </form>
                     <div class="switch-login">

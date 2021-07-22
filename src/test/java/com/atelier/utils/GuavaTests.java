@@ -34,6 +34,5 @@ public class GuavaTests {
 		assertEquals(Strings.nullToEmpty(str), "");
 		str = "123456";
 		assertEquals(Strings.nullToEmpty(str), str);
-		
 	}
 }
