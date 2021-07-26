@@ -48,14 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		// 일단 모든 접근 허용
 		http.authorizeRequests().antMatchers("/*").permitAll()
-			
 			//  로그인 시
 			.and().formLogin().loginPage("/login").successHandler(loginSuccessHandler()).failureHandler(loginFailuerHandler())
-			// 자동로그인
-			.and().rememberMe().key("reMeKey").rememberMeParameter("reMeChk").tokenValiditySeconds(60*60*7).tokenRepository(jdbcTokenRepositoryImpl())
-			.rememberMeServices(rememberMeServices())
+			.loginProcessingUrl("/loginProc")
 			// 로그아웃 시 
-			.and().logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("remember-me", "JSESSION_ID")
+			.and().logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("username", "JSESSION_ID")
 			.and().csrf().disable();
 	}
 
@@ -93,22 +90,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public CustomAuthenticationProvider customAuthenticationProvider() { 
 		return new CustomAuthenticationProvider(userDetailService(), passwordEncoder()); 
 	}
-	
-	@Bean
-	public RememberMeServices rememberMeServices() {
-		PersistentTokenBasedRememberMeServices rememberMeServices = new PersistentTokenBasedRememberMeServices("reMeKey", userDetailService(), jdbcTokenRepositoryImpl());
-		rememberMeServices.setParameter("reMeChk");
-		rememberMeServices.setAlwaysRemember(true);
-		return rememberMeServices;
-	}
-	
-    @Bean
-    public PersistentTokenRepository jdbcTokenRepositoryImpl() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setCreateTableOnStartup(false); //테이블 정보가 없으면 INSERT 한다. //처음 실행 할때 true 로 하고 그다음부터 false 로 하면 될듯;;?
-        db.setDataSource(dataSource);
-        return db;
-    }
-	
-
 }

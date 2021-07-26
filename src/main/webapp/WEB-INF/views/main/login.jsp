@@ -36,9 +36,9 @@
                         </div>
                         <div class="payment-check">
                             <div class="pc-item">
-                                <label for="reMeChk">
-                                    <input type="checkbox" id="reMeChk" name="reMeChk">
-                                    자동 로그인
+                                <label for="saveId">
+                                    <input type="checkbox" id="saveId" name="saveId">
+                                    아이디 저장
                                 </label>
                             </div>                          
 						</div>
