@@ -18,6 +18,14 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings("serial")
 public class UserResponseDto extends User{
+
+	private String cmEmail;
+	private String cmPwd;
+	private String cmName;
+	private String cmNick;
+	private String cmPhoneNum;
+	private String cmState;
+	private String cmPfphoto;
 	
 	public UserResponseDto(UserEntity user, Collection<? extends GrantedAuthority> authorities) {
 		super(user.getCmEmail(), user.getCmPwd(), authorities);
@@ -29,14 +37,4 @@ public class UserResponseDto extends User{
 		this.cmState = user.getCmState();
 		this.cmPfphoto = user.getCmPfphoto();
 	}
-	
-	
-	private String cmEmail;
-	private String cmPwd;
-	private String cmName;
-	private String cmNick;
-	private String cmPhoneNum;
-	private String cmState;
-	private String cmPfphoto;
-	
 }

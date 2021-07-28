@@ -22,14 +22,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		log.info("authenticate 실행 됩니다");
 		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-		
-		String username = token.getName();
 		String password = (String) token.getCredentials();
 		
 		// 사용자에게 입력받은 id로 DB에서 사용자 정보를 조회함
-		UserResponseDto userResponseDto = (UserResponseDto) userDetailsService.loadUserByUsername(username);
+		UserResponseDto userResponseDto = (UserResponseDto) userDetailsService.loadUserByUsername(token.getName());
 		
 		// 입력받은 이메일로 저장된 사용자 데이터가 있지만 비밀번호가 일치하지 않는다면 LoginFailureHandler로 이동
 		if(!passwordEncoder.matches(password, userResponseDto.getPassword())) {

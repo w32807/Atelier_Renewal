@@ -21,9 +21,7 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, Model model) {
 		Cookie cookies[] = request.getCookies();
-		for(Cookie cookie : cookies) {
-			if("username".equals(cookie.getName())) model.addAttribute("username", cookie.getValue()); 
-		}
+		for(Cookie cookie : cookies) {if("username".equals(cookie.getName())) model.addAttribute("username", cookie.getValue());}
 		return "/main/login.mainTiles";
 	}
 	
@@ -34,6 +32,6 @@ public class LoginController {
 	
 	@GetMapping("/loginProc")
 	public String loginProc(){
-		return "/main/main";
+		return "/main/main.mainTiles";
 	}
 }

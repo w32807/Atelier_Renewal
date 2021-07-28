@@ -55,12 +55,11 @@ public class MainController extends CommonController{
 	 * 작성자: JSG
 	 * 작성일: 2020.02.14
 	 -----------------------------------------------------------------------------------------*/
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
-		mav = new ModelAndView();
-		mav = mServ.getTodayAT();
-
-		return mav;
+	@GetMapping("/")
+	public String home(Locale locale, Model model) {
+		//mav = new ModelAndView();
+		//mav = mServ.getTodayAT();
+		return "/main/main.mainTiles";
 	}
 
 	/* ---------------------------------------------------------------------------------------
