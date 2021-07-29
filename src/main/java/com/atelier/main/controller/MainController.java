@@ -80,6 +80,7 @@ public class MainController extends CommonController{
 	 * 작성자: JSG
 	 * 작성일: 2020.02.04
 	-----------------------------------------------------------------------------------------*/
+	/*
 	@GetMapping("logout")
 	public ModelAndView logout() {
 		mServ.logoutProc(session);
@@ -88,6 +89,7 @@ public class MainController extends CommonController{
 		mav.addObject("msg","logoutSuccess");
 		return mav;
 	}
+	*/
 	/*
 	//회원가입창 출력
 	@RequestMapping(value = "/memJoinFrm", method = RequestMethod.GET)

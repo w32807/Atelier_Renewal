@@ -3,7 +3,9 @@ package com.atelier.main.login.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.checkerframework.checker.units.qual.s;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,12 @@ public class LoginController {
 	
 	@GetMapping("/loginProc")
 	public String loginProc(){
+		return "/main/main.mainTiles";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "/main/main.mainTiles";
 	}
 }

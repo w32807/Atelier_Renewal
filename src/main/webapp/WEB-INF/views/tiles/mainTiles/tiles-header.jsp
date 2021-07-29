@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- <!-- 이메일 전화번호 회원가입 로그인 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <header class="header-section">
     <div class="header-top">
         <div class="container">
@@ -14,7 +14,6 @@
                  
                 <!-- SNS광고란 -->
                 <div class="top-social">
-              	    <%-- <temp class="hideandshow">${mb.cm_name}님 환영합니다.</temp> --%>
               	    <span class="hideandshow">${userName}님 환영합니다.</span>
                     <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
                     <a href="https://twitter.com/"><i class="ti-twitter-alt"></i></a>
@@ -101,5 +100,16 @@
 </header>
 
 <script type="text/javascript">
-
+	$(document).ready(function() {
+		var username = '<c:out value="${userName}"/>';
+		if(isStrNull(username)){
+			$('.showandhide').hide();
+			$('.hideandshow').show();
+		}else{
+			$('.showandhide').show();
+			$('.hideandshow').hide();
+		}
+		
+	})
+	
 </script>

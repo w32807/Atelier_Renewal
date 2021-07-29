@@ -1,6 +1,8 @@
 package com.atelier.config;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +11,7 @@ import org.springframework.web.multipart.commons.CommonsFileUploadSupport;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,6 +19,8 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import com.atelier.interceptor.LoginInterceptor;
 
 //servlet-context.xml에 설정된 모든 내용을 담는 클래스
 @EnableWebMvc // 여기서는 @EnableWebMvc 어노테이션 + WebMvcConfigurer 인터페이스 상속을 받아서 사용함
@@ -41,6 +46,16 @@ public class ServletConfig implements WebMvcConfigurer{
     // 정적리소스의 일부를 특정 서블릿에 위임할 것이라면 사용한다.
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+    	List<String> patterns = new ArrayList<>();
+    	// 나중에 /member, /admin, /Atelier 로 권한을 줘서 각각 유효성 검사를 해야 할 듯
+    	patterns.add("/member");
+    	patterns.add("/admin");
+    	patterns.add("/atelier");
+    	registry.addInterceptor(new LoginInterceptor()).addPathPatterns(patterns).order(1); // 인터셉터를 여러개 등록할 수 있는데 그중에 order를 로 줌
     }
     // 파일 업로드를 위한 MultipartResolver Bean으로 등록
     /*
